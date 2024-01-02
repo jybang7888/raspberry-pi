@@ -3,9 +3,6 @@ import mediapipe as mp
 import math
 
 
-#hello
-# this is asdfadf
-
 class poseDetector() :
     
     def __init__(self, mode=False, complexity=1, smooth_landmarks=True,
