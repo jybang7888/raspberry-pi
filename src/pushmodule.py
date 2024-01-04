@@ -3,14 +3,6 @@ import mediapipe as mp
 import numpy as np
 import PoseModule as pm
 
-
-
-
-
-
-
-
-
 cap = cv2.VideoCapture(0)
 detector = pm.poseDetector()
 count = 0
