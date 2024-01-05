@@ -1,89 +1,137 @@
 import cv2
+
 import mediapipe as mp
-import numpy as np
-# import PoseModule as pm
+
+import os
+
+mp_drawing = mp.solutions.drawing_utils
+
+mp_pose = mp.solutions.pose
+
+counter = 0
+
+stage = None
+
+create = None
+
+opname = "output.avi"
+
+def findPosition(image, draw=True):
+
+  lmList = []
+
+  if results.pose_landmarks:
+
+      mp_drawing.draw_landmarks(
+
+         image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+
+      for id, lm in enumerate(results.pose_landmarks.landmark):
+
+          h, w, c = image.shape
+
+          cx, cy = int(lm.x * w), int(lm.y * h)
+
+          lmList.append([id, cx, cy])
+
+          #cv2.circle(image, (cx, cy), 5, (255, 0, 0), cv2.FILLED)
+
+  return lmList
 
 cap = cv2.VideoCapture(0)
-# detector = pm.poseDetector()
-detector = mp.solutions.pose
-count = 0
-direction = 0
-form = 0
-feedback = "Fix Form"
 
+with mp_pose.Pose(
 
-while cap.isOpened():
-    ret, img = cap.read() #640 x 480
-    #Determine dimensions of video - Help with creation of box in Line 43
-    width  = cap.get(3)  # float `width`
-    height = cap.get(4)  # float `height`
-    # print(width, height)
-    
-    img = detector.findPose(img, False)
-    lmList = detector.findPosition(img, False)
-    # print(lmList)
+    min_detection_confidence=0.7,
+
+    min_tracking_confidence=0.7) as pose:
+
+  while cap.isOpened():
+
+    success, image = cap.read()
+
+    image = cv2.resize(image, (640,480))
+
+    if not success:
+
+      print("Ignoring empty camera frame.")
+
+      # If loading a video, use 'break' instead of 'continue'.
+
+      continue
+
+    # Flip the image horizontally for a later selfie-view display, and convert
+
+    # the BGR image to RGB.
+
+    image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
+
+    # To improve performance, optionally mark the image as not writeable to
+
+    # pass by reference.
+
+    results = pose.process(image)
+
+    # Draw the pose annotation on the image.
+
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    lmList = findPosition(image, draw=True)
+
     if len(lmList) != 0:
-        elbow = detector.findAngle(img, 11, 13, 15)
-        shoulder = detector.findAngle(img, 13, 11, 23)
-        hip = detector.findAngle(img, 11, 23,25)
-        
-        #Percentage of success of pushup
-        per = np.interp(elbow, (90, 160), (0, 100))
-        
-        #Bar to show Pushup progress
-        bar = np.interp(elbow, (90, 160), (380, 50))
 
-        #Check to ensure right form before starting the program
-        if elbow > 160 and shoulder > 40 and hip > 160:
-            form = 1
-    
-        #Check for full range of motion for the pushup
-        if form == 1:
-            if per == 0:
-                if elbow <= 90 and hip > 160:
-                    feedback = "Up"
-                    if direction == 0:
-                        count += 0.5
-                        direction = 1
-                else:
-                    feedback = "Fix Form"
-                    
-            if per == 100:
-                if elbow > 160 and shoulder > 40 and hip > 160:
-                    feedback = "Down"
-                    if direction == 1:
-                        count += 0.5
-                        direction = 0
-                else:
-                    feedback = "Fix Form"
-                        # form = 0
-                
-                    
-    
-        print(count)
-        
-        #Draw Bar
-        if form == 1:
-            cv2.rectangle(img, (580, 50), (600, 380), (0, 255, 0), 3)
-            cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 255, 0), cv2.FILLED)
-            cv2.putText(img, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
-                        (255, 0, 0), 2)
+      cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 0, 255), cv2.FILLED)
 
+      cv2.circle(image, (lmList[11][1], lmList[11][2]), 20, (0, 0, 255), cv2.FILLED)
 
-        #Pushup counter
-        cv2.rectangle(img, (0, 380), (100, 480), (0, 255, 0), cv2.FILLED)
-        cv2.putText(img, str(int(count)), (25, 455), cv2.FONT_HERSHEY_PLAIN, 5,
-                    (255, 0, 0), 5)
-        
-        #Feedback 
-        cv2.rectangle(img, (500, 0), (640, 40), (255, 255, 255), cv2.FILLED)
-        cv2.putText(img, feedback, (500, 40 ), cv2.FONT_HERSHEY_PLAIN, 2,
-                    (0, 255, 0), 2)
+      cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 0, 255), cv2.FILLED)
 
-        
-    cv2.imshow('Pushup counter', img)
-    if cv2.waitKey(10) & 0xFF == ord('q'):
-        break
-        
-cap.release()
+      cv2.circle(image, (lmList[11][1], lmList[11][2]), 20, (0, 0, 255), cv2.FILLED)
+
+      if (lmList[12][2] and lmList[11][2] >= lmList[14][2] and lmList[13][2]):
+
+        cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 255, 0), cv2.FILLED)
+
+        cv2.circle(image, (lmList[11][1], lmList[11][2]), 20, (0, 255, 0), cv2.FILLED)
+
+        stage = "down"
+
+      if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and stage == "down":
+
+        stage = "up"
+
+        counter += 1
+
+        counter2 = str(int(counter))
+
+        print(counter)
+
+        os.system("echo '" + counter2 + "' | festival --tts")
+
+    text = "{}:{}".format("Push Ups", counter)
+
+    cv2.putText(image, text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX,
+
+                1, (255, 0, 0), 2)
+
+    cv2.imshow('MediaPipe Pose', image)
+
+    if create is None:
+
+      fourcc = cv2.VideoWriter_fourcc(*'XVID')
+
+      create = cv2.VideoWriter(opname, fourcc, 30, (image.shape[1], image.shape[0]), True)
+
+    create.write(image)
+
+    key = cv2.waitKey(1) & 0xFF
+
+    # if the `q` key was pressed, break from the loop
+
+    if key == ord("q"):
+
+      break
+
+    # do a bit of cleanup
+
 cv2.destroyAllWindows()
