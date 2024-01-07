@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>푸쉬업 웹페이지</title>
+		<style>
+			body {
+				background-image: url('main.jpg');
+				background-size: 1500px 1000px;
+				background-repeat: no_repeat;
+			}
+			h1 {
+				font-size: 50px;
+				text-align: center;
+				line-height: 1.5;
+				vertical-align: middle;
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			p {
+				font-size: 20px;
+				text-align: center;
+				line-height: 1.5;
+				vertical-align: middle;
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			.stopwatch {
+				font-size: 24px;
+				margin-bottom: 20px;
+				position: relative;
+				text-align: center;
+			}
+			.stopwatch circle {
+				stroke-dasharray: 502;
+				stroke-dashoffset: 502;
+				transition: stroke-dashoffset 1s linear;
+				text-align: center;
+			}
+		        .center-button {
+          			display: flex;
+            			justify-content: center;
+        		}
+			.stopwatch svg{
+				transform: rotate(-90deg);
+			}
+			text{
+				transform: rotate(90deg);
+			}
+		</style>
+
+	</head>
+	<body>
+		<header>
+			<h1>측정 시작</h1>
+		</header>
+		<div id="output"></div>
+
+		<script>
+			var urlParams = new URLSearchParams(window.location.search);
+			var username = urlParams.get('username');
+			var outputDiv = document.getElementById('output');	
+
+			if (username) {
+				outputDiv.innerHTML = '<p>안녕하세요, ' + username + '님. 측정을 시작합니다.</p>';
+			} else {
+				outputDiv.innerHTML = '<p>기록을 남기지 않고 측정합니다.</p>';
+			}
+		</script>
+
+		<div class="stopwatch">
+			<svg width="200" height="200">
+				<circle cx="100" cy="100" r="80" stroke="black" stroke-width="4" fill="none" />
+				<g transform="translate(100, 100)">
+					<text id="countdown" text-anchor="middle" fill="black" font-size="24px" dy=".3em">
+						<tspan x="0" y="5">60</tspan>
+					</text>
+				</g>
+			</svg>
+		</div>
+		<div class="center-button">
+			<button onclick="startStopwatch()">시작</button>
+		</div>
+		<script>
+			let timeLeft = 60;
+			function startStopwatch() {
+				const circle = document.querySelector('.stopwatch circle');
+				const countdown = document.getElementById('countdown');
+            			let timeLeft = 60;
+				let timer = setInterval(function() {
+					timeLeft--;
+
+					if (timeLeft <= 0) {
+						clearInterval(timer);
+						setTimeout(function() {
+                					alert("측정을 종료합니다.");
+						}, 1000);
+					}
+
+					const percentage = (timeLeft / 60) * 100;
+					const offset = (502 * percentage) / 100;
+					circle.style.strokeDashoffset = offset;
+					circle.style.stroke = `hsl(${percentage}, 70%, 50%)`;
+					countdown.textContent = timeLeft;
+				}, 1000);
+			}
+		</script>
+	</body>
+</html>
+
+
+
+<body>

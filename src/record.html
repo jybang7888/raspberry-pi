@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>푸쉬업 웹페이지</title>
+		<style>
+			body {
+				background-image: url('main.jpg');
+				background-size: 1500px 1000px;
+				background-repeat: no_repeat;
+			}
+			h1 {
+				font-size: 50px;
+				text-align: center;
+				line-height: 1.5;
+				vertical-align: middle;
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			
+		</style>
+
+	</head>
+	<body>
+
+		<header>
+			<h1>기록을 검색하세요.</h1>
+		</header>
+		<form id="myForm" action="start_count.html" method="post" style ="text-align: center;">
+			<label for="username" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">이름:</label>
+			<input type="text" placeholder="너의 이름은" id = "username" name = "username" style="font-size: 30px;">
+			<input type="submit" value="입력" style="font-size: 30px;">
+		</form>
+
+		<script>
+			document.getElementById('myForm').addEventListener('submit', function(event) {
+				event.preventDefault();
+            
+				var username = document.getElementById('username').value;
+            
+				window.location.href = 'start_count.html?username=' + encodeURIComponent(username);
+			});
+		</script>
+	</body>
+</html>
