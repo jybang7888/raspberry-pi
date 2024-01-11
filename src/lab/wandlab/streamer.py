@@ -14,6 +14,9 @@ import cv2
 import imutils
 import platform
 import numpy as np
+import mediapipe as mp
+mp_drawing = mp.solutions.drawing_utils
+mp_hands = mp.solutions.hands
 from threading import Thread
 from queue import Queue
 
@@ -66,14 +69,23 @@ class Streamer :
             self.clear()
             
     def update(self):
-                    
-        while True:
+        with mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.3) as hands:       
+            while True:
 
-            if self.started :
-                (grabbed, frame) = self.capture.read()
+                if self.started :
+                    (grabbed, frame) = self.capture.read()
+                    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    image.flags.writeable = False
+                    results = hands.process(image) # mediapipe processing
+                    image.flags.writeable =True
+                    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+                    if results.multi_hand_landmarks: #do if hands are detected
+                        handmarks = results.multi_hand_landmarks
+                        for handLandmarks in handmarks:
+                                mp_drawing.draw_landmarks(frame, handLandmarks, mp_hands.HAND_CONNECTIONS)
                 
-                if grabbed : 
-                    self.Q.put(frame)
+                    if grabbed : 
+                        self.Q.put(frame)
                           
     def clear(self):
         
