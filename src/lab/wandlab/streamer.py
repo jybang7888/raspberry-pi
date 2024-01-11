@@ -72,7 +72,35 @@ class Streamer :
             self.capture.release()
             self.clear()
             
-    def findPosition(image, draw=True):
+    
+    def update(self):
+        with mp_pose.Pose(min_detection_confidence=0.7, min_tracking_confidence=0.7) as pose:       
+            while True:
+
+                if self.started :
+                    (grabbed, frame) = self.capture.read()
+                    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    image.flags.writeable = False
+                    results = pose.process(image) # mediapipe processing
+                    image.flags.writeable =True
+                    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+                    lmList = []
+                    if results.pose_landmarks:
+
+                        mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+
+                    for id, lm in enumerate(results.pose_landmarks.landmark):
+
+                        h, w, c = image.shape
+
+                        cx, cy = int(lm.x * w), int(lm.y * h)
+
+                        lmList.append([id, cx, cy])
+                
+                    if grabbed : 
+                        self.Q.put(frame)
+                        
+"""    def findPosition(image, draw=True):
 
         lmList = []
 
@@ -90,23 +118,7 @@ class Streamer :
 
             #cv2.circle(image, (cx, cy), 5, (255, 0, 0), cv2.FILLED)
 
-        return lmList
-    
-    def update(self):
-        with mp_pose.Pose(min_detection_confidence=0.7, min_tracking_confidence=0.7) as pose:       
-            while True:
-
-                if self.started :
-                    (grabbed, frame) = self.capture.read()
-                    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                    image.flags.writeable = False
-                    results = pose.process(image) # mediapipe processing
-                    image.flags.writeable =True
-                    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-                    lmList = findPosition(image, draw=True)
-                
-                    if grabbed : 
-                        self.Q.put(frame)
+        return lmList"""
                           
     def clear(self):
         
