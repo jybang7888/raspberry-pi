@@ -107,7 +107,7 @@ class Streamer :
                         if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and self.stage == "down":
                             self.stage = "up"
                             self.counter += 1
-                            counter2 = str(int(counter))
+                            counter2 = str(int(self.counter))
                             print(self.counter)
                         self.text = "{}:{}".format("Push Ups", self.counter)
                         

@@ -10,6 +10,8 @@
 #-------------------------------------------------#
 
 from lab.server import app
+from flask import Flask
+from flask import render_template
 
 version = '0.1.0'
 

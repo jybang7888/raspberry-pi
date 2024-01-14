@@ -128,8 +128,6 @@ with mp_pose.Pose(
                        
     except:
     	
-	print("오류 발생")
-
         pass
 
 
