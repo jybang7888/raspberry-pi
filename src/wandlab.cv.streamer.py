@@ -15,9 +15,6 @@ from flask import render_template
 
 version = '0.1.0'
 
-def index():
-    return render_template('stream.html')
-
 if __name__ == '__main__' :
     
     print('------------------------------------------------')
