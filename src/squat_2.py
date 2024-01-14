@@ -4,6 +4,8 @@ import mediapipe as mp
 
 import os
 
+import numpy as np
+
 mp_drawing = mp.solutions.drawing_utils
 
 mp_pose = mp.solutions.pose
@@ -125,6 +127,8 @@ with mp_pose.Pose(
         # Visualize angle
     
         cv2.putText(image, str(angle), tuple(np.multiply(elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+
+	cv2.putText(image, str(angle), (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                        
     except:
     	
@@ -188,11 +192,11 @@ with mp_pose.Pose(
 
     cv2.putText(image, text_1, (10, 40), cv2.FONT_HERSHEY_SIMPLEX,
 
-                0.5, (255, 0, 0), 2)
+                1, (255, 0, 0), 2)
     
     cv2.putText(image, text_2, (10, 400), cv2.FONT_HERSHEY_SIMPLEX,
 
-                0.5, (255, 0, 0), 2)    
+                1, (255, 0, 0), 2)    
 
     cv2.imshow('MediaPipe Pose', image)
 
