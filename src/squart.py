@@ -117,11 +117,11 @@ with mp_pose.Pose(
 
         cv2.circle(image, (lmList[32][1], lmList[32][2]), 15, (0, 255, 0), cv2.FILLED)
 
-        stage = "down"
+        stage = "Up"
 
       if (lmList[25][1] and lmList[26][1] <= lmList[31][1] and lmList[32][1]) and (lmList[23][2] and lmList[24][2] <= lmList[25][2] and lmList[26][2]) and stage == "down":
 
-        stage = "up"
+        stage = "Down"
 
         counter += 1
 
@@ -139,7 +139,7 @@ with mp_pose.Pose(
 
                 1, (255, 0, 0), 2)
     
-    cv2.putText(image, text_2, (10, 20), cv2.FONT_HERSHEY_SIMPLEX,
+    cv2.putText(image, text_2, (10, 350), cv2.FONT_HERSHEY_SIMPLEX,
 
                 1, (255, 0, 0), 2)    
 
