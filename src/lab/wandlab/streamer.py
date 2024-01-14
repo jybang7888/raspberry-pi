@@ -79,24 +79,21 @@ class Streamer :
 
                 if self.started :
                     (grabbed, frame) = self.capture.read()
-                    #image = cv2.resize(image,(640,480))
+                    image = cv2.resize(frame,(640,480))
                     image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     #image.flags.writeable = False
                     results = pose.process(image) # mediapipe processing
                     #image.flags.writeable =True
                     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                     lmList = []
+                    
                     if results.pose_landmarks:
-
                         mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
 
-                    #for id, lm in enumerate(results.pose_landmarks.landmark):
-
-                     #   h, w, c = image.shape
-
-                     #   cx, cy = int(lm.x * w), int(lm.y * h)
-
-                     #  lmList.append([id, cx, cy])
+                    for id, lm in enumerate(results.pose_landmarks.landmark):
+                        h, w, c = image.shape
+                        cx, cy = int(lm.x * w), int(lm.y * h)
+                        lmList.append([id, cx, cy])
                 
                     if grabbed : 
                         self.Q.put(image)
