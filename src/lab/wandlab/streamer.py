@@ -18,9 +18,7 @@ import mediapipe as mp
 import os
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
-counter = 0
-stage = None
-create = None
+
 from threading import Thread
 from queue import Queue
 
@@ -45,6 +43,7 @@ class Streamer :
         self.counter = 0
         self.stage = None
         self.create = None
+        self.text = None
         
     def run(self, src = 0 ) :
         
@@ -84,9 +83,7 @@ class Streamer :
                     (grabbed, frame) = self.capture.read()
                     image = cv2.resize(frame,(640,480))
                     image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                    #image.flags.writeable = False
                     results = pose.process(image) # mediapipe processing
-                    #image.flags.writeable =True
                     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                     lmList = []
                     
@@ -112,12 +109,11 @@ class Streamer :
                             self.counter += 1
                             counter2 = str(int(counter))
                             print(self.counter)
-                        text = "{}:{}".format("Push Ups", self.counter)
-                        cv2.putText(image, text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-                            
+                        self.text = "{}:{}".format("Push Ups", self.counter)
                         
                     if grabbed : 
                         self.Q.put(image)
+                        cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
                         
                           
     def clear(self):
