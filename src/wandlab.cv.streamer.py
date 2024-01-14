@@ -9,9 +9,12 @@
 # Python Version        : 3.6+
 #-------------------------------------------------#
 
-from lab.wandlab.server import app
+from lab.server import app
 
 version = '0.1.0'
+
+def index():
+    return render_template('stream.html')
 
 if __name__ == '__main__' :
     
