@@ -77,7 +77,7 @@ with mp_pose.Pose(
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
     lmList = findPosition(image, draw=True)
-3
+
     if len(lmList) != 0:
 
       cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 0, 255), cv2.FILLED)
