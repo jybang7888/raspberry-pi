@@ -72,7 +72,6 @@ class Streamer :
             self.capture.release()
             self.clear()
             
-    
     def update(self):
         with mp_pose.Pose(min_detection_confidence=0.7, min_tracking_confidence=0.7) as pose:       
             while True:
@@ -90,10 +89,10 @@ class Streamer :
                     if results.pose_landmarks:
                         mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
 
-                    for id, lm in enumerate(results.pose_landmarks.landmark):
-                        h, w, c = image.shape
-                        cx, cy = int(lm.x * w), int(lm.y * h)
-                        lmList.append([id, cx, cy])
+                        for id, lm in enumerate(results.pose_landmarks.landmark):
+                            h, w, c = image.shape
+                            cx, cy = int(lm.x * w), int(lm.y * h)
+                            lmList.append([id, cx, cy])
                 
                     if grabbed : 
                         self.Q.put(image)
