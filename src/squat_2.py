@@ -119,14 +119,24 @@ with mp_pose.Pose(
         elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
     
         wrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
-            
+
+        hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
+
+        knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
+
+        
         # Calculate angle
     
-        angle = calculate_angle(shoulder, elbow, wrist)
+        angle_1 = calculate_angle(shoulder, elbow, wrist)
+
+        angle_2 = calculate_angle(knee, hip, shoulder)
+
             
         # Visualize angle
     
-        cv2.putText(image, str(angle), tuple(np.multiply(elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+        cv2.putText(image, str(angle_1), tuple(np.multiply(elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+
+        cv2.putText(image, str(angle_2), tuple(np.multiply(knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                        
     except:
     	
@@ -152,7 +162,7 @@ with mp_pose.Pose(
       cv2.circle(image, (lmList[32][1], lmList[32][2]), 15, (0, 0, 255), cv2.FILLED)
 
 
-      if (lmList[25][1] and lmList[26][1] >= lmList[31][1] and lmList[32][1]) and (lmList[23][2] and lmList[24][2] >= lmList[25][2] and lmList[26][2]):
+      if (lmList[25][1] and lmList[26][1] >= lmList[31][1] and lmList[32][1]) and (lmList[23][2] and lmList[24][2] >= lmList[25][2] and lmList[26][2]) and (angle_2 > 90):
 
         cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
 
@@ -172,7 +182,7 @@ with mp_pose.Pose(
 
         stage = "Up"
 
-      if (lmList[25][1] and lmList[26][1] <= lmList[31][1] and lmList[32][1]) and (lmList[23][2] and lmList[24][2] <= lmList[25][2] and lmList[26][2]) and stage == "down":
+      if (lmList[25][1] and lmList[26][1] <= lmList[31][1] and lmList[32][1]) and (lmList[23][2] and lmList[24][2] <= lmList[25][2] and lmList[26][2]) and (angle_2 < 90) and stage == "down":
 
         stage = "Down"
 
