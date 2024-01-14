@@ -94,6 +94,24 @@ class Streamer :
                             cx, cy = int(lm.x * w), int(lm.y * h)
                             lmList.append([id, cx, cy])
                 
+                    if len(lmList) != 0:
+                        cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[11][1], lmList[11][2]), 20, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[11][1], lmList[11][2]), 20, (0, 0, 255), cv2.FILLED)
+                        if (lmList[12][2] and lmList[11][2] >= lmList[14][2] and lmList[13][2]):
+                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 20, (0, 255, 0), cv2.FILLED)
+                            stage = "down"
+                        if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and stage == "down":
+                            stage = "up"
+                            counter += 1
+                            counter2 = str(int(counter))
+                            print(counter)
+                        text = "{}:{}".format("Push Ups", counter)
+                        cv2.putText(image, text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                            
+                        
                     if grabbed : 
                         self.Q.put(image)
                         
