@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Stream with Text Overlay</title>
+    <style>
+        /* You can customize the styling here */
+        #video-container {
+            position: relative;
+        }
+
+        #overlay-text {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 18px;
+            background-color: black;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <!-- Video element to display the stream -->
+        <img id="video" src="{{ url_for('stream') }}" alt="Video Stream">
+
+        <!-- Overlay text -->
+        <div id="overlay-text">
+            Your Text Here
+        </div>
+    </div>
+</body>
+</html>
