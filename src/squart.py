@@ -80,42 +80,42 @@ with mp_pose.Pose(
 
     if len(lmList) != 0:
 
-      cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 0, 255), cv2.FILLED)
+      cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 0, 255), cv2.FILLED)
 
-      cv2.circle(image, (lmList[11][1], lmList[11][2]), 20, (0, 0, 255), cv2.FILLED)
+      cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 0, 255), cv2.FILLED)
 
-      cv2.circle(image, (lmList[23][1], lmList[23][2]), 20, (0, 0, 255), cv2.FILLED)
+      cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 0, 255), cv2.FILLED)
 
-      cv2.circle(image, (lmList[24][1], lmList[24][2]), 20, (0, 0, 255), cv2.FILLED)
+      cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 0, 255), cv2.FILLED)
 
-      cv2.circle(image, (lmList[25][1], lmList[25][2]), 20, (0, 0, 255), cv2.FILLED)
+      cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 0, 255), cv2.FILLED)
 
-      cv2.circle(image, (lmList[26][1], lmList[26][2]), 20, (0, 0, 255), cv2.FILLED)
+      cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 0, 255), cv2.FILLED)
 
-      cv2.circle(image, (lmList[31][1], lmList[31][2]), 20, (0, 0, 255), cv2.FILLED)
+      cv2.circle(image, (lmList[31][1], lmList[31][2]), 15, (0, 0, 255), cv2.FILLED)
 
-      cv2.circle(image, (lmList[32][1], lmList[32][2]), 20, (0, 0, 255), cv2.FILLED)
+      cv2.circle(image, (lmList[32][1], lmList[32][2]), 15, (0, 0, 255), cv2.FILLED)
 
 
 
 
       if (lmList[25][1] and lmList[26][1] >= lmList[31][1] and lmList[32][1]) and (lmList[23][2] and lmList[24][2] >= lmList[25][2] and lmList[26][2]):
 
-        cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 255, 0), cv2.FILLED)
+        cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
 
-        cv2.circle(image, (lmList[11][1], lmList[11][2]), 20, (0, 255, 0), cv2.FILLED)
+        cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)
 
-        cv2.circle(image, (lmList[23][1], lmList[23][2]), 20, (0, 255, 0), cv2.FILLED)
+        cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 255, 0), cv2.FILLED)
 
-        cv2.circle(image, (lmList[24][1], lmList[24][2]), 20, (0, 255, 0), cv2.FILLED)
+        cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)
 
-        cv2.circle(image, (lmList[25][1], lmList[25][2]), 20, (0, 255, 0), cv2.FILLED)
+        cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 255, 0), cv2.FILLED)
 
-        cv2.circle(image, (lmList[26][1], lmList[26][2]), 20, (0, 255, 0), cv2.FILLED)
+        cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)
 
-        cv2.circle(image, (lmList[31][1], lmList[31][2]), 20, (0, 255, 0), cv2.FILLED)
+        cv2.circle(image, (lmList[31][1], lmList[31][2]), 15, (0, 255, 0), cv2.FILLED)
 
-        cv2.circle(image, (lmList[32][1], lmList[32][2]), 20, (0, 255, 0), cv2.FILLED)
+        cv2.circle(image, (lmList[32][1], lmList[32][2]), 15, (0, 255, 0), cv2.FILLED)
 
         stage = "down"
 
@@ -131,11 +131,17 @@ with mp_pose.Pose(
 
         os.system("echo '" + counter2 + "' | festival --tts")
 
-    text = "{}:{}".format("Push Ups", counter)
+    text_1 = "{}:{}".format("Squat", counter)
+    
+    text_2 = "{}:{}".format("State", stage)
 
-    cv2.putText(image, text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX,
+    cv2.putText(image, text_1, (10, 40), cv2.FONT_HERSHEY_SIMPLEX,
 
                 1, (255, 0, 0), 2)
+    
+    cv2.putText(image, text_2, (10, 20), cv2.FONT_HERSHEY_SIMPLEX,
+
+                1, (255, 0, 0), 2)    
 
     cv2.imshow('MediaPipe Pose', image)
 
