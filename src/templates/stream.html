@@ -1,0 +1,25 @@
+
+<!-- templates/stream.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wandlab CV - Streaming</title>
+    <style>
+        /* Add your CSS styles here */
+        img {
+            width: 100%; /* Adjust the width as needed */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wandlab CV - Streaming</h1>
+    <img src="{{ url_for('stream', src=0) }}" alt="Streaming">
+    <p>This is additional text on the webpage.</p>
+</body>
+</html>
