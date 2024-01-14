@@ -9,33 +9,17 @@ from lab.streamer import Streamer
 app = Flask( __name__ )
 
 version = '0.1.0'
-@app.route('/stream')
 
+@app.route('/index')
 def index():
-    return render_template('stream.html')
-
-if __name__ == '__main__' :
-    
-    print('------------------------------------------------')
-    print('Wandlab CV - version ' + version )
-    print('------------------------------------------------')
-    app.run( host='192.168.1.143', port=5000 )
+    return render_template('index.html')
 
 streamer = Streamer()
-    
+@app.route('/stream')
 def stream():
-    
     src = request.args.get( 'src', default = 0, type = int )
-    
-    try :
-        
-        return Response(
-                                stream_with_context( stream_gen( src ) ),
-                                mimetype='multipart/x-mixed-replace; boundary=frame' )
-        
-    except Exception as e :
-        
-        print('[wandlab] ', 'stream error : ',str(e))
+    return Response(stream_with_context( stream_gen( src ) ), mimetype='multipart/x-mixed-replace; boundary=frame' )
+
 
 def stream_gen( src ):   
   
@@ -52,3 +36,10 @@ def stream_gen( src ):
     except GeneratorExit :
         #print( '[wandlab]', 'disconnected stream' )
         streamer.stop()
+
+if __name__ == '__main__' :
+    
+    print('------------------------------------------------')
+    print('Wandlab CV - version ' + version )
+    print('------------------------------------------------')
+    app.run( host='192.168.1.143', port=5000 )
