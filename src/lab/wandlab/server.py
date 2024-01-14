@@ -19,6 +19,9 @@ from lab.wandlab.streamer import Streamer
 app = Flask( __name__ )
 streamer = Streamer()
 
+def index():
+    return render_template('stream.html')
+    
 @app.route('/stream')
 def stream():
     
