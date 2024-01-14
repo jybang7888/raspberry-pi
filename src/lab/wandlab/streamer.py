@@ -42,6 +42,9 @@ class Streamer :
         self.sec = 0
         self.Q = Queue(maxsize=128)
         self.started = False
+        self.counter = 0
+        self.stage = None
+        self.create = None
         
     def run(self, src = 0 ) :
         
@@ -72,6 +75,7 @@ class Streamer :
             self.capture.release()
             self.clear()
             
+    
     def update(self):
         with mp_pose.Pose(min_detection_confidence=0.7, min_tracking_confidence=0.7) as pose:       
             while True:
@@ -102,13 +106,13 @@ class Streamer :
                         if (lmList[12][2] and lmList[11][2] >= lmList[14][2] and lmList[13][2]):
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 20, (0, 255, 0), cv2.FILLED)
-                            stage = "down"
-                        if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and stage == "down":
-                            stage = "up"
-                            counter += 1
+                            self.stage = "down"
+                        if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and self.stage == "down":
+                            self.stage = "up"
+                            self.counter += 1
                             counter2 = str(int(counter))
-                            print(counter)
-                        text = "{}:{}".format("Push Ups", counter)
+                            print(self.counter)
+                        text = "{}:{}".format("Push Ups", self.counter)
                         cv2.putText(image, text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
                             
                         
