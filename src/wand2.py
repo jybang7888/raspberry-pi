@@ -7,6 +7,7 @@ from flask import render_template
 from lab.streamer import Streamer
 
 app = Flask( __name__ )
+app_2 = Flask(__name__)
 
 version = '0.1.0'
 
@@ -43,3 +44,4 @@ if __name__ == '__main__' :
     print('Wandlab CV - version ' + version )
     print('------------------------------------------------')
     app.run( host='192.168.1.144', port=5000 )
+    app_2.run( host='192.168.1.144', port=7000 )
