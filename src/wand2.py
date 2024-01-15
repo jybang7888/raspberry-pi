@@ -38,7 +38,7 @@ def stream_gen(src):
 @app.route('/stream2')
 def stream2():
     src2 = request.args.get('src', default=0, type=int)
-    return Response(stream_with_context(stream_gen(src2)), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(stream_with_context(stream2_gen(src2)), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 def stream2_gen(src2):
     try:
