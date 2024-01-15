@@ -9,7 +9,11 @@ version = '0.1.0'
 
 @app.route('/index')
 def index():
-    return render_template('start_count.html')
+    return render_template('push_up.html')
+
+@app.route('/index2')
+def index2():
+    return render_template('squat.html')
 
 streamer = Streamer()
 streamer2 = Streamer2()
