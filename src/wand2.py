@@ -25,6 +25,7 @@ def stream():
 
 def stream_gen(src):
     try:
+        streamer2.stop()
         streamer.run(src)
         while True:
             frame = streamer.bytescode()
@@ -42,6 +43,7 @@ def stream2():
 
 def stream2_gen(src2):
     try:
+        streamer.stop()
         streamer2.run(src2)
         while True:
             frame = streamer2.bytescode()
