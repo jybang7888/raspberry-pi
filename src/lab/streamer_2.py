@@ -81,7 +81,6 @@ class Streamer2 :
 
                 if self.started :
                     (grabbed, frame) = self.capture.read()
-                    image = cv2.resize(frame,(640,480))
                     image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     results = pose.process(image) # mediapipe processing
                     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
