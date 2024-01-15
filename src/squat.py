@@ -180,11 +180,11 @@ with mp_pose.Pose(
 
         cv2.circle(image, (lmList[32][1], lmList[32][2]), 15, (0, 255, 0), cv2.FILLED)
 
-        stage = "Up"
+        stage = "down"
 
       if (lmList[25][1] and lmList[26][1] <= lmList[31][1] and lmList[32][1]) and (lmList[23][2] and lmList[24][2] <= lmList[25][2] and lmList[26][2]) and (angle_2 < 90) and stage == "down":
 
-        stage = "Down"
+        stage = "Up"
 
         counter += 1
 
