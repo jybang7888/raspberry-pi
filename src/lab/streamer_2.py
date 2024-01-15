@@ -107,10 +107,10 @@ class Streamer2 :
                         if (lmList[25][1] and lmList[26][1] >= lmList[31][1] and lmList[32][1]) and (lmList[23][2] and lmList[24][2] >= lmList[25][2] and lmList[26][2]):
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[23][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[24][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[25][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[26][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)                           
+                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 255, 0), cv2.FILLED)                           
+                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)                            
                             cv2.circle(image, (lmList[31][1], lmList[31][2]), 15, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[32][1], lmList[32][2]), 15, (0, 255, 0), cv2.FILLED)                            
                             self.stage = "down"
