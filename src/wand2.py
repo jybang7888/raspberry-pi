@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, Response, stream_with_context
 from threading import Thread
 from lab.streamer import Streamer
+from lab.streamer_2 import Streamer2
 
 app = Flask(__name__)
 
@@ -39,9 +40,9 @@ def stream2_gen(src2):
     try:
         streamer2.run(src2)
         while True:
-            frame2 = streamer2.bytescode()
+            frame = streamer2.bytescode()
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame2 + b'\r\n')
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
     except GeneratorExit:
         print('[wandlab]', 'disconnected stream')
         streamer2.stop()
