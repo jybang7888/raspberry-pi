@@ -1,10 +1,21 @@
-from flask import Flask
+from flask import Flask, render_template
+from threading import Thread
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
+version = '0.1.0'
+
+@app.route('/index')
+def index():
+    return render_template('start_count.html')
+
+@app.route('/web')
+def web():
+    return 'Hi'
 
 if __name__ == '__main__':
-    app.run(host='192.168.1.144', port=6000)
+    print('------------------------------------------------')
+    print('Wandlab CV - version ' + version)
+    print('------------------------------------------------')
+
+    app.run(host='192.168.1.144',port=7000)
