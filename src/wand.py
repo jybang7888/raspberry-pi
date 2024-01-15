@@ -8,7 +8,7 @@ version = '0.1.0'
 
 @app.route('/index')
 def index():
-    return render_template('start_count.html')
+    return render_template('push_up.html')
 
 streamer = Streamer()
 
