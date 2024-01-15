@@ -7,7 +7,7 @@ app = Flask(__name__)
 version = '0.1.0'
 
 @app.route('/index2')
-def index():
+def index2():
     return render_template('squat.html')
 
 streamer2 = Streamer2()
