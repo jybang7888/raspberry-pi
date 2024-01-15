@@ -112,7 +112,7 @@ class Streamer :
                         
                     if grabbed : 
                         self.Q.put(image)
-                cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                    cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
                         
                           
     def clear(self):
