@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, Response, stream_with_context
 from threading import Thread
-from lab.streamer_2 import Streamer3
+from lab.streamer_2 import Streamer2
 
 app = Flask(__name__)
 
