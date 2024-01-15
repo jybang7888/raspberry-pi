@@ -45,15 +45,15 @@ class Streamer :
         self.create = None
         self.text = None
         
-    def run(self, src = 0 ) :
+    def run(self, 0 ) :
         
         self.stop()
     
         if platform.system() == 'Windows' :        
-            self.capture = cv2.VideoCapture( src , cv2.CAP_DSHOW )
+            self.capture = cv2.VideoCapture( 0 , cv2.CAP_DSHOW )
         
         else :
-            self.capture = cv2.VideoCapture( src )
+            self.capture = cv2.VideoCapture( 0 )
             
         self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
         self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
