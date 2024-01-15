@@ -17,7 +17,7 @@ def stream2():
     src2 = request.args.get('src', default=0, type=int)
     return Response(stream_with_context(stream2_gen(src2)), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-def stream_gen(src2):
+def stream2_gen(src2):
     try:
         streamer2.run(src2)
         while True:
