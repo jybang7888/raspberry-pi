@@ -174,7 +174,7 @@ class Streamer :
                             cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[27][1], lmList[27][2]), 15, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 0), cv2.FILLED)        
-                                self.stage = "down"
+                            self.stage = "down"
                         if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and (angle_1 or angle_4 < 90) and (angle_2 or angle_5 < 180) and (angle_2 or angle_5 > 150) and self.stage == "down":
                             self.stage = "up"
                             self.counter += 1
