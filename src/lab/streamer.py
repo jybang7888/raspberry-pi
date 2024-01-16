@@ -162,10 +162,20 @@ class Streamer :
                         cv2.circle(image, (lmList[27][1], lmList[27][2]), 15, (0, 0, 255), cv2.FILLED)
                         cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 0, 255), cv2.FILLED)
                         if (lmList[12][2] and lmList[11][2] >= lmList[14][2] and lmList[13][2]):
-                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)
-                            self.stage = "down"
-                        if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and self.stage == "down":
+                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[13][1], lmList[13][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[14][1], lmList[14][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 0), cv2.FILLED)        
+                                self.stage = "down"
+                        if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and (angle_1 or angle_4 < 90) and (angle_2 or angle_5 < 180) and (angle_2 or angle_5 > 150) and self.stage == "down":
                             self.stage = "up"
                             self.counter += 1
                             counter2 = str(int(self.counter))
