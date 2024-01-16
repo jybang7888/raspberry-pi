@@ -44,7 +44,8 @@ class Streamer2 :
         self.stage = None
         self.create = None
         self.text = None
-        
+        self.direction = None
+        self.text_direction = None
     def run(self, src = 0 ) :
         
         self.stop()
@@ -73,6 +74,16 @@ class Streamer2 :
             
             self.capture.release()
             self.clear()
+
+    def calculate_angle(self,a,b,c):
+        a = np.array(a)
+        b = np.array(b)
+        c = np.array(c)
+        radians = np.arctan2(c[1]-b[1], c[0]-b[0]) - np.arctan2(a[1]-b[1], a[0]-b[0])
+        angle = np.abs(radians*180.0/np.pi)
+        if angle >180.0:
+            angle = 360-angle
+        return angle
             
     
     def update(self):
@@ -93,7 +104,41 @@ class Streamer2 :
                             h, w, c = image.shape
                             cx, cy = int(lm.x * w), int(lm.y * h)
                             lmList.append([id, cx, cy])
-                
+
+                    if len(lmList) != 0:
+                        if (lmList[14][1] >= lmList[12][1]):
+                            self.direction = "Right"
+                            print(self.direction)
+                        if (lmList[13][1] <= lmList[11][1]):
+                            self.direction = "Left"
+                            print(self.direction)
+                        self.text_direction = "{}:{}".format("Direction", self.direction)
+                        cv2.putText(image, self.text_direction, (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                    
+                    try:
+                        landmarks = results.pose_landmarks.landmark
+                        left_shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
+                        left_hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
+                        left_knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
+                        left_ankle = [landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].y]
+                        right_shoulder = [landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
+                        right_hip = [landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
+                        right_knee = [landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].y]
+                        right_ankle = [landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].y]
+                        angle_1 = self.calculate_angle(left_knee, left_hip, left_shoulder)
+                        angle_2 = self.calculate_angle(left_ankle, left_knee, left_hip)
+                        angle_3 = self.calculate_angle(right_knee, right_hip, right_shoulder)
+                        angle_4 = self.calculate_angle(right_ankle, right_knee, right_hip)
+
+                        if (self_direction == "Left"):
+                            cv2.putText(image, str(angle_1), tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, str(angle_2), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                        if (self_direction == "Right"):
+                            cv2.putText(image, str(angle_3), tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, str(angle_4), tuple(np.multiply(right_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                    except:
+                        pass
+
                     if len(lmList) != 0:
                         cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 0, 255), cv2.FILLED)
                         cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 0, 255), cv2.FILLED)
@@ -103,7 +148,7 @@ class Streamer2 :
                         cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 0, 255), cv2.FILLED)
                         cv2.circle(image, (lmList[31][1], lmList[31][2]), 15, (0, 0, 255), cv2.FILLED)
                         cv2.circle(image, (lmList[32][1], lmList[32][2]), 15, (0, 0, 255), cv2.FILLED)                        
-                        if (lmList[25][1] and lmList[26][1] >= lmList[31][1] and lmList[32][1]) and (lmList[23][2] and lmList[24][2] >= lmList[25][2] and lmList[26][2]):
+                        if (lmList[25][1] and lmList[26][1] >= lmList[31][1] and lmList[32][1]) and (lmList[23][2] and lmList[24][2] >= lmList[25][2] and lmList[26][2]) and (angle_1 > 90) and (angle_2 > 90):
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 255, 0), cv2.FILLED)
