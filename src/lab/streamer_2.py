@@ -105,10 +105,12 @@ class Streamer2 :
                             cx, cy = int(lm.x * w), int(lm.y * h)
                             lmList.append([id, cx, cy])
                             
-                    if (lmList[13][1] >= lmList[11][1]) or (lmList[14][1] >= lmList[12][1]):
+                    if (lmList[14][1] >= lmList[12][1]):
                         self.direction = "Right"
-                    if (lmList[13][1] <= lmList[11][1]) or (lmList[14][1] <= lmList[12][1]):
+                        print(self.direction)
+                    if (lmList[13][1] <= lmList[11][1]):
                         self.direction = "Left"
+                        print(self.direction)
                     self.text_direction = "{}:{}".format("Direction", self.direction)
                     cv2.putText(image, self.text_direction, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
                     
@@ -127,10 +129,10 @@ class Streamer2 :
                         angle_3 = self.calculate_angle(right_knee, right_hip, right_shoulder)
                         angle_4 = self.calculate_angle(right_ankle, right_knee, right_hip)
 
-                        if (self_direction == "Left")
+                        if (self_direction == "Left"):
                             cv2.putText(image, str(angle_1), tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, str(angle_2), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                        if (self_direction == "Right")
+                        if (self_direction == "Right"):
                             cv2.putText(image, str(angle_3), tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, str(angle_4), tuple(np.multiply(right_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                     except:
