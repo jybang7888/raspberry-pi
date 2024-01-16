@@ -32,7 +32,7 @@ class Streamer :
             
         self.capture = None
         self.thread = None
-        self.width = 520
+        self.width = 640
         self.height = 360
         self.stat = False
         self.current_time = time.time()
