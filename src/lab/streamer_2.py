@@ -32,7 +32,7 @@ class Streamer2 :
             
         self.capture = None
         self.thread = None
-        self.width = 640
+        self.width = 520
         self.height = 360
         self.stat = False
         self.current_time = time.time()
@@ -113,7 +113,7 @@ class Streamer2 :
                             self.direction = "Left"
                             print(self.direction)
                         self.text_direction = "{}:{}".format("Direction", self.direction)
-                        cv2.putText(image, self.text_direction, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                        cv2.putText(image, self.text_direction, (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
                     
                     try:
                         landmarks = results.pose_landmarks.landmark
