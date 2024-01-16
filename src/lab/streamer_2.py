@@ -104,24 +104,38 @@ class Streamer2 :
                             h, w, c = image.shape
                             cx, cy = int(lm.x * w), int(lm.y * h)
                             lmList.append([id, cx, cy])
-                    try:
-                        landmarks = results.pose_landmarks.landmark
-                        shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
-                        hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
-                        knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
-                        ankle = [landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].y]
-                        angle_1 = self.calculate_angle(knee, hip, shoulder)
-                        angle_2 = self.calculate_angle(ankle, knee, hip)
-                        cv2.putText(image, str(angle_1), tuple(np.multiply(hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                        cv2.putText(image, str(angle_2), tuple(np.multiply(knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                    except:
-                        pass
+                            
                     if (lmList[13][1] >= lmList[11][1]) or (lmList[14][1] >= lmList[12][1]):
                         self.direction = "Right"
                     if (lmList[13][1] <= lmList[11][1]) or (lmList[14][1] <= lmList[12][1]):
                         self.direction = "Left"
                     self.text_direction = "{}:{}".format("Direction", self.direction)
                     cv2.putText(image, self.text_direction, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                    
+                    try:
+                        landmarks = results.pose_landmarks.landmark
+                        left_shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
+                        left_hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
+                        left_knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
+                        left_ankle = [landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].y]
+                        right_shoulder = [landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
+                        right_hip = [landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
+                        right_knee = [landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].y]
+                        right_ankle = [landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].y]
+                        angle_1 = self.calculate_angle(left_knee, left_hip, left_shoulder)
+                        angle_2 = self.calculate_angle(left_ankle, left_knee, left_hip)
+                        angle_3 = self.calculate_angle(right_knee, right_hip, right_shoulder)
+                        angle_4 = self.calculate_angle(right_ankle, right_knee, right_hip)
+
+                        if (self_direction == "Left")
+                            cv2.putText(image, str(angle_1), tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, str(angle_2), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                        if (self_direction == "Right")
+                            cv2.putText(image, str(angle_3), tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, str(angle_4), tuple(np.multiply(right_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                    except:
+                        pass
+
                     if len(lmList) != 0:
                         cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 0, 255), cv2.FILLED)
                         cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 0, 255), cv2.FILLED)
