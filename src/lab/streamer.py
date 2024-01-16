@@ -114,7 +114,7 @@ class Streamer :
                         	    conn.commit()
                         	    cur.execute(sql)
                         	    for row in cur.fetchall() :
-                        			print(row[0],row[1])
+                        	        print(row[0],row[1])
                         if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and self.stage == "down":
                             self.stage = "up"
                             with conn.cursor() as cur :
@@ -124,7 +124,7 @@ class Streamer :
                         	    conn.commit()
                         	    cur.execute(sql)
                         	    for row in cur.fetchall() :
-                        			print(row[0],row[1])
+                        	        print(row[0],row[1])
                             self.counter += 1
                             counter2 = str(int(self.counter))
                             print(self.counter)
