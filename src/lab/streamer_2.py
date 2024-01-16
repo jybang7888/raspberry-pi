@@ -32,8 +32,8 @@ class Streamer2 :
             
         self.capture = None
         self.thread = None
-        self.width = 520
-        self.height = 360
+        self.width = 640
+        self.height = 480
         self.stat = False
         self.current_time = time.time()
         self.preview_time = time.time()
