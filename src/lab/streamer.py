@@ -110,7 +110,7 @@ class Streamer :
                             with conn.cursor() as cur :
                         	    sql = "select * from push_up"
                         	    cur.execute(sql)
-                        	    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,self.stage)")
+                        	    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'down')")
                         	    conn.commit()
                         	    cur.execute(sql)
                         	    for row in cur.fetchall() :
@@ -120,7 +120,7 @@ class Streamer :
                             with conn.cursor() as cur :
                         	    sql = "select * from push_up"
                         	    cur.execute(sql)
-                        	    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,self.stage)")
+                        	    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'up')")
                         	    conn.commit()
                         	    cur.execute(sql)
                         	    for row in cur.fetchall() :
