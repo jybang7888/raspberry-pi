@@ -108,22 +108,22 @@ class Streamer :
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 20, (0, 255, 0), cv2.FILLED)
                             self.stage = "down"
                             with conn.cursor() as cur :
-                        		sql = "select * from push_up"
-                        		cur.execute(sql)
-                        		cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,self.stage)")
-                        		conn.commit()
-                        		cur.execute(sql)
-                        		for row in cur.fetchall() :
+                        	    sql = "select * from push_up"
+                        	    cur.execute(sql)
+                        	    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,self.stage)")
+                        	    conn.commit()
+                        	    cur.execute(sql)
+                        	    for row in cur.fetchall() :
                         			print(row[0],row[1])
                         if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and self.stage == "down":
                             self.stage = "up"
                             with conn.cursor() as cur :
-                        		sql = "select * from push_up"
-                        		cur.execute(sql)
-                        		cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,self.stage)")
-                        		conn.commit()
-                        		cur.execute(sql)
-                        		for row in cur.fetchall() :
+                        	    sql = "select * from push_up"
+                        	    cur.execute(sql)
+                        	    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,self.stage)")
+                        	    conn.commit()
+                        	    cur.execute(sql)
+                        	    for row in cur.fetchall() :
                         			print(row[0],row[1])
                             self.counter += 1
                             counter2 = str(int(self.counter))
