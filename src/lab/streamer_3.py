@@ -11,7 +11,7 @@ mp_pose = mp.solutions.pose
 from threading import Thread
 from queue import Queue
 
-class Streamer :
+class Streamer3 :
     
     def __init__(self ):
         
