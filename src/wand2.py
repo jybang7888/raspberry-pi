@@ -64,7 +64,7 @@ def stream3():
     src3 = request.args.get('src', default=0, type=int)
     return Response(stream_with_context(stream3_gen(src3)), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-def stream2_gen(src3):
+def stream3_gen(src3):
     try:
         streamer.stop()
         streamer3.run(src3)
