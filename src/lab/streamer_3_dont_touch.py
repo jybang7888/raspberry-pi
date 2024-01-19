@@ -1,14 +1,3 @@
-# -*- encoding: utf-8 -*-
-#-------------------------------------------------#
-# Date created          : 2020. 8. 18.
-# Date last modified    : 2020. 8. 19.
-# Author                : chamadams@gmail.com
-# Site                  : http://wandlab.com
-# License               : GNU General Public License(GPL) 2.0
-# Version               : 0.1.0
-# Python Version        : 3.6+
-#-------------------------------------------------#
-
 import time
 import cv2
 import imutils
@@ -105,15 +94,7 @@ class Streamer :
                             cx, cy = int(lm.x * w), int(lm.y * h)
                             lmList.append([id, cx, cy])
                           
-                    if len(lmList) != 0:
-                        if (lmList[12][1] >= lmList[24][1]):
-                            self.direction = "Right"
-                            print(self.direction)
-                        if (lmList[11][1] <= lmList[23][1]):
-                            self.direction = "Left"
-                            print(self.direction)
-                        self.text_direction = "{}:{}".format("Direction", self.direction)
-                        cv2.putText(image, self.text_direction, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)                          
+                                        
 
                     try:
                         landmarks = results.pose_landmarks.landmark
@@ -136,14 +117,6 @@ class Streamer :
                         angle_5 = self.calculate_angle(right_shoulder, right_hip, right_knee)
                         angle_6 = self.calculate_angle(right_hip, right_knee, right_ankle)
 
-                        if (self_direction == "Left"):
-                            cv2.putText(image, str(angle_1), tuple(np.multiply(left_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            cv2.putText(image, str(angle_2), tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            cv2.putText(image, str(angle_3), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                        if (self_direction == "Right"):
-                            cv2.putText(image, str(angle_4), tuple(np.multiply(right_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            cv2.putText(image, str(angle_5), tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            cv2.putText(image, str(angle_6), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                     except:
                         pass
                       
