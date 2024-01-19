@@ -35,6 +35,7 @@ class Streamer3 :
         self.text = None
         self.direction = None
         self.text_direction = None
+        self.text_stage = None
         
     def run(self, src = 0 ) :
         
@@ -208,10 +209,12 @@ class Streamer3 :
                             counter2 = str(int(self.counter))
                             print(self.counter)
                         self.text = "{}:{}".format("Burpees", self.counter)
-                        
+                        self.text_stage = "{}:{}".format("Stage", self.stage)
+                    
                     if grabbed : 
                         self.Q.put(image)
                     cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                    cv2.putText(image, self.text_stage, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
                         
                           
     def clear(self):
