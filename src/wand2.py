@@ -59,6 +59,22 @@ def stream2_gen(src2):
         print('[wandlab]', 'disconnected stream')
         streamer2.stop()
 
+@app.route('/stream3')
+def stream3():
+    src3 = request.args.get('src', default=0, type=int)
+    return Response(stream_with_context(stream3_gen(src3)), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+def stream2_gen(src3):
+    try:
+        streamer.stop()
+        streamer3.run(src3)
+        while True:
+            frame = streamer3.bytescode()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    except GeneratorExit:
+        print('[wandlab]', 'disconnected stream')
+        streamer3.stop()
 
 if __name__ == '__main__':
     print('------------------------------------------------')
