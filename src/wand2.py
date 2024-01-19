@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, Response, stream_with_context
 from threading import Thread
 from lab.streamer import Streamer
 from lab.streamer_2 import Streamer2
+from lab.streamer_3 import Streamer3
 
 app = Flask(__name__)
 
@@ -15,8 +16,13 @@ def index():
 def index2():
     return render_template('squat.html')
 
+@app.route('/index3')
+def index3():
+    return render_template('burpee.html')
+
 streamer = Streamer()
 streamer2 = Streamer2()
+streamer3 = Streamer3()
 
 @app.route('/stream')
 def stream():
