@@ -9,8 +9,12 @@ app = Flask(__name__)
 
 version = '0.1.0'
 
-@app.route('/index',methods=['GET','POST'])
+@app.route('/index')
 def index():
+    return render_template('push_up.html')
+
+@app.route('/index/result',methods=['GET','POST'])
+def index_r():
     if request.method == 'GET':
         db = Database()
         sql = db.show()   
