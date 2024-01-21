@@ -69,7 +69,7 @@ class Streamer3 :
             self.clear()
           
     def update(self):
-        with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:       
+        with mp_pose.Pose(min_detection_confidence=0.6, min_tracking_confidence=0.6) as pose:       
             while True:
 
                 if self.started :
@@ -125,8 +125,8 @@ class Streamer3 :
                         elif (self.stage =="Jump"):
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 0), cv2.FILLED) #green
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[13][1], lmList[15][2]), 10, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[14][1], lmList[16][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[15][1], lmList[16][2]), 10, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[27][1], lmList[25][2]), 10, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[28][1], lmList[26][2]), 10, (0, 255, 0), cv2.FILLED)
                        
@@ -142,7 +142,7 @@ class Streamer3 :
                         elif (lmList[25][2] and lmList[26][2] <= lmList[15][2] and lmList[16][2]) and (self.stage == "Push_up"):
                             self.stage = "Rolling_second"
                             self.progress = "80%"
-                        elif (lmList[13][2] and lmList[14][2] <= lmList[11][2] and lmList[12][2]) and (lmList[11][2] and lmList[12][2] <= lmList[25][2] and lmList[26][2]) and (self.stage == "Rolling_second"):        
+                        elif (lmList[15][2] and lmList[16][2] <= lmList[11][2] and lmList[12][2]) and (lmList[11][2] and lmList[12][2] <= lmList[25][2] and lmList[26][2]) and (self.stage == "Rolling_second"):        
                             self.stage = "Jump"
                             self.progress = "100%"
                             self.counter += 1
