@@ -193,7 +193,7 @@ class Streamer2 :
 
 
                             
-                            if (self.angle_3 > 85) and (self.angle_3 < 95) and (self.stage == "Down"):
+                            if (lmList[11][2] <= lmList[23][2]) and (lmList[23][2] <= lmList[25][2]) and (self.angle_3 > 85) and (self.angle_3 < 95) and (self.stage == "Down"):
                                 self.stage = "Up"
 
                                 with conn.cursor() as cur :
@@ -230,7 +230,7 @@ class Streamer2 :
                                 cv2.circle(image, (lmList[31][1], lmList[32][2]), 10, (0, 255, 0), cv2.FILLED)
                             if (lmList[26][1] >= lmList[32][1]) and (lmList[32][1] >= lmList[24][1]) and (self.angle_4 < 120) and (self.angle_5 < 90):
                                 self.stage = "Down"
-                            if (self.angle_6 > 85) and (self.angle_6 < 95) and (self.stage == "Down"):
+                            if (lmList[12][2] <= lmList[24][2]) and (lmList[24][2] <= lmList[26][2]) and (self.angle_6 > 85) and (self.angle_6 < 95) and (self.stage == "Down"):
                                 self.stage = "Up"
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
