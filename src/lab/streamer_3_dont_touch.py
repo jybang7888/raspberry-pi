@@ -30,7 +30,7 @@ class Streamer3 :
         self.Q = Queue(maxsize=128)
         self.started = False
         self.counter = 0
-        self.stage = None
+        self.stage = "Default"
         self.create = None
         self.text = None
         self.direction = None
@@ -128,10 +128,10 @@ class Streamer3 :
                             cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[28][1], lmList[28][2]), 10, (0, 255, 0), cv2.FILLED)
                        
-                        if (lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) and (self.stage == None):
+                        if (lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) and (self.stage == "Default"):
                             self.stage = "Stand"
                             self.progress = "20%"
-                        elif (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Stand" or "Jump"):
+                        elif (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Stand" or self.stage == "Jump"):
                             self.stage = "Rolling_first"
                             self.progress = "40%"
                         elif (lmList[13][2] and lmList[14][2] >= lmList[11][2] and lmList[12][2]) and (self.stage == "Rolling_first"):
@@ -140,7 +140,7 @@ class Streamer3 :
                         elif (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Push_up"):
                             self.stage = "Rolling_second"
                             self.progress = "80%"
-                        elif (lmList[15][2] and lmList[16][2] >= lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) and (self.stage == "Rolling_second"):        
+                        elif (lmList[15][2] and lmList[16][2] >= lmList[11][2] and lmList[12][2]) and (lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) and (self.stage == "Rolling_second"):        
                             self.stage = "Jump"
                             self.progress = "100%"
                             self.counter += 1
