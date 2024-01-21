@@ -103,8 +103,10 @@ class Streamer3 :
                         if (self.stage =="Stand"):
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 69, 255), cv2.FILLED) #orangered
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 69, 255), cv2.FILLED)
-                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 69, 255), cv2.FILLED)
-                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 10, (0, 69, 255), cv2.FILLED)   
+                            cv2.circle(image, (lmList[27][1], lmList[23][2]), 10, (0, 69, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[28][1], lmList[24][2]), 10, (0, 69, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[27][1], lmList[25][2]), 10, (0, 69, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[28][1], lmList[26][2]), 10, (0, 69, 255), cv2.FILLED)  
                         elif (self.stage =="Rolling_first"):
                             cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 140, 255), cv2.FILLED) #darkorange
                             cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 140, 255), cv2.FILLED)
@@ -123,12 +125,12 @@ class Streamer3 :
                         elif (self.stage =="Jump"):
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 0), cv2.FILLED) #green
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[13][1], lmList[15][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[14][1], lmList[16][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[27][1], lmList[25][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[28][1], lmList[26][2]), 10, (0, 255, 0), cv2.FILLED)
                        
-                        if (lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) and (self.stage == "Default"):
+                        if (lmList[11][2] and lmList[12][2] >= lmList[23][2] and lmList[24][2]) and (lmList[23][2] and lmList[24][2] >= lmList[25][2] and lmList[26][2]) and (self.stage == "Default"):
                             self.stage = "Stand"
                             self.progress = "20%"
                         elif (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Stand" or self.stage == "Jump"):
@@ -140,7 +142,7 @@ class Streamer3 :
                         elif (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Push_up"):
                             self.stage = "Rolling_second"
                             self.progress = "80%"
-                        elif (lmList[15][2] and lmList[16][2] >= lmList[11][2] and lmList[12][2]) and (lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) and (self.stage == "Rolling_second"):        
+                        elif (lmList[13][2] and lmList[14][2] >= lmList[11][2] and lmList[12][2]) and (lmList[11][2] and lmList[12][2] >= lmList[25][2] and lmList[26][2]) and (self.stage == "Rolling_second"):        
                             self.stage = "Jump"
                             self.progress = "100%"
                             self.counter += 1
