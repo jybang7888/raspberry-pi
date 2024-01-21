@@ -192,8 +192,8 @@ class Streamer3 :
                     if grabbed : 
                         self.Q.put(image)
                     cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-                    cv2.putText(image, self.text_stage, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-                    cv2.putText(image, self.text_progress, (80, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_stage, (200, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_progress, (400, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
                         
                           
     def clear(self):
