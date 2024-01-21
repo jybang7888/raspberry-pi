@@ -113,23 +113,23 @@ class Streamer :
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 20, (0, 255, 0), cv2.FILLED)
                             if self.stage == "down":
                                 with conn.cursor() as cur :
-                        	        sql = "select * from push_up"
-                        	        cur.execute(sql)
-                        	        cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'up')")
-                        	        conn.commit()
-                        	        cur.execute(sql)            
+                                    sql = "select * from push_up"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'up')")
+                                    conn.commit()
+                                    cur.execute(sql)            
                                     print(cur.fetchone)
                             self.stage = "up"
 
                         if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and self.stage == "up":
                             self.stage = "down"
                             with conn.cursor() as cur :
-                        	    sql = "select * from push_up"
-                        	    cur.execute(sql)
-                        	    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'down')")
-                        	    conn.commit()
-                        	    cur.execute(sql)
-                        	    print(cur.fetchone)
+                                sql = "select * from push_up"
+                                cur.execute(sql)
+                                cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'down')")
+                                conn.commit()
+                                cur.execute(sql)
+                                print(cur.fetchone)
                             self.counter += 1
                             counter2 = str(int(self.counter))
                             print(self.counter)
