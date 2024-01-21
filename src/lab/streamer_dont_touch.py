@@ -38,7 +38,7 @@ class Streamer :
         self.elbow = None
         self.hip = None
         self.knee = None
-        self.text.stage = None
+        self.text_stage = None
         self.text_1 = "< 90"
         self.text_2 = "< 190"
         self.text_3 = "< 150"
