@@ -142,7 +142,11 @@ class Streamer1 :
                         self.angle_4 = self.calculate_angle(right_wrist, right_elbow, right_shoulder)
                         self.angle_5 = self.calculate_angle(right_shoulder, right_hip, right_knee)
                         self.angle_6 = self.calculate_angle(right_hip, right_knee, right_ankle)
-                        if (self.direction == "Left"):
+                        
+                    except:
+                        pass
+                        
+                    if (self.direction == "Left"):
                             cv2.putText(image, str(self.angle_1), tuple(np.multiply(left_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, str(self.angle_2), tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, str(self.angle_3), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
@@ -162,8 +166,6 @@ class Streamer1 :
                             cv2.putText(image, self.elbow, (150, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                             cv2.putText(image, self.hip, (150, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                             cv2.putText(image, self.knee, (150, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                    except:
-                        pass
                       
                   
                     if (len(lmList) != 0):
@@ -240,7 +242,7 @@ class Streamer1 :
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
                                 print(self.counter)    
-                            if (lmList[14][2] <= lmList[12][2]) and (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 90) and (self.angle_5 > 150) and (self.angle_6 > 150) and (self.stage == "Up"):
+                            elif (lmList[14][2] <= lmList[12][2]) and (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 90) and (self.angle_5 > 150) and (self.angle_6 > 150) and (self.stage == "Up"):
                                 self.stage = "Down"
                                 with conn.cursor() as cur :
                                     sql = "select * from push_up"
