@@ -34,8 +34,10 @@ class Streamer3 :
         self.create = None
         self.text = None
         self.direction = None
+        self.progress = None
         self.text_direction = None
         self.text_stage = None
+        self.test_progress = None
         
     def run(self, src = 0 ) :
         
@@ -142,25 +144,36 @@ class Streamer3 :
                             cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 69, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[28][1], lmList[28][2]), 10, (0, 69, 255), cv2.FILLED)        
                             self.stage = "Stand"
-                        if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Stand" or "Jump"):
+                            self.progress = "20%"
+                        if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Stand"):
                             cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 140, 255), cv2.FILLED) #darkorange
                             cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 140, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 140, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 140, 255), cv2.FILLED)
                             self.stage = "Rolling_frist"
-                        if (lmList[13][2] and lmList[14][2] >= lmList[11][2] and lmList[12][2]) and self.stage == "Rolling_first":
+                            self.progress = "40%"
+                        if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Jump"):
+                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 140, 255), cv2.FILLED) #darkorange
+                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 140, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 140, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 140, 255), cv2.FILLED)
+                            self.stage = "Rolling_frist"
+                            self.progress = "40%"
+                        if (lmList[13][2] and lmList[14][2] >= lmList[11][2] and lmList[12][2]) and (self.stage == "Rolling_first"):
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 255), cv2.FILLED) #yellow
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[13][1], lmList[13][2]), 10, (0, 255, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[14][1], lmList[14][2]), 10, (0, 255, 255), cv2.FILLED)
                             self.stage = "Push_up"
-                        if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and [16][2]) and self.stage == "Push_up":
+                            self.progress = "60%"
+                        if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and [16][2]) and (self.stage == "Push_up"):
                             cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 127), cv2.FILLED) #chartreuse
                             cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 255, 127), cv2.FILLED)
                             cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 127), cv2.FILLED)
                             cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 255, 127), cv2.FILLED)
                             self.stage = "Rolling_second"
-                        if (lmList[15][2] and lmList[16][2] >= lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) and self.stage == "Rolling_second":
+                            self.progress = "80%"
+                        if (lmList[15][2] and lmList[16][2] >= lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) and (self.stage == "Rolling_second"):
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 0), cv2.FILLED) #green
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 0), cv2.FILLED)
@@ -168,16 +181,19 @@ class Streamer3 :
                             cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[28][1], lmList[28][2]), 10, (0, 255, 0), cv2.FILLED)        
                             self.stage = "Jump"
+                            self.progress = "100%"
                             self.counter += 1
                             counter2 = str(int(self.counter))
                             print(self.counter)
                         self.text = "{}:{}".format("Burpees", self.counter)
                         self.text_stage = "{}:{}".format("Stage", self.stage)
+                        self.text_progress = "{}:{}".format("Progress", self.progress)
                     
                     if grabbed : 
                         self.Q.put(image)
                     cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
                     cv2.putText(image, self.text_stage, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_progress, (80, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
                         
                           
     def clear(self):
