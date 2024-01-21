@@ -3,15 +3,23 @@ from threading import Thread
 from lab.streamer_dont_touch import Streamer
 from lab.streamer_2_dont_touch import Streamer2
 from lab.streamer_3_dont_touch import Streamer3
+from DB import Database
 
 app = Flask(__name__)
 
 version = '0.1.0'
 
-@app.route('/index')
+@app.route('/index1')
 def index():
     return render_template('push_up.html')
-
+    
+@app.route('/result',methods=['GET','POST'])
+def index_r():
+    if request.method == 'GET':
+        db = Database()
+        sql = db.show()   
+        return render_template('data.html',list=sql)
+        
 @app.route('/index2')
 def index2():
     return render_template('squat.html')
@@ -32,6 +40,7 @@ def stream():
 def stream_gen(src):
     try:
         streamer2.stop()
+        streamer3.stop()
         streamer.run(src)
         while True:
             frame = streamer.bytescode()
@@ -50,6 +59,7 @@ def stream2():
 def stream2_gen(src2):
     try:
         streamer.stop()
+        streamer3.stop()
         streamer2.run(src2)
         while True:
             frame = streamer2.bytescode()
@@ -67,6 +77,7 @@ def stream3():
 def stream3_gen(src3):
     try:
         streamer.stop()
+        streamer2.stop()
         streamer3.run(src3)
         while True:
             frame = streamer3.bytescode()
