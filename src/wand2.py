@@ -13,7 +13,7 @@ version = '0.1.0'
 def index():
     return render_template('push_up.html')
 
-@app.route('/index/result',methods=['GET','POST'])
+@app.route('/result',methods=['GET','POST'])
 def index_r():
     if request.method == 'GET':
         db = Database()
