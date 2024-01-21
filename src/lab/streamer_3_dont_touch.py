@@ -37,7 +37,7 @@ class Streamer3 :
         self.progress = None
         self.text_direction = None
         self.text_stage = None
-        self.test_progress = None
+        self.text_progress = None
         
     def run(self, src = 0 ) :
         
