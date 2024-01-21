@@ -173,7 +173,7 @@ class Streamer2 :
                                 cv2.circle(image, (lmList[23][1], lmList[23][2]), 10, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[31][1], lmList[31][2]), 10, (0, 255, 0), cv2.FILLED)
-                            if (lmList[25][1] <= lmList[31][1]) and (lmList[31][1] <= lmList[23][1]) and (self.angle_1 < 120) and (self.angle_2 < 120) and (self.stage != "Down"):
+                            if (lmList[25][1] <= lmList[31][1]) and (lmList[31][1] <= lmList[23][1]) and (self.angle_1 < 120) and (self.angle_2 < 140) and (self.stage != "Down"):
                                 self.stage = "Down"
                                 with conn.cursor() as cur :
                                     sql = "select * from squat"
@@ -219,7 +219,7 @@ class Streamer2 :
                                 cv2.circle(image, (lmList[24][1], lmList[24][2]), 10, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[31][1], lmList[32][2]), 10, (0, 255, 0), cv2.FILLED)
-                            if (lmList[26][1] >= lmList[32][1]) and (lmList[32][1] >= lmList[24][1]) and (self.angle_4 < 120) and (self.angle_5 < 120) and (self.stage != "Down"):
+                            if (lmList[26][1] >= lmList[32][1]) and (lmList[32][1] >= lmList[24][1]) and (self.angle_4 < 120) and (self.angle_5 < 140) and (self.stage != "Down"):
                                 self.stage = "Down"
                                 with conn.cursor() as cur :
                                     sql = "select * from squat"
