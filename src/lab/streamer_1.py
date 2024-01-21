@@ -323,3 +323,4 @@ class Streamer1 :
     def __exit__(self) :
         print( '* streamer class exit')
         self.capture.release()
+        sys.exit(0)
