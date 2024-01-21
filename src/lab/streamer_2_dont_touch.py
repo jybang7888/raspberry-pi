@@ -1,5 +1,7 @@
 import time
+import sys
 import cv2
+import pymysql
 import imutils
 import platform
 import numpy as np
@@ -7,6 +9,8 @@ import mediapipe as mp
 import os
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
+conn = pymysql.connect(host = 'localhost', user = 'root', password='1234',db='health',charset='utf8')
+current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
 from threading import Thread
 from queue import Queue
@@ -47,7 +51,11 @@ class Streamer2 :
         self.angle_4 = 0
         self.angle_5 = 0
         self.angle_6 = 0
-        
+        self.frame = None
+        with conn.cursor() as cur :
+            sql = "delete from push_up"
+            cur.execute(sql)
+            
     def run(self, src = 0 ) :
         
         self.stop()
@@ -93,8 +101,8 @@ class Streamer2 :
             while True:
 
                 if self.started :
-                    (grabbed, frame) = self.capture.read()
-                    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    (grabbed, self.frame) = self.capture.read()
+                    image = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
                     results = pose.process(image) # mediapipe processing
                     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                     lmList = []
@@ -174,8 +182,28 @@ class Streamer2 :
                                 cv2.circle(image, (lmList[31][1], lmList[31][2]), 10, (0, 255, 0), cv2.FILLED)
                             if (lmList[25][1] <= lmList[31][1]) and (lmList[31][1] <= lmList[23][1]) and (self.angle_1 < 120) and (self.angle_2 < 90):
                                 self.stage = "Down"
+                                
+                                with conn.cursor() as cur :
+                                    sql = "select * from push_up"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Down')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+
+
+                            
                             if (self.angle_3 > 85) and (self.angle_3 < 95) and (self.stage == "Down"):
                                 self.stage = "Up"
+
+                                with conn.cursor() as cur :
+                                    sql = "select * from push_up"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
