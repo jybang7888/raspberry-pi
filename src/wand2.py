@@ -14,7 +14,7 @@ def index():
     if request.method == 'GET':
         db = Database()
         sql = db.show()   
-        return render_template('push_up.html',list=sql)
+        return render_template('data.html',list=sql)
 
 @app.route('/index2')
 def index2():
