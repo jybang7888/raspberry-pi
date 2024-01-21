@@ -7,6 +7,9 @@ import platform
 import numpy as np
 import mediapipe as mp
 import os
+from threading import Thread
+from queue import Queue
+
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 conn = pymysql.connect(host = 'localhost', user = 'root', password='1234',db='health',charset='utf8')
@@ -53,6 +56,9 @@ class Streamer :
         self.angle_5 = 0
         self.angle_6 = 0
         self.frame = None
+
+        self.db_lock = Lock()
+        
         with conn.cursor() as cur :
             sql = "delete from push_up"
             cur.execute(sql)
@@ -195,15 +201,20 @@ class Streamer :
                             if (lmList[11][2] <= lmList[13][2]) and (lmList[13][2] <= lmList[15][2]) and (self.stage == "Down") :
                                 self.stage = "Up"
                                 self.counter += 1
-                                
-                                with conn.cursor() as cur :
-                                    sql = "select * from push_up"
+
+
+                                with self.db_lock:
+                                    try:
+                                        with conn.cursor() as cur :
+                                            sql = "select * from push_up"
                                     cur.execute(sql)
                                     cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
                                     conn.commit()
                                     cur.execute(sql)
                                     for row in cur.fetchall():
                                         print(row[0], row[1])
+                                
+                                    
                                         
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
