@@ -123,87 +123,50 @@ class Streamer3 :
                       
                   
                     if len(lmList) != 0:
-                        cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[13][1], lmList[13][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[14][1], lmList[14][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[15][1], lmList[15][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[16][1], lmList[16][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[27][1], lmList[27][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 0, 255), cv2.FILLED) #red
+                        cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[13][1], lmList[13][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[14][1], lmList[14][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[23][1], lmList[23][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[24][1], lmList[24][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[28][1], lmList[28][2]), 10, (0, 0, 255), cv2.FILLED)
                         if (lmList[0][2] >= lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) :
-                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[13][1], lmList[13][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[14][1], lmList[14][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 0), cv2.FILLED)        
+                            cv2.circle(image, (lmList[0][1], lmList[0][2]), 10, (0, 69, 255), cv2.FILLED) #orangered
+                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 69, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 69, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 69, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 10, (0, 69, 255), cv2.FILLED)        
                             self.stage = "Stand"
-                        if (lmList[0][2] >= lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Stand" or "Jump"):
-                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[13][1], lmList[13][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[14][1], lmList[14][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 0), cv2.FILLED)        
+                        if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Stand" or "Jump"):
+                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 140, 255), cv2.FILLED) #darkorange
+                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 140, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 140, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 140, 255), cv2.FILLED)
                             self.stage = "Rolling_frist"
                         if (lmList[13][2] and lmList[14][2] >= lmList[11][2] and lmList[12][2]) and self.stage == "Rolling_first":
-                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[13][1], lmList[13][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[14][1], lmList[14][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 0), cv2.FILLED)        
+                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 255), cv2.FILLED) #yellow
+                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[13][1], lmList[13][2]), 10, (0, 255, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[14][1], lmList[14][2]), 10, (0, 255, 255), cv2.FILLED)
                             self.stage = "Push_up"
-                        if (lmList[0][2] >= lmList[25][2] and lmList[26][2] >= lmList[15][2] and [16][2]) and self.stage == "Push_up":
-                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[13][1], lmList[13][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[14][1], lmList[14][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 0), cv2.FILLED)        
+                        if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and [16][2]) and self.stage == "Push_up":
+                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 127), cv2.FILLED) #chartreuse
+                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 255, 127), cv2.FILLED)
+                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 127), cv2.FILLED)
+                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 255, 127), cv2.FILLED)
                             self.stage = "Rolling_second"
                         if (lmList[15][2] and lmList[16][2] >= lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) and self.stage == "Rolling_second":
-                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[13][1], lmList[13][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[14][1], lmList[14][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 0), cv2.FILLED)        
+                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 0), cv2.FILLED) #green
+                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 255, 0), cv2.FILLED
+                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 10, (0, 255, 0), cv2.FILLED)        
                             self.stage = "Jump"
                             self.counter += 1
                             counter2 = str(int(self.counter))
@@ -213,8 +176,8 @@ class Streamer3 :
                     
                     if grabbed : 
                         self.Q.put(image)
-                    cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-                    cv2.putText(image, self.text_stage, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                    cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_stage, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
                         
                           
     def clear(self):
