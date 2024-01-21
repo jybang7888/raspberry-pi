@@ -1,14 +1,3 @@
-# -*- encoding: utf-8 -*-
-#-------------------------------------------------#
-# Date created          : 2020. 8. 18.
-# Date last modified    : 2020. 8. 19.
-# Author                : chamadams@gmail.com
-# Site                  : http://wandlab.com
-# License               : GNU General Public License(GPL) 2.0
-# Version               : 0.1.0
-# Python Version        : 3.6+
-#-------------------------------------------------#
-
 import time
 import cv2
 import imutils
@@ -46,6 +35,19 @@ class Streamer2 :
         self.text = None
         self.direction = None
         self.text_direction = None
+        self.elbow = None
+        self.knee = None
+        self.shoulder = None
+        self.text_stage = None
+        self.text_1 = "< 90"
+        self.text_2 = "< 120"
+        self.angle_1 = 0
+        self.angle_2 = 0
+        self.angle_3 = 0
+        self.angle_4 = 0
+        self.angle_5 = 0
+        self.angle_6 = 0
+        
     def run(self, src = 0 ) :
         
         self.stop()
@@ -113,61 +115,107 @@ class Streamer2 :
                             self.direction = "Left"
                             print(self.direction)
                         self.text_direction = "{}:{}".format("Direction", self.direction)
-                        cv2.putText(image, self.text_direction, (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                        cv2.putText(image, self.text_direction, (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
                     
                     try:
                         landmarks = results.pose_landmarks.landmark
+                        left_elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
                         left_shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
                         left_hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
                         left_knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
                         left_ankle = [landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].y]
+                        right_elbow = [landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].y]
                         right_shoulder = [landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
                         right_hip = [landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
                         right_knee = [landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].y]
                         right_ankle = [landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].y]
-                        angle_1 = self.calculate_angle(left_knee, left_hip, left_shoulder)
-                        angle_2 = self.calculate_angle(left_ankle, left_knee, left_hip)
-                        angle_3 = self.calculate_angle(right_knee, right_hip, right_shoulder)
-                        angle_4 = self.calculate_angle(right_ankle, right_knee, right_hip)
+                        self.angle_1 = self.calculate_angle(left_knee, left_hip, left_shoulder)
+                        self.angle_2 = self.calculate_angle(left_ankle, left_knee, left_hip)
+                        self.angle_3 = self.calculate_angle(left_elbow, left_shoulder, left_knee)
+                        self.angle_4 = self.calculate_angle(right_knee, right_hip, right_shoulder)
+                        self.angle_5 = self.calculate_angle(right_ankle, right_knee, right_hip)
+                        self.angle_6 = self.calculate_angle(right_elbow, right_shoulder, right_knee)
 
-                        if (self_direction == "Left"):
-                            cv2.putText(image, str(angle_1), tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            cv2.putText(image, str(angle_2), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                        if (self_direction == "Right"):
-                            cv2.putText(image, str(angle_3), tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            cv2.putText(image, str(angle_4), tuple(np.multiply(right_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                        if (self.direction == "Left"):
+                            cv2.putText(image, self.angle_1, tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, self.angle_2, tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            self.hip = "{}:{}".format("Hip", self.angle_1)
+                            self.knee = "{}:{}".format("Knee", self.angle_2)
+                            cv2.putText(image, self.hip, (150, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                            cv2.putText(image, self.knee, (150, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                        if (self.direction == "Right"):
+                            cv2.putText(image, self.angle_4, tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, self.angle_5, tuple(np.multiply(right_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            self.hip = "{}:{}".format("Hip", self.angle_4)
+                            self.knee = "{}:{}".format("Knee", self.angle_5)
+                            cv2.putText(image, self.hip, (150, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                            cv2.putText(image, self.knee, (150, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
                     except:
                         pass
 
                     if len(lmList) != 0:
-                        cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[31][1], lmList[31][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[32][1], lmList[32][2]), 15, (0, 0, 255), cv2.FILLED)                        
-                        if (lmList[25][1] and lmList[26][1] >= lmList[31][1] and lmList[32][1]) and (lmList[23][2] and lmList[24][2] >= lmList[25][2] and lmList[26][2]) and (angle_1 > 90) and (angle_2 > 90):
-                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)                           
-                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 255, 0), cv2.FILLED)                           
-                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)                            
-                            cv2.circle(image, (lmList[31][1], lmList[31][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[32][1], lmList[32][2]), 15, (0, 255, 0), cv2.FILLED)                            
-                            self.stage = "down"
-                        if (lmList[25][1] and lmList[26][1] <= lmList[31][1] and lmList[32][1]) and (lmList[23][2] and lmList[24][2] <= lmList[25][2] and lmList[26][2]) and self.stage == "down":
-                            self.stage = "up"
-                            self.counter += 1
-                            counter2 = str(int(self.counter))
-                            print(self.counter)
-                        self.text = "{}:{}".format("Squat", self.counter)
+                        if (self.direction == "Left"):    
+                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 0, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 10, (0, 0, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[13][1], lmList[13][2]), 10, (0, 0, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 0, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[31][1], lmList[31][2]), 10, (0, 0, 255), cv2.FILLED)             
+                            if (self.stage == "Up"):
+                                cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 255), cv2.FILLED)
+                                cv2.circle(image, (lmList[13][1], lmList[13][2]), 10, (0, 255, 255), cv2.FILLED)
+                                cv2.circle(image, (lmList[23][1], lmList[23][2]), 10, (0, 255, 255), cv2.FILLED)
+                                cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 255), cv2.FILLED)
+                                cv2.circle(image, (lmList[31][1], lmList[31][2]), 10, (0, 255, 255), cv2.FILLED)
+                            elif (self.stage == "Down"):
+                                cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 0), cv2.FILLED)
+                                cv2.circle(image, (lmList[13][1], lmList[13][2]), 10, (0, 255, 0), cv2.FILLED)
+                                cv2.circle(image, (lmList[23][1], lmList[23][2]), 10, (0, 255, 0), cv2.FILLED)
+                                cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 0), cv2.FILLED)
+                                cv2.circle(image, (lmList[31][1], lmList[31][2]), 10, (0, 255, 0), cv2.FILLED)
+                            if (lmList[25][1] <= lmList[31][1]) and (lmList[31][2] <= lmList[23][2]) and (self.angle_1 < 120) and (self.angle_2 < 90):
+                                self.stage = "Down"
+                            if (self.angle_3 > 85) and (self.angle_3 < 95) and (self.stage == "Down"):
+                                self.stage = "Up"
+                                self.counter += 1
+                                counter2 = str(int(self.counter))
+                                print(self.counter)
+                            self.text = "{}:{}".format("Squat", self.counter)
+                            self.text_stage = "{}:{}".format("Stage", self.stage)
+                      
+                        if (self.direction == "Right"):    
+                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 0, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[14][1], lmList[14][2]), 10, (0, 0, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 10, (0, 0, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 0, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[32][1], lmList[32][2]), 10, (0, 0, 255), cv2.FILLED)             
+                            if (self.stage == "Up"):
+                                cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 255), cv2.FILLED)
+                                cv2.circle(image, (lmList[14][1], lmList[14][2]), 10, (0, 255, 255), cv2.FILLED)
+                                cv2.circle(image, (lmList[23][1], lmList[24][2]), 10, (0, 255, 255), cv2.FILLED)
+                                cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 255, 255), cv2.FILLED)
+                                cv2.circle(image, (lmList[32][1], lmList[32][2]), 10, (0, 255, 255), cv2.FILLED)
+                            elif (self.stage == "Down"):
+                                cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 0), cv2.FILLED)
+                                cv2.circle(image, (lmList[14][1], lmList[14][2]), 10, (0, 255, 0), cv2.FILLED)
+                                cv2.circle(image, (lmList[24][1], lmList[24][2]), 10, (0, 255, 0), cv2.FILLED)
+                                cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 255, 0), cv2.FILLED)
+                                cv2.circle(image, (lmList[31][1], lmList[32][2]), 10, (0, 255, 0), cv2.FILLED)
+                            if (lmList[26][1] >= lmList[32][1]) and (lmList[32][2] >= lmList[24][2]) and (self.angle_4 < 120) and (self.angle_5 < 90):
+                                self.stage = "Down"
+                            if (self.angle_6 > 85) and (self.angle_6 < 95) and (self.stage == "Down"):
+                                self.stage = "Up"
+                                self.counter += 1
+                                counter2 = str(int(self.counter))
+                                print(self.counter)
+                            self.text = "{}:{}".format("Squat", self.counter)
+                            self.text_stage = "{}:{}".format("Stage", self.stage)
                         
                     if grabbed : 
                         self.Q.put(image)
-                    cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                    cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                    cv2.putText(image, self.text_stage, (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                    cv2.putText(image, self.text_1, (300, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                    cv2.putText(image, self.text_2, (300, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
                         
                           
     def clear(self):
