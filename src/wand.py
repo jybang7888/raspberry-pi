@@ -22,7 +22,7 @@ def index1_r():
         
 @app.route('/index2')
 def index2():
-    return render_template('push_up_1.html')
+    return render_template('squat.html')
 
 @app.route('/index2/result',methods=['GET','POST'])
 def index2_r():
