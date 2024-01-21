@@ -7,16 +7,12 @@ import platform
 import numpy as np
 import mediapipe as mp
 import os
-
-
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 conn = pymysql.connect(host = 'localhost', user = 'root', password='1234',db='health',charset='utf8')
 current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-
 from threading import Thread
 from queue import Queue
-
 class Streamer2 :
     
     def __init__(self ):
@@ -54,9 +50,8 @@ class Streamer2 :
         self.angle_5 = 0
         self.angle_6 = 0
         self.frame = None
-        self.db_lock = Thread()
         with conn.cursor() as cur :
-            sql = "delete from push_up"
+            sql = "delete from squat"
             cur.execute(sql)
             
     def run(self, src = 0 ) :
@@ -87,7 +82,7 @@ class Streamer2 :
             
             self.capture.release()
             self.clear()
-
+            
     def calculate_angle(self,a,b,c):
         a = np.array(a)
         b = np.array(b)
@@ -102,7 +97,6 @@ class Streamer2 :
     def update(self):
         with mp_pose.Pose(min_detection_confidence=0.6, min_tracking_confidence=0.6) as pose:       
             while True:
-
                 if self.started :
                     (grabbed, self.frame) = self.capture.read()
                     image = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
@@ -112,12 +106,10 @@ class Streamer2 :
                     
                     if results.pose_landmarks:
                         mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
-
                         for id, lm in enumerate(results.pose_landmarks.landmark):
                             h, w, c = image.shape
                             cx, cy = int(lm.x * w), int(lm.y * h)
                             lmList.append([id, cx, cy])
-
                     if len(lmList) != 0:
                         if (lmList[14][1] >= lmList[12][1]):
                             self.direction = "Right"
@@ -146,7 +138,6 @@ class Streamer2 :
                         self.angle_4 = self.calculate_angle(right_knee, right_hip, right_shoulder)
                         self.angle_5 = self.calculate_angle(right_ankle, right_knee, right_hip)
                         self.angle_6 = self.calculate_angle(right_elbow, right_shoulder, right_knee)
-
                         if (self.direction == "Left"):
                             cv2.putText(image, self.angle_1, tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, self.angle_2, tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
@@ -163,7 +154,6 @@ class Streamer2 :
                             cv2.putText(image, self.knee, (150, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                     except:
                         pass
-
                     if len(lmList) != 0:
                         if (self.direction == "Left"):    
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 0, 255), cv2.FILLED)
@@ -185,44 +175,27 @@ class Streamer2 :
                                 cv2.circle(image, (lmList[31][1], lmList[31][2]), 10, (0, 255, 0), cv2.FILLED)
                             if (lmList[25][1] <= lmList[31][1]) and (lmList[31][1] <= lmList[23][1]) and (self.angle_1 < 120) and (self.angle_2 < 90):
                                 self.stage = "Down"
-                                
-                                with self.db_lock:
-                                    try:
-                                        with conn.cursor() as cur :
-                                            sql = "select * from push_up"
-                                            cur.execute(sql)
-                                            cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
-                                            conn.commit()
-                                            cur.execute(sql)
-                                            for row in cur.fetchall():
-                                                print(row[0], row[1])
-                                    except:
-                                        pass
-                                    finally:
-                                        if cur:
-                                            cur.close()
-                                
+                                with conn.cursor() as cur :
+                                    sql = "select * from squat"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO squat(datetime,state) VALUES(current_time,'Down')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
                             elif (lmList[11][2] <= lmList[23][2]) and (lmList[23][2] <= lmList[25][2]) and (self.angle_3 > 85) and (self.angle_3 < 95) and (self.stage == "Down"):
                                 self.stage = "Up"
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
-                                
-                                with self.db_lock:
-                                    try:
-                                        with conn.cursor() as cur :
-                                            sql = "select * from push_up"
-                                            cur.execute(sql)
-                                            cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
-                                            conn.commit()
-                                            cur.execute(sql)
-                                            for row in cur.fetchall():
-                                                print(row[0], row[1])
-                                    except:
-                                        pass
-                                    finally:
-                                        if cur:
-                                            cur.close()
+                                with conn.cursor() as cur :
+                                    sql = "select * from squat"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO squat(datetime,state) VALUES(current_time,'Up')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
                                 
                                 
                             self.text = "{}:{}".format("Squat", self.counter)
@@ -248,46 +221,28 @@ class Streamer2 :
                                 cv2.circle(image, (lmList[31][1], lmList[32][2]), 10, (0, 255, 0), cv2.FILLED)
                             if (lmList[26][1] >= lmList[32][1]) and (lmList[32][1] >= lmList[24][1]) and (self.angle_4 < 120) and (self.angle_5 < 90):
                                 self.stage = "Down"
-                                
-                                with self.db_lock:
-                                    try:
-                                        with conn.cursor() as cur :
-                                            sql = "select * from push_up"
-                                            cur.execute(sql)
-                                            cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
-                                            conn.commit()
-                                            cur.execute(sql)
-                                            for row in cur.fetchall():
-                                                print(row[0], row[1])
-                                    except:
-                                        pass
-                                    finally:
-                                        if cur:
-                                            cur.close()
-                                
+                                with conn.cursor() as cur :
+                                    sql = "select * from squat"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO squat(datetime,state) VALUES(current_time,'Down')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
                             elif (lmList[12][2] <= lmList[24][2]) and (lmList[24][2] <= lmList[26][2]) and (self.angle_6 > 85) and (self.angle_6 < 95) and (self.stage == "Down"):
                                 self.stage = "Up"
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
+                                with conn.cursor() as cur :
+                                    sql = "select * from squat"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO squat(datetime,state) VALUES(current_time,'Up')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
                                 
-                                with self.db_lock:
-                                    try:
-                                        with conn.cursor() as cur :
-                                            sql = "select * from push_up"
-                                            cur.execute(sql)
-                                            cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
-                                            conn.commit()
-                                            cur.execute(sql)
-                                            for row in cur.fetchall():
-                                                print(row[0], row[1])
-                                    except:
-                                        pass
-                                    finally:
-                                        if cur:
-                                            cur.close()
-                            
-
                             self.text = "{}:{}".format("Squat", self.counter)
                             self.text_stage = "{}:{}".format("Stage", self.stage)
                         
@@ -305,9 +260,7 @@ class Streamer2 :
             self.Q.queue.clear()
             
     def read(self):
-
         return self.Q.get()
-
     def blank(self):
         
         return np.ones(shape=[self.height, self.width, 3], dtype=np.uint8)
@@ -317,7 +270,6 @@ class Streamer2 :
         if not self.capture.isOpened():
             
             frame = self.blank()
-
         else :
             
             frame = imutils.resize(self.read(), width=int(self.width) )
