@@ -262,7 +262,7 @@ class Streamer2 :
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
                                 
-                               with self.db_lock:
+                                with self.db_lock:
                                     try:
                                         with conn.cursor() as cur :
                                             sql = "select * from push_up"
