@@ -118,10 +118,8 @@ class Streamer :
                                     cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'up')")
                                     conn.commit()
                                     cur.execute(sql)
-                                    while data:
-                                        data = cur.fetchone()
-                                        print(data)
-                                    print(cur.fetchone)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
                             self.stage = "up"
 
                         if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and self.stage == "up":
@@ -132,8 +130,8 @@ class Streamer :
                                 cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'down')")
                                 conn.commit()
                                 cur.execute(sql)
-                                last_row = cur.fetchone()
-                                print(last_row[0], last_row[1])
+                                for row in cur.fetchall():
+                                    print(row[0], row[1])
                             self.counter += 1
                             counter2 = str(int(self.counter))
                             print(self.counter)
