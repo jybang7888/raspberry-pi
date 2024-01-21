@@ -215,6 +215,9 @@ class Streamer :
                                                 print(row[0], row[1])
                                     except:
                                         pass
+                                    finally:
+                                        if cur:
+                                            cur.close()
                                     
                                         
                                 
@@ -233,6 +236,9 @@ class Streamer :
                                                 print(row[0], row[1])
                                     except:
                                         pass
+                                    finally:
+                                        if cur:
+                                            cur.close()
                                                                        
                             self.text = "{}:{}".format("Push Ups", self.counter)
                             self.text_stage = "{}:{}".format("Stage", self.stage)
@@ -275,6 +281,9 @@ class Streamer :
                                                 print(row[0], row[1])
                                     except:
                                         pass
+                                    finally:
+                                        if cur:
+                                            cur.close()
                                         
                             if (lmList[14][2] <= lmList[12][2]) and (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 90) and (self.angle_5 > 150) and (self.angle_6 > 150) and (self.stage != "Down"):
                                 self.stage = "Down"
@@ -291,6 +300,9 @@ class Streamer :
                                                 print(row[0], row[1])
                                     except:
                                         pass
+                                    finally:
+                                        if cur:
+                                            cur.close()
                             
                             self.text = "{}:{}".format("Push Ups", self.counter)
                             self.text_stage = "{}:{}".format("Stage", self.stage)
