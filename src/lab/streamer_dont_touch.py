@@ -1,14 +1,3 @@
-# -*- encoding: utf-8 -*-
-#-------------------------------------------------#
-# Date created          : 2020. 8. 18.
-# Date last modified    : 2020. 8. 19.
-# Author                : chamadams@gmail.com
-# Site                  : http://wandlab.com
-# License               : GNU General Public License(GPL) 2.0
-# Version               : 0.1.0
-# Python Version        : 3.6+
-#-------------------------------------------------#
-
 import time
 import cv2
 import imutils
@@ -146,10 +135,16 @@ class Streamer :
                             cv2.putText(image, str(angle_1), tuple(np.multiply(left_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, str(angle_2), tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, str(angle_3), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, str(angle_1), (100, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                            cv2.putText(image, str(angle_2), (100, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                            cv2.putText(image, str(angle_3), (100, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
                         if (self.direction == "Right"):
                             cv2.putText(image, str(angle_4), tuple(np.multiply(right_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, str(angle_5), tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, str(angle_6), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, str(angle_4), (100, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                            cv2.putText(image, str(angle_5), (100, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                            cv2.putText(image, str(angle_6), (100, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
                     except:
                         pass
                       
@@ -181,9 +176,7 @@ class Streamer :
                             counter2 = str(int(self.counter))
                             print(self.counter)
                         self.text = "{}:{}".format("Push Ups", self.counter)
-                        #self.text_elbow = "{}:{}".format("Elbow", angle_1)
-                        #self.text_hip = "{}:{}".format("Hip", angle_2)
-                        #self.text_knee = "{}:{}".format("Knee", angle_3)
+                       
                     
                     if (len(lmList) != 0) and (self.direction == "Right"):
                         cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 0, 255), cv2.FILLED)
@@ -212,16 +205,12 @@ class Streamer :
                             counter2 = str(int(self.counter))
                             print(self.counter)
                         self.text = "{}:{}".format("Push Ups", self.counter)
-                        #self.text_elbow = "{}:{}".format("Elbow", angle_4)
-                        #self.text_hip = "{}:{}".format("Hip", angle_5)
-                        #self.text_knee = "{}:{}".format("Knee", angle_6)
+                      
                         
                     if grabbed : 
                         self.Q.put(image)
                     cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-                    #cv2.putText(image, self.text_elbow, (100, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-                    #cv2.putText(image, self.text_hip, (100, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-                    #cv2.putText(image, self.text_knee, (100, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                  
                         
                           
     def clear(self):
