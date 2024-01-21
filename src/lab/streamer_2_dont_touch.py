@@ -189,6 +189,7 @@ class Streamer2 :
                                     conn.commit()
                                     cur.execute(sql)
                                     for row in cur.fetchall():
+                                        print(row[0], row[1])
                             elif (lmList[11][2] <= lmList[23][2]) and (lmList[23][2] <= lmList[25][2]) and (self.angle_3 > 85) and (self.angle_3 < 95) and (self.stage == "Down"):
                                 self.stage = "Up"
                                 with conn.cursor() as cur :
@@ -197,7 +198,8 @@ class Streamer2 :
                                     cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
                                     conn.commit()
                                     cur.execute(sql)
-                                    for row in cur.fetchall():       
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
@@ -231,6 +233,7 @@ class Streamer2 :
                                     conn.commit()
                                     cur.execute(sql)
                                     for row in cur.fetchall():
+                                        print(row[0], row[1])
                             elif (lmList[12][2] <= lmList[24][2]) and (lmList[24][2] <= lmList[26][2]) and (self.angle_6 > 85) and (self.angle_6 < 95) and (self.stage == "Down"):
                                 self.stage = "Up"
                                 self.counter += 1
@@ -241,6 +244,7 @@ class Streamer2 :
                                     conn.commit()
                                     cur.execute(sql)
                                     for row in cur.fetchall():
+                                        print(row[0], row[1])
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
                             self.text = "{}:{}".format("Squat", self.counter)
