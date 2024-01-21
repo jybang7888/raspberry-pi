@@ -42,12 +42,12 @@ class Streamer :
         self.text_1 = "< 90"
         self.text_2 = "< 190"
         self.text_3 = "< 150"
-        self.angle_1 = None
-        self.angle_2 = None
-        self.angle_3 = None
-        self.angle_4 = None
-        self.angle_5 = None
-        self.angle_6 = None
+        self.angle_1 = 0
+        self.angle_2 = 0
+        self.angle_3 = 0
+        self.angle_4 = 0
+        self.angle_5 = 0
+        self.angle_6 = 0
         
     def run(self, src = 0 ) :
         
