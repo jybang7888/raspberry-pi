@@ -198,6 +198,9 @@ class Streamer2 :
                                                 print(row[0], row[1])
                                     except:
                                         pass
+                                    finally:
+                                        if cur:
+                                            cur.close()
                                 
                             elif (lmList[11][2] <= lmList[23][2]) and (lmList[23][2] <= lmList[25][2]) and (self.angle_3 > 85) and (self.angle_3 < 95) and (self.stage == "Down"):
                                 self.stage = "Up"
@@ -217,6 +220,9 @@ class Streamer2 :
                                                 print(row[0], row[1])
                                     except:
                                         pass
+                                    finally:
+                                        if cur:
+                                            cur.close()
                                 
                                 
                             self.text = "{}:{}".format("Squat", self.counter)
@@ -255,6 +261,9 @@ class Streamer2 :
                                                 print(row[0], row[1])
                                     except:
                                         pass
+                                    finally:
+                                        if cur:
+                                            cur.close()
                                 
                             elif (lmList[12][2] <= lmList[24][2]) and (lmList[24][2] <= lmList[26][2]) and (self.angle_6 > 85) and (self.angle_6 < 95) and (self.stage == "Down"):
                                 self.stage = "Up"
@@ -274,6 +283,9 @@ class Streamer2 :
                                                 print(row[0], row[1])
                                     except:
                                         pass
+                                    finally:
+                                        if cur:
+                                            cur.close()
                             
 
                             self.text = "{}:{}".format("Squat", self.counter)
