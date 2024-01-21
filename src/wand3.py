@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, Response, stream_with_context
 from threading import Thread
-from lab.streamer_1 import Streamer
+from lab.streamer_1 import Streamer1
 from lab.streamer_2 import Streamer2
 from lab.streamer_3 import Streamer3
 from DB import Database
@@ -28,27 +28,27 @@ def index2():
 def index3():
     return render_template('burpee.html')
 
-streamer = Streamer()
+streamer1 = Streamer1()
 streamer2 = Streamer2()
 streamer3 = Streamer3()
 
-@app.route('/stream')
-def stream():
-    src = request.args.get('src', default=0, type=int)
-    return Response(stream_with_context(stream_gen(src)), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/stream1')
+def stream1():
+    src1 = request.args.get('src', default=0, type=int)
+    return Response(stream_with_context(stream1_gen(src1)), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-def stream_gen(src):
+def stream1_gen(src1):
     try:
         streamer2.stop()
         streamer3.stop()
-        streamer.run(src)
+        streamer1.run(src1)
         while True:
-            frame = streamer.bytescode()
+            frame = streamer1.bytescode()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
     except GeneratorExit:
         print('[wandlab]', 'disconnected stream')
-        streamer.stop()
+        streamer1.stop()
 
 
 @app.route('/stream2')
@@ -58,7 +58,7 @@ def stream2():
 
 def stream2_gen(src2):
     try:
-        streamer.stop()
+        streamer1.stop()
         streamer3.stop()
         streamer2.run(src2)
         while True:
@@ -76,7 +76,7 @@ def stream3():
 
 def stream3_gen(src3):
     try:
-        streamer.stop()
+        streamer1.stop()
         streamer2.stop()
         streamer3.run(src3)
         while True:
