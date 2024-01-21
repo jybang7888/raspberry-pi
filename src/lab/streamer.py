@@ -117,7 +117,10 @@ class Streamer :
                                     cur.execute(sql)
                                     cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'up')")
                                     conn.commit()
-                                    cur.execute(sql)            
+                                    cur.execute(sql)
+                                    while data:
+                                        data = cur.fetchone()
+                                        print(data)
                                     print(cur.fetchone)
                             self.stage = "up"
 
@@ -129,7 +132,8 @@ class Streamer :
                                 cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'down')")
                                 conn.commit()
                                 cur.execute(sql)
-                                print(cur.fetchone)
+                                last_row = cur.fetchone()
+                                print(last_row[0], last_row[1])
                             self.counter += 1
                             counter2 = str(int(self.counter))
                             print(self.counter)
