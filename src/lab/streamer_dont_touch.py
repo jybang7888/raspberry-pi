@@ -1,4 +1,6 @@
 import time
+import sys
+import pymysql
 import cv2
 import imutils
 import platform
@@ -7,6 +9,8 @@ import mediapipe as mp
 import os
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
+conn = pymysql.connect(host = 'localhost', user = 'root', password='1234',db='health',charset='utf8')
+current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
 from threading import Thread
 from queue import Queue
@@ -30,7 +34,7 @@ class Streamer :
         self.Q = Queue(maxsize=128)
         self.started = False
         self.counter = 0
-        self.stage = None
+        self.stage = "Default"
         self.create = None
         self.text = None
         self.direction = None
@@ -48,7 +52,11 @@ class Streamer :
         self.angle_4 = 0
         self.angle_5 = 0
         self.angle_6 = 0
-        
+        self.frame = None
+        with conn.cursor() as cur :
+            sql = "delete from push_up"
+            cur.execute(sql)
+            
     def run(self, src = 0 ) :
         
         self.stop()
@@ -93,8 +101,8 @@ class Streamer :
             while True:
 
                 if self.started :
-                    (grabbed, frame) = self.capture.read()
-                    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    (grabbed, self.frame) = self.capture.read()
+                    image = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
                     results = pose.process(image) # mediapipe processing
                     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                     lmList = []
@@ -184,13 +192,33 @@ class Streamer :
                                 cv2.circle(image, (lmList[23][1], lmList[23][2]), 10, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 255, 0), cv2.FILLED)
-                            if (lmList[11][2] <= lmList[13][2]) and (lmList[13][2] <= lmList[15][2]) :
+                            if (lmList[11][2] <= lmList[13][2]) and (lmList[13][2] <= lmList[15][2]) and (self.stage == "Down") :
                                 self.stage = "Up"
-                            elif (lmList[13][2] <= lmList[11][2]) and (lmList[11][2] <= lmList[15][2]) and (self.angle_1 < 90) and (self.angle_2 > 150) and (self.angle_3 > 150) and (self.stage == "Up"):
-                                self.stage = "Down" 
                                 self.counter += 1
+                                
+                                with conn.cursor() as cur :
+                                    sql = "select * from push_up"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
+                                        
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
+                            elif (lmList[13][2] <= lmList[11][2]) and (lmList[11][2] <= lmList[15][2]) and (self.angle_1 < 90) and (self.angle_2 > 150) and (self.angle_3 > 150) and (self.stage != "Down"):
+                                self.stage = "Down"
+                                
+                                with conn.cursor() as cur :
+                                    sql = "select * from push_up"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Down')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
+                                        
                             self.text = "{}:{}".format("Push Ups", self.counter)
                             self.text_stage = "{}:{}".format("Stage", self.stage)
                         if (self.direction == "Right"):
@@ -214,13 +242,33 @@ class Streamer :
                                 cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 0), cv2.FILLED)
-                            if (lmList[12][2] <= lmList[14][2]) and (lmList[14][2] <= lmList[16][2]):      
+                            if (lmList[12][2] <= lmList[14][2]) and (lmList[14][2] <= lmList[16][2]) and (self.stage == "Down"):      
                                 self.stage = "Up"
-                            if (lmList[14][2] <= lmList[12][2]) and (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 90) and (self.angle_5 > 150) and (self.angle_6 > 150) and (self.stage == "Up"):
-                                self.stage = "Down"
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
-                                print(self.counter)    
+                                print(self.counter)
+                                
+                                with conn.cursor() as cur :
+                                    sql = "select * from push_up"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
+                                        
+                            if (lmList[14][2] <= lmList[12][2]) and (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 90) and (self.angle_5 > 150) and (self.angle_6 > 150) and (self.stage != "Down"):
+                                self.stage = "Down"
+                                
+                                with conn.cursor() as cur :
+                                    sql = "select * from push_up"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Down')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
+                            
                             self.text = "{}:{}".format("Push Ups", self.counter)
                             self.text_stage = "{}:{}".format("Stage", self.stage)
                                       
