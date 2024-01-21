@@ -65,10 +65,13 @@
 			<h1>Start Count</h1>
 			<nav>
             <ul>
-               <li><a href="http://192.168.1.144:5000/index2/result">Check your result</a></li>
+               <li><a href="http://192.168.1.144:5000/result">Check your result</a></li>
             </ul>
          </nav>
 		</header>
+		<form action="clock_save.php" method="post">
+        	<button type="submit">Save</button>
+    		</form>
 		<p id="currentTime"></p>
 		<div id="output"></div>
 		<script>
@@ -106,27 +109,8 @@
         			const minutes = now.getMinutes().toString().padStart(2, '0');
         			const seconds = now.getSeconds().toString().padStart(2, '0');
         			const currentTimeString = `${hours}:${minutes}:${seconds}`;
-        			sendCurrentTimeToPHP(currentTimeString);
-			}
-			function sendCurrentTimeToPHP(currentTimeString) {
-			        var postData = {
-        				key: data
-				};
-				fetch('server.php', {
-        				method: 'POST',
-        				headers: {
-            					'Content-Type': 'application/json'
-        				},
-        				body: JSON.stringify(postData)
-    				})
-    				.then(response => response.json())
-    				.then(result => {
-        				console.log(result);
-    				})
-    					.catch(error => {
-        					console.error('Error:', error);
-    				});
-    			}
+        		}
+			
     			function startStopwatch() {
 				if (timeLeft >= 60) {
         				const circle = document.querySelector('.stopwatch circle');
@@ -146,6 +130,6 @@
 				}
 			}
 		</script>
-		<iframe src="http://192.168.1.144:5000/stream2?src=0" sandbox="allow-same-origin allow-scripts" frameborder="0"></iframe>
+		<iframe src="http://192.168.1.144:5000/stream?src=0" sandbox="allow-same-origin allow-scripts" frameborder="0"></iframe>
 	</body>
 </html>
