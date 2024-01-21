@@ -9,7 +9,7 @@ import mediapipe as mp
 import os
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
-
+conn = pymysql.connect(host = 'localhost', user = 'root', password='1234',db='health',charset='utf8')
 current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
 from threading import Thread
@@ -52,8 +52,7 @@ class Streamer2 :
         self.angle_5 = 0
         self.angle_6 = 0
         self.frame = None
-        self.conn = pymysql.connect(host = 'localhost', user = 'root', password='1234',db='health',charset='utf8')
-        with self.conn.cursor() as cur :
+        with conn.cursor() as cur :
             sql = "delete from push_up"
             cur.execute(sql)
             
