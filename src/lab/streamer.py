@@ -123,7 +123,6 @@ class Streamer :
                             self.stage = "up"
 
                         if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and self.stage == "up":
-                            self.stage = "down"
                             with conn.cursor() as cur :
                                 sql = "select * from push_up"
                                 cur.execute(sql)
@@ -132,6 +131,7 @@ class Streamer :
                                 cur.execute(sql)
                                 for row in cur.fetchall():
                                     print(row[0], row[1])
+                            self.stage = "down"
                             self.counter += 1
                             counter2 = str(int(self.counter))
                             print(self.counter)
