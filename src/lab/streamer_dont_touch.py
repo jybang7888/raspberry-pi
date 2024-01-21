@@ -219,9 +219,9 @@ class Streamer :
                     if grabbed : 
                         self.Q.put(image)
                     cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-                    #cv2.putText(image, self.text_elbow, (50, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-                    #cv2.putText(image, self.text_hip, (50, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-                    #cv2.putText(image, self.text_knee, (50, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    #cv2.putText(image, self.text_elbow, (100, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    #cv2.putText(image, self.text_hip, (100, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    #cv2.putText(image, self.text_knee, (100, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
                         
                           
     def clear(self):
