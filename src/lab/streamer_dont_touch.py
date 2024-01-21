@@ -186,6 +186,7 @@ class Streamer :
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
                             self.text = "{}:{}".format("Push Ups", self.counter)
+                            self.text_stage = "{}:{}".format("Stage", self.stage)
                         if (self.direction == "Right"):
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 0, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[14][1], lmList[14][2]), 10, (0, 0, 255), cv2.FILLED)
@@ -215,7 +216,7 @@ class Streamer :
                                 counter2 = str(int(self.counter))
                                 print(self.counter)    
                             self.text = "{}:{}".format("Push Ups", self.counter)
-                       self.text_stage = "{}:{}".format("Stage", self.stage)
+                            self.text_stage = "{}:{}".format("Stage", self.stage)
                                       
                     if grabbed : 
                         self.Q.put(image)
