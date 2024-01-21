@@ -15,7 +15,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM health WHERE datetime > $starttime AND datetime < $endtime";
+$sql = "SELECT * FROM squat WHERE datetime > $starttime AND datetime < $endtime";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
