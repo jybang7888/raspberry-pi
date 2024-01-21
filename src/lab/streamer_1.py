@@ -14,7 +14,7 @@ current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
 from threading import Thread
 from queue import Queue
-class Streamer :
+class Streamer1 :
     
     def __init__(self):
         
