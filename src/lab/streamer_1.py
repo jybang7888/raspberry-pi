@@ -118,10 +118,8 @@ class Streamer1 :
                     if len(lmList) != 0:
                         if (lmList[12][1] >= lmList[24][1]):
                             self.direction = "Right"
-                            print(self.direction)
                         if (lmList[11][1] <= lmList[23][1]):
                             self.direction = "Left"
-                            print(self.direction)
                         self.text_direction = "{}:{}".format("Direction", self.direction)
                         cv2.putText(image, self.text_direction, (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1 , (0, 0, 0), 2)                          
                     try:
@@ -161,9 +159,9 @@ class Streamer1 :
                             self.elbow = "{}:{}".format("Elbow", self.angle_4)
                             self.hip = "{}:{}".format("Hip", self.angle_5)
                             self.knee = "{}:{}".format("Knee", self.angle_6)
-                            cv2.putText(image, self.elbow, (150, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
-                            cv2.putText(image, self.hip, (150, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
-                            cv2.putText(image, self.knee, (150, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                            cv2.putText(image, self.elbow, (150, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                            cv2.putText(image, self.hip, (150, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                            cv2.putText(image, self.knee, (150, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                     except:
                         pass
                       
@@ -270,11 +268,11 @@ class Streamer1 :
 
                     if grabbed : 
                         self.Q.put(image)
-                    cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
-                    cv2.putText(image, self.text_stage, (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
-                    cv2.putText(image, self.text_1, (300, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
-                    cv2.putText(image, self.text_2, (300, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
-                    cv2.putText(image, self.text_3, (300, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                    cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_stage, (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_1, (300, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_2, (300, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_3, (300, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                 
                         
                           
