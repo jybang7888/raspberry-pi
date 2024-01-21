@@ -13,7 +13,7 @@ from queue import Queue
 
 class Streamer :
     
-    def __init__(self ):
+    def __init__(self):
         
         if cv2.ocl.haveOpenCL() :
             cv2.ocl.setUseOpenCL(True)
@@ -109,7 +109,7 @@ class Streamer :
                             self.direction = "Left"
                             print(self.direction)
                         self.text_direction = "{}:{}".format("Direction", self.direction)
-                        cv2.putText(image, self.text_direction, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)                          
+                        cv2.putText(image, self.text_direction, (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1 , (0, 0, 0), 2)                          
 
                     try:
                         landmarks = results.pose_landmarks.landmark
@@ -220,7 +220,7 @@ class Streamer :
                     if grabbed : 
                         self.Q.put(image)
                     cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
-                    cv2.putText(image, self.text_stage, (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
+                    cv2.putText(image, self.text_stage, (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
                     cv2.putText(image, self.text_1, (200, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
                     cv2.putText(image, self.text_2, (200, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
                     cv2.putText(image, self.text_3, (200, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
