@@ -40,7 +40,7 @@ class Streamer :
         self.knee = None
         self.text_stage = None
         self.text_1 = "< 90"
-        self.text_2 = "< 190"
+        self.text_2 = "> 150"
         self.text_3 = "< 150"
         self.angle_1 = 0
         self.angle_2 = 0
@@ -186,7 +186,7 @@ class Streamer :
                                 cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 255, 0), cv2.FILLED)
                             if (lmList[11][2] <= lmList[13][2]) and (lmList[13][2] <= lmList[15][2]) :
                                 self.stage = "Up"
-                            elif (lmList[13][2] <= lmList[11][2]) and (lmList[11][2] <= lmList[15][2]) and (self.angle_1 < 90) and (self.angle_2 < 190) and (self.angle_3 > 150) and (self.stage == "Up"):
+                            elif (lmList[13][2] <= lmList[11][2]) and (lmList[11][2] <= lmList[15][2]) and (self.angle_1 < 90) and (self.angle_2 > 150) and (self.angle_3 > 150) and (self.stage == "Up"):
                                 self.stage = "Down" 
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
@@ -216,7 +216,7 @@ class Streamer :
                                 cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 0), cv2.FILLED)
                             if (lmList[12][2] <= lmList[14][2]) and (lmList[14][2] <= lmList[16][2]):      
                                 self.stage = "Up"
-                            if (lmList[14][2] <= lmList[12][2]) and (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 90) and (self.angle_5 < 190) and (self.angle_6 > 150) and (self.stage == "Up"):
+                            if (lmList[14][2] <= lmList[12][2]) and (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 90) and (self.angle_5 > 150) and (self.angle_6 > 150) and (self.stage == "Up"):
                                 self.stage = "Down"
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
