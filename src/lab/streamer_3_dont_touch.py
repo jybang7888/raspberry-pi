@@ -68,18 +68,8 @@ class Streamer3 :
             self.capture.release()
             self.clear()
           
-    def calculate_angle(self,a,b,c):
-        a = np.array(a)
-        b = np.array(b)
-        c = np.array(c)
-        radians = np.arctan2(c[1]-b[1], c[0]-b[0]) - np.arctan2(a[1]-b[1], a[0]-b[0])
-        angle = np.abs(radians*180.0/np.pi)
-        if angle >180.0:
-            angle = 360-angle
-        return angle    
-    
     def update(self):
-        with mp_pose.Pose(min_detection_confidence=0.7, min_tracking_confidence=0.7) as pose:       
+        with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:       
             while True:
 
                 if self.started :
@@ -96,34 +86,7 @@ class Streamer3 :
                             h, w, c = image.shape
                             cx, cy = int(lm.x * w), int(lm.y * h)
                             lmList.append([id, cx, cy])
-                          
-                                        
-
-                    try:
-                        landmarks = results.pose_landmarks.landmark
-                        left_shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
-                        left_hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
-                        left_knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
-                        left_ankle = [landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].y]
-                        left_elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
-                        left_wirst = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
-                        right_elbow = [landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].y]
-                        right_wrist = [landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y]
-                        right_shoulder = [landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
-                        right_hip = [landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
-                        right_knee = [landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].y]
-                        right_ankle = [landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].y]
-                        angle_1 = self.calculate_angle(left_wrist, left_elbow, left_shoulder)
-                        angle_2 = self.calculate_angle(left_shoulder, left_hip, left_knee)
-                        angle_3 = self.calculate_angle(left_hip, left_knee, left_ankle)
-                        angle_4 = self.calculate_angle(right_wrist, right_elbow, right_shoulder)
-                        angle_5 = self.calculate_angle(right_shoulder, right_hip, right_knee)
-                        angle_6 = self.calculate_angle(right_hip, right_knee, right_ankle)
-
-                    except:
-                        pass
-                      
-                  
+                                            
                     if len(lmList) != 0:
                         cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 0, 255), cv2.FILLED) #red
                         cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 0, 255), cv2.FILLED)
@@ -146,35 +109,28 @@ class Streamer3 :
                             cv2.circle(image, (lmList[28][1], lmList[28][2]), 10, (0, 69, 255), cv2.FILLED)        
                             self.stage = "Stand"
                             self.progress = "20%"
-                        if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Stand"):
+                        else if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Stand" or "Jump"):
                             cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 140, 255), cv2.FILLED) #darkorange
                             cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 140, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 140, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 140, 255), cv2.FILLED)
                             self.stage = "Rolling_first"
                             self.progress = "40%"
-                        if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Jump"):
-                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 140, 255), cv2.FILLED) #darkorange
-                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 140, 255), cv2.FILLED)
-                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 140, 255), cv2.FILLED)
-                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 140, 255), cv2.FILLED)
-                            self.stage = "Rolling_first"
-                            self.progress = "40%"
-                        if (lmList[13][2] and lmList[14][2] >= lmList[11][2] and lmList[12][2]) and (self.stage == "Rolling_first"):
+                        else if (lmList[13][2] and lmList[14][2] >= lmList[11][2] and lmList[12][2]) and (self.stage == "Rolling_first"):
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 255), cv2.FILLED) #yellow
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[13][1], lmList[13][2]), 10, (0, 255, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[14][1], lmList[14][2]), 10, (0, 255, 255), cv2.FILLED)
                             self.stage = "Push_up"
                             self.progress = "60%"
-                        if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Push_up"):
+                        else if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Push_up"):
                             cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 127), cv2.FILLED) #chartreuse
                             cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 255, 127), cv2.FILLED)
                             cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 127), cv2.FILLED)
                             cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 255, 127), cv2.FILLED)
                             self.stage = "Rolling_second"
                             self.progress = "80%"
-                        if (lmList[15][2] and lmList[16][2] >= lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) and (self.stage == "Rolling_second"):
+                        else if (lmList[15][2] and lmList[16][2] >= lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) and (self.stage == "Rolling_second"):
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 0), cv2.FILLED) #green
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 0), cv2.FILLED)
