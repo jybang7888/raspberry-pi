@@ -1,8 +1,8 @@
 from flask import Flask, request, render_template, Response, stream_with_context
 from threading import Thread
-from lab.streamer_dont_touch import Streamer
-from lab.streamer_2_dont_touch import Streamer2
-from lab.streamer_3_dont_touch import Streamer3
+from lab.streamer_1 import Streamer
+from lab.streamer_2 import Streamer2
+from lab.streamer_3 import Streamer3
 from DB import Database
 
 app = Flask(__name__)
