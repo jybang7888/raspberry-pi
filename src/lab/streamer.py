@@ -48,6 +48,11 @@ class Streamer :
         self.stage = None
         self.create = None
         self.text = None
+        self.frame = None
+        with conn.cursor() as cur :
+            sql = "delete from push_up"
+            cur.execute(sql)
+            
         
     def run(self, src = 0 ) :
         
@@ -84,8 +89,8 @@ class Streamer :
             while True:
 
                 if self.started :
-                    (grabbed, frame) = self.capture.read()
-                    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    (grabbed, self.frame) = self.capture.read()
+                    image = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
                     results = pose.process(image) # mediapipe processing
                     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                     lmList = []
@@ -113,7 +118,7 @@ class Streamer :
                         	        cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'down')")
                         	        conn.commit()
                         	        cur.execute(sql)
-                        	        for row in cur.fetchall() :
+                        	        for row in cur.fetchone() :
                         	            print(row[0],row[1])
                             self.stage = "down"
 
@@ -125,7 +130,7 @@ class Streamer :
                         	    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'up')")
                         	    conn.commit()
                         	    cur.execute(sql)
-                        	    for row in cur.fetchall() :
+                        	    for row in cur.fetchone() :
                         	        print(row[0],row[1])
                             self.counter += 1
                             counter2 = str(int(self.counter))
