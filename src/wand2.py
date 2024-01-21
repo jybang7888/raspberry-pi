@@ -3,14 +3,18 @@ from threading import Thread
 from lab.streamer import Streamer
 from lab.streamer_2 import Streamer2
 from lab.streamer_3 import Streamer3
+from DB import Database
 
 app = Flask(__name__)
 
 version = '0.1.0'
 
-@app.route('/index')
+@app.route('/index',methods=['GET','POST'])
 def index():
-    return render_template('push_up.html')
+    if request.method == 'GET':
+        db = Database()
+        sql = db.show()   
+        return render_template('push_up.html',list=sql)
 
 @app.route('/index2')
 def index2():
