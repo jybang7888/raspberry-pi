@@ -137,8 +137,8 @@ class Streamer3 :
                         cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 0, 255), cv2.FILLED)
                         cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 0, 255), cv2.FILLED)
                         cv2.circle(image, (lmList[28][1], lmList[28][2]), 10, (0, 0, 255), cv2.FILLED)
-                        if (lmList[0][2] >= lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) :
-                            cv2.circle(image, (lmList[0][1], lmList[0][2]), 10, (0, 69, 255), cv2.FILLED) #orangered
+                        if (lmList[11][2] and lmList[12][2] >= lmList[27][2] and lmList[28][2]) :
+                            #orangered
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 69, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 69, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 69, 255), cv2.FILLED)
