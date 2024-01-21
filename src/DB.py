@@ -14,7 +14,3 @@ class Database():
         self.cursor.execute(sql)
         result = self.cursor.fetchall()
         return(result)
-
-if __name__ == "__main__":
-  db = Database()
-  db.show_1()
