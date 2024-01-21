@@ -196,11 +196,14 @@ class Streamer2 :
                                             cur.execute(sql)
                                             for row in cur.fetchall():
                                                 print(row[0], row[1])
-                                except Exception as e:
-                                    print("Error during database operation:", e)
+                                    except:
+                                        pass
                                 
                             elif (lmList[11][2] <= lmList[23][2]) and (lmList[23][2] <= lmList[25][2]) and (self.angle_3 > 85) and (self.angle_3 < 95) and (self.stage == "Down"):
                                 self.stage = "Up"
+                                self.counter += 1
+                                counter2 = str(int(self.counter))
+                                print(self.counter)
                                 
                                 with self.db_lock:
                                     try:
@@ -212,12 +215,10 @@ class Streamer2 :
                                             cur.execute(sql)
                                             for row in cur.fetchall():
                                                 print(row[0], row[1])
-                                except Exception as e:
-                                    print("Error during database operation:", e)
+                                    except:
+                                        pass
                                 
-                                self.counter += 1
-                                counter2 = str(int(self.counter))
-                                print(self.counter)
+                                
                             self.text = "{}:{}".format("Squat", self.counter)
                             self.text_stage = "{}:{}".format("Stage", self.stage)
                       
@@ -252,12 +253,14 @@ class Streamer2 :
                                             cur.execute(sql)
                                             for row in cur.fetchall():
                                                 print(row[0], row[1])
-                                except Exception as e:
-                                    print("Error during database operation:", e)
+                                    except:
+                                        pass
                                 
                             elif (lmList[12][2] <= lmList[24][2]) and (lmList[24][2] <= lmList[26][2]) and (self.angle_6 > 85) and (self.angle_6 < 95) and (self.stage == "Down"):
                                 self.stage = "Up"
                                 self.counter += 1
+                                counter2 = str(int(self.counter))
+                                print(self.counter)
                                 
                                with self.db_lock:
                                     try:
@@ -269,11 +272,10 @@ class Streamer2 :
                                             cur.execute(sql)
                                             for row in cur.fetchall():
                                                 print(row[0], row[1])
-                                except Exception as e:
-                                    print("Error during database operation:", e)
+                                    except:
+                                        pass
                             
-                                counter2 = str(int(self.counter))
-                                print(self.counter)
+
                             self.text = "{}:{}".format("Squat", self.counter)
                             self.text_stage = "{}:{}".format("Stage", self.stage)
                         
