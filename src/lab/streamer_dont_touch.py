@@ -7,8 +7,6 @@ import platform
 import numpy as np
 import mediapipe as mp
 import os
-from threading import Lock
-from queue import Queue
 
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -57,7 +55,7 @@ class Streamer :
         self.angle_6 = 0
         self.frame = None
 
-        self.db_lock = Lock()
+        self.db_lock = Thread()
         
         with conn.cursor() as cur :
             sql = "delete from push_up"
@@ -201,6 +199,8 @@ class Streamer :
                             if (lmList[11][2] <= lmList[13][2]) and (lmList[13][2] <= lmList[15][2]) and (self.stage == "Down") :
                                 self.stage = "Up"
                                 self.counter += 1
+                                counter2 = str(int(self.counter))
+                                print(self.counter)
 
 
                                 with self.db_lock:
@@ -213,13 +213,11 @@ class Streamer :
                                             cur.execute(sql)
                                             for row in cur.fetchall():
                                                 print(row[0], row[1])
-                                except Exception as e:
-                                    print("Error during database operation:", e)
-                                
+                                    except:
+                                        pass
                                     
                                         
-                                counter2 = str(int(self.counter))
-                                print(self.counter)
+                                
                             elif (lmList[13][2] <= lmList[11][2]) and (lmList[11][2] <= lmList[15][2]) and (self.angle_1 < 90) and (self.angle_2 > 150) and (self.angle_3 > 150) and (self.stage != "Down"):
                                 self.stage = "Down"
                                 
@@ -233,9 +231,9 @@ class Streamer :
                                             cur.execute(sql)
                                             for row in cur.fetchall():
                                                 print(row[0], row[1])
-                                except Exception as e:
-                                    print("Error during database operation:", e)
-                                        
+                                    except:
+                                        pass
+                                                                       
                             self.text = "{}:{}".format("Push Ups", self.counter)
                             self.text_stage = "{}:{}".format("Stage", self.stage)
                         if (self.direction == "Right"):
@@ -275,8 +273,8 @@ class Streamer :
                                             cur.execute(sql)
                                             for row in cur.fetchall():
                                                 print(row[0], row[1])
-                                except Exception as e:
-                                    print("Error during database operation:", e)
+                                    except:
+                                        pass
                                         
                             if (lmList[14][2] <= lmList[12][2]) and (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 90) and (self.angle_5 > 150) and (self.angle_6 > 150) and (self.stage != "Down"):
                                 self.stage = "Down"
@@ -291,8 +289,8 @@ class Streamer :
                                             cur.execute(sql)
                                             for row in cur.fetchall():
                                                 print(row[0], row[1])
-                                except Exception as e:
-                                    print("Error during database operation:", e)
+                                    except:
+                                        pass
                             
                             self.text = "{}:{}".format("Push Ups", self.counter)
                             self.text_stage = "{}:{}".format("Stage", self.stage)
