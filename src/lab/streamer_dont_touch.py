@@ -46,6 +46,12 @@ class Streamer :
         self.text = None
         self.direction = None
         self.text_direction = None
+        self.elbow = None
+        self.hip = None
+        self.knee = None
+        self.text_elbow = None
+        self.text_hip = None
+        self.text_knee = None
         
     def run(self, src = 0 ) :
         
@@ -113,7 +119,7 @@ class Streamer :
                             self.direction = "Left"
                             print(self.direction)
                         self.text_direction = "{}:{}".format("Direction", self.direction)
-                        cv2.putText(image, self.text_direction, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)                          
+                        cv2.putText(image, self.text_direction, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)                          
 
                     try:
                         landmarks = results.pose_landmarks.landmark
@@ -136,11 +142,11 @@ class Streamer :
                         angle_5 = self.calculate_angle(right_shoulder, right_hip, right_knee)
                         angle_6 = self.calculate_angle(right_hip, right_knee, right_ankle)
 
-                        if (self_direction == "Left"):
+                        if (self.direction == "Left"):
                             cv2.putText(image, str(angle_1), tuple(np.multiply(left_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, str(angle_2), tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, str(angle_3), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                        if (self_direction == "Right"):
+                        if (self.direction == "Right"):
                             cv2.putText(image, str(angle_4), tuple(np.multiply(right_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, str(angle_5), tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                             cv2.putText(image, str(angle_6), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
@@ -148,43 +154,74 @@ class Streamer :
                         pass
                       
                   
-                    if len(lmList) != 0:
-                        cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[13][1], lmList[13][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[14][1], lmList[14][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[15][1], lmList[15][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[16][1], lmList[16][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[27][1], lmList[27][2]), 15, (0, 0, 255), cv2.FILLED)
-                        cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 0, 255), cv2.FILLED)
-                        if (lmList[12][2] and lmList[11][2] >= lmList[14][2] and lmList[13][2]) and (angle_1 < 90) and (angle_2 < 180) and (angle_2 > 150) :
-                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[13][1], lmList[13][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[14][1], lmList[14][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 15, (0, 255, 0), cv2.FILLED)
-                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 0), cv2.FILLED)        
+                    if (len(lmList) != 0) and (self.direction == "Left"):
+                        cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[13][1], lmList[13][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[23][1], lmList[23][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 0, 255), cv2.FILLED)
+                        if (lmList[11][2] >= lmList[13][2]) and (angle_1 < 90) and (angle_2 < 190) and (angle_3 > 150) :
+                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[13][1], lmList[13][2]), 10, (0, 255, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 10, (0, 255, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 255, 255), cv2.FILLED)
                             self.stage = "down"
-                        if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and self.stage == "down":
+                        if (lmList[11][2] <= and lmList[13][2]) and self.stage == "down":
+                            cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[13][1], lmList[13][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 255, 0), cv2.FILLED)
                             self.stage = "up"
                             self.counter += 1
                             counter2 = str(int(self.counter))
                             print(self.counter)
                         self.text = "{}:{}".format("Push Ups", self.counter)
+                        self.text_elbow = "{}:{}".format("Elbow", angle_1)
+                        self.text_hip = "{}:{}".format("Hip", angle_2)
+                        self.text_knee = "{}:{}".format("Knee", angle_3)
+                    
+                    if (len(lmList) != 0) and (self.direction == "Right"):
+                        cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[14][1], lmList[14][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[24][1], lmList[24][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 0, 255), cv2.FILLED)
+                        cv2.circle(image, (lmList[28][1], lmList[28][2]), 10, (0, 0, 255), cv2.FILLED)
+                        if (lmList[12][2] >= lmList[14][2]) and (angle_4 < 90) and (angle_5 < 190) and (angle_6 > 150) :
+                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[14][1], lmList[14][2]), 15, (0, 255, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 15, (0, 255, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 255), cv2.FILLED)        
+                            self.stage = "down"
+                        if (lmList[12][2] <= lmList[14][2]) and self.stage == "down":
+                            cv2.circle(image, (lmList[12][1], lmList[12][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[14][1], lmList[14][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[16][1], lmList[16][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)
+                            cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 0), cv2.FILLED)  
+                            self.stage = "up"
+                            self.counter += 1
+                            counter2 = str(int(self.counter))
+                            print(self.counter)
+                        self.text = "{}:{}".format("Push Ups", self.counter)
+                        self.text_elbow = "{}:{}".format("Elbow", angle_4)
+                        self.text_hip = "{}:{}".format("Hip", angle_5)
+                        self.text_knee = "{}:{}".format("Knee", angle_6)
                         
                     if grabbed : 
                         self.Q.put(image)
-                    cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                    cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_elbow, (50, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_hip, (50, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_knee, (50, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
                         
                           
     def clear(self):
