@@ -46,12 +46,12 @@ class Streamer :
         self.text = None
         self.direction = None
         self.text_direction = None
-        self.elbow = None
-        self.hip = None
-        self.knee = None
-        self.text_elbow = None
-        self.text_hip = None
-        self.text_knee = None
+        #self.elbow = None
+        #self.hip = None
+        #self.knee = None
+        #self.text_elbow = None
+        #self.text_hip = None
+        #self.text_knee = None
         
     def run(self, src = 0 ) :
         
@@ -181,9 +181,9 @@ class Streamer :
                             counter2 = str(int(self.counter))
                             print(self.counter)
                         self.text = "{}:{}".format("Push Ups", self.counter)
-                        self.text_elbow = "{}:{}".format("Elbow", angle_1)
-                        self.text_hip = "{}:{}".format("Hip", angle_2)
-                        self.text_knee = "{}:{}".format("Knee", angle_3)
+                        #self.text_elbow = "{}:{}".format("Elbow", angle_1)
+                        #self.text_hip = "{}:{}".format("Hip", angle_2)
+                        #self.text_knee = "{}:{}".format("Knee", angle_3)
                     
                     if (len(lmList) != 0) and (self.direction == "Right"):
                         cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 0, 255), cv2.FILLED)
@@ -212,16 +212,16 @@ class Streamer :
                             counter2 = str(int(self.counter))
                             print(self.counter)
                         self.text = "{}:{}".format("Push Ups", self.counter)
-                        self.text_elbow = "{}:{}".format("Elbow", angle_4)
-                        self.text_hip = "{}:{}".format("Hip", angle_5)
-                        self.text_knee = "{}:{}".format("Knee", angle_6)
+                        #self.text_elbow = "{}:{}".format("Elbow", angle_4)
+                        #self.text_hip = "{}:{}".format("Hip", angle_5)
+                        #self.text_knee = "{}:{}".format("Knee", angle_6)
                         
                     if grabbed : 
                         self.Q.put(image)
                     cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-                    cv2.putText(image, self.text_elbow, (50, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-                    cv2.putText(image, self.text_hip, (50, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-                    cv2.putText(image, self.text_knee, (50, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    #cv2.putText(image, self.text_elbow, (50, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    #cv2.putText(image, self.text_hip, (50, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+                    #cv2.putText(image, self.text_knee, (50, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
                         
                           
     def clear(self):
