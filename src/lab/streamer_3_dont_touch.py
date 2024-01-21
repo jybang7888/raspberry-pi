@@ -166,7 +166,7 @@ class Streamer3 :
                             cv2.circle(image, (lmList[14][1], lmList[14][2]), 10, (0, 255, 255), cv2.FILLED)
                             self.stage = "Push_up"
                             self.progress = "60%"
-                        if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and [16][2]) and (self.stage == "Push_up"):
+                        if (lmList[25][2] and lmList[26][2] >= lmList[15][2] and lmList[16][2]) and (self.stage == "Push_up"):
                             cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 127), cv2.FILLED) #chartreuse
                             cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 255, 127), cv2.FILLED)
                             cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 127), cv2.FILLED)
