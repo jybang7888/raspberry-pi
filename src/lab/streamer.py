@@ -45,7 +45,7 @@ class Streamer :
         self.Q = Queue(maxsize=128)
         self.started = False
         self.counter = 0
-        self.stage = None
+        self.stage = "down"
         self.create = None
         self.text = None
         self.frame = None
@@ -111,27 +111,25 @@ class Streamer :
                         if (lmList[12][2] and lmList[11][2] >= lmList[14][2] and lmList[13][2]):
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 20, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 20, (0, 255, 0), cv2.FILLED)
-                            if self.stage == "up":
+                            if self.stage == "down":
                                 with conn.cursor() as cur :
                         	        sql = "select * from push_up"
                         	        cur.execute(sql)
-                        	        cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'down')")
+                        	        cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'up')")
                         	        conn.commit()
-                        	        cur.execute(sql)
-                        	        for row in cur.fetchone() :
-                        	            print(row[0],row[1])
-                            self.stage = "down"
-
-                        if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and self.stage == "down":
+                        	        cur.execute(sql)            
+                                    print(cur.fetchone)
                             self.stage = "up"
+
+                        if (lmList[12][2] and lmList[11][2] <= lmList[14][2] and lmList[13][2]) and self.stage == "up":
+                            self.stage = "down"
                             with conn.cursor() as cur :
                         	    sql = "select * from push_up"
                         	    cur.execute(sql)
-                        	    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'up')")
+                        	    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'down')")
                         	    conn.commit()
                         	    cur.execute(sql)
-                        	    for row in cur.fetchone() :
-                        	        print(row[0],row[1])
+                        	    print(cur.fetchone)
                             self.counter += 1
                             counter2 = str(int(self.counter))
                             print(self.counter)
