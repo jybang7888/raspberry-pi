@@ -10,19 +10,26 @@ app = Flask(__name__)
 version = '0.1.0'
 
 @app.route('/index1')
-def index():
+def index1():
     return render_template('push_up.html')
     
-@app.route('/result',methods=['GET','POST'])
-def index_r():
+@app.route('/index1/result',methods=['GET','POST'])
+def index1_r():
     if request.method == 'GET':
-        db = Database()
-        sql = db.show()   
+        db1 = Database()
+        sql = db1.show_1()   
         return render_template('data.html',list=sql)
         
 @app.route('/index2')
 def index2():
     return render_template('squat.html')
+
+@app.route('/index2/result',methods=['GET','POST'])
+def index2_r():
+    if request.method == 'GET':
+        db2 = Database()
+        sql = db2.show_2()   
+        return render_template('data.html',list=sql)
 
 @app.route('/index3')
 def index3():
