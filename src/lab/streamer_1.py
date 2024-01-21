@@ -93,7 +93,7 @@ class Streamer1 :
         c = np.array(c)
         radians = np.arctan2(c[1]-b[1], c[0]-b[0]) - np.arctan2(a[1]-b[1], a[0]-b[0])
         angle = np.abs(radians*180.0/np.pi)
-        if angle >180.0:
+        if angle > 180.0:
             angle = 360-angle
         return angle    
     
@@ -143,22 +143,22 @@ class Streamer1 :
                         self.angle_5 = self.calculate_angle(right_shoulder, right_hip, right_knee)
                         self.angle_6 = self.calculate_angle(right_hip, right_knee, right_ankle)
                         if (self.direction == "Left"):
-                            cv2.putText(image, self.angle_1, tuple(np.multiply(left_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            cv2.putText(image, self.angle_2, tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            cv2.putText(image, self.angle_3, tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            self.elbow = "{}:{}".format("Elbow", self.angle_1)
-                            self.hip = "{}:{}".format("Hip", self.angle_2)
-                            self.knee = "{}:{}".format("Knee", self.angle_3)
+                            cv2.putText(image, str(self.angle_1), tuple(np.multiply(left_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, str(self.angle_2), tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, str(self.angle_3), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            self.elbow = "{}:{}".format("Elbow", str(self.angle_1))
+                            self.hip = "{}:{}".format("Hip", str(self.angle_2))
+                            self.knee = "{}:{}".format("Knee", str(self.angle_3))
                             cv2.putText(image, self.elbow, (150, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
                             cv2.putText(image, self.hip, (150, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
                             cv2.putText(image, self.knee, (150, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
                         if (self.direction == "Right"):
-                            cv2.putText(image, self.angle_4, tuple(np.multiply(right_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            cv2.putText(image, self.angle_5, tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            cv2.putText(image, self.angle_6, tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            self.elbow = "{}:{}".format("Elbow", self.angle_4)
-                            self.hip = "{}:{}".format("Hip", self.angle_5)
-                            self.knee = "{}:{}".format("Knee", self.angle_6)
+                            cv2.putText(image, str(self.angle_4), tuple(np.multiply(right_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, str(self.angle_5), tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, str(self.angle_6), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            self.elbow = "{}:{}".format("Elbow", str(self.angle_4))
+                            self.hip = "{}:{}".format("Hip", str(self.angle_5))
+                            self.knee = "{}:{}".format("Knee", str(self.angle_6))
                             cv2.putText(image, self.elbow, (150, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                             cv2.putText(image, self.hip, (150, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                             cv2.putText(image, self.knee, (150, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
