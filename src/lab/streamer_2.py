@@ -95,7 +95,7 @@ class Streamer2 :
             
     
     def update(self):
-        with mp_pose.Pose(min_detection_confidence=0.6, min_tracking_confidence=0.6) as pose:       
+        with mp_pose.Pose(min_detection_confidence=0.7, min_tracking_confidence=0.7) as pose:       
             while True:
                 if self.started :
                     (grabbed, self.frame) = self.capture.read()
@@ -138,22 +138,24 @@ class Streamer2 :
                         self.angle_4 = self.calculate_angle(right_knee, right_hip, right_shoulder)
                         self.angle_5 = self.calculate_angle(right_ankle, right_knee, right_hip)
                         self.angle_6 = self.calculate_angle(right_elbow, right_shoulder, right_knee)
-                        if (self.direction == "Left"):
-                            cv2.putText(image, self.angle_1, tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            cv2.putText(image, self.angle_2, tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            self.hip = "{}:{}".format("Hip", self.angle_1)
-                            self.knee = "{}:{}".format("Knee", self.angle_2)
-                            cv2.putText(image, self.hip, (150, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                            cv2.putText(image, self.knee, (150, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                        if (self.direction == "Right"):
-                            cv2.putText(image, self.angle_4, tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            cv2.putText(image, self.angle_5, tuple(np.multiply(right_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                            self.hip = "{}:{}".format("Hip", self.angle_4)
-                            self.knee = "{}:{}".format("Knee", self.angle_5)
-                            cv2.putText(image, self.hip, (150, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                            cv2.putText(image, self.knee, (150, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                        
                     except:
                         pass
+                        
+                    if (self.direction == "Left"):
+                            cv2.putText(image, str(self.angle_1), tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, str(self.angle_2), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            self.hip = "{}:{}".format("Hip", self.angle_1)
+                            self.knee = "{}:{}".format("Knee", self.angle_2)
+                            cv2.putText(image, self.hip, (250, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                            cv2.putText(image, self.knee, (250, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                        if (self.direction == "Right"):
+                            cv2.putText(image, str(self.angle_4), tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            cv2.putText(image, str(self.angle_5), tuple(np.multiply(right_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                            self.hip = "{}:{}".format("Hip", self.angle_4)
+                            self.knee = "{}:{}".format("Knee", self.angle_5)
+                            cv2.putText(image, self.hip, (250, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                            cv2.putText(image, self.knee, (250, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                     if len(lmList) != 0:
                         if (self.direction == "Left"):    
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 0, 255), cv2.FILLED)
@@ -250,8 +252,8 @@ class Streamer2 :
                         self.Q.put(image)
                     cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                     cv2.putText(image, self.text_stage, (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                    cv2.putText(image, self.text_1, (300, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                    cv2.putText(image, self.text_2, (300, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_1, (400, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_2, (400, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                         
                           
     def clear(self):
