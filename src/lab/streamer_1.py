@@ -153,9 +153,9 @@ class Streamer1 :
                         self.elbow = "{}:{}".format("Elbow", self.angle_1)
                         self.hip = "{}:{}".format("Hip", self.angle_2)
                         self.knee = "{}:{}".format("Knee", self.angle_3)
-                        cv2.putText(image, self.elbow, (350, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                        cv2.putText(image, self.hip, (350, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                        cv2.putText(image, self.knee, (350, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                        cv2.putText(image, self.elbow, (250, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                        cv2.putText(image, self.hip, (250, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                        cv2.putText(image, self.knee, (250, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                     if (self.direction == "Right"):
                         cv2.putText(image, str(self.angle_4), tuple(np.multiply(right_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                         cv2.putText(image, str(self.angle_5), tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
@@ -163,9 +163,9 @@ class Streamer1 :
                         self.elbow = "{}:{}".format("Elbow", self.angle_4)
                         self.hip = "{}:{}".format("Hip", self.angle_5)
                         self.knee = "{}:{}".format("Knee", self.angle_6)
-                        cv2.putText(image, self.elbow, (350, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                        cv2.putText(image, self.hip, (350, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                        cv2.putText(image, self.knee, (350, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                        cv2.putText(image, self.elbow, (250, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                        cv2.putText(image, self.hip, (250, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                        cv2.putText(image, self.knee, (250, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                       
                   
                     if (len(lmList) != 0):
@@ -260,9 +260,9 @@ class Streamer1 :
                         self.Q.put(image)
                     cv2.putText(image, self.text, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                     cv2.putText(image, self.text_stage, (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                    cv2.putText(image, self.text_1, (350, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                    cv2.putText(image, self.text_2, (350, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-                    cv2.putText(image, self.text_3, (350, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_1, (400, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_2, (400, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+                    cv2.putText(image, self.text_3, (400, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                 
                         
                           
