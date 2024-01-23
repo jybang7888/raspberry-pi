@@ -34,7 +34,6 @@ class Streamer1 :
         self.started = False
         self.counter = 0
         self.stage = None
-        self.stage = "Default"
         self.create = None
         self.text = None
         self.direction = None
