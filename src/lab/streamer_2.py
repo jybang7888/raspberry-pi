@@ -117,10 +117,8 @@ class Streamer2 :
                     if len(lmList) != 0:
                         if (lmList[14][1] >= lmList[12][1]):
                             self.direction = "Right"
-                            print(self.direction)
                         if (lmList[13][1] <= lmList[11][1]):
                             self.direction = "Left"
-                            print(self.direction)
                         self.text_direction = "{}:{}".format("Direction", self.direction)
                         cv2.putText(image, self.text_direction, (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                     
