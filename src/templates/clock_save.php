@@ -5,6 +5,8 @@ $username = "root";
 $password = "1234";
 $dbname = "health";
 
+error_log("Form submitted from clock_save.php", 0);
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
