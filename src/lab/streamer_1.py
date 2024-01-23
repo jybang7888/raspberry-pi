@@ -51,6 +51,12 @@ class Streamer1 :
         self.angle_4 = 0
         self.angle_5 = 0
         self.angle_6 = 0
+        self.round_angle_1 = 0
+        self.round_angle_2 = 0
+        self.round_angle_3 = 0
+        self.round_angle_4 = 0
+        self.round_angle_5 = 0
+        self.round_angle_6 = 0
         self.frame = None
         with conn.cursor() as cur :
             sql = "delete from push_up"
@@ -143,14 +149,21 @@ class Streamer1 :
                         
                     except:
                         pass
+
+                    self.round_angle_1 = round(self.angle_1)
+                    self.round_angle_2 = round(self.angle_2)
+                    self.round_angle_3 = round(self.angle_3)
+                    self.round_angle_4 = round(self.angle_4)
+                    self.round_angle_5 = round(self.angle_5)
+                    self.round_angle_6 = round(self.angle_6)
                         
                     if (self.direction == "Left"):
                         cv2.putText(image, str(self.angle_1), tuple(np.multiply(left_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                         cv2.putText(image, str(self.angle_2), tuple(np.multiply(left_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                         cv2.putText(image, str(self.angle_3), tuple(np.multiply(left_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                        self.elbow = "{}:{}".format("Elbow", self.angle_1)
-                        self.hip = "{}:{}".format("Hip", self.angle_2)
-                        self.knee = "{}:{}".format("Knee", self.angle_3)
+                        self.elbow = "{}:{}".format("Elbow", self.round_angle_1)
+                        self.hip = "{}:{}".format("Hip", self.round_angle_2)
+                        self.knee = "{}:{}".format("Knee", self.round_angle_3)
                         cv2.putText(image, self.elbow, (250, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                         cv2.putText(image, self.hip, (250, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                         cv2.putText(image, self.knee, (250, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
@@ -158,9 +171,9 @@ class Streamer1 :
                         cv2.putText(image, str(self.angle_4), tuple(np.multiply(right_elbow, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                         cv2.putText(image, str(self.angle_5), tuple(np.multiply(right_hip, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                         cv2.putText(image, str(self.angle_6), tuple(np.multiply(right_knee, [640, 480]).astype(int)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                        self.elbow = "{}:{}".format("Elbow", self.angle_4)
-                        self.hip = "{}:{}".format("Hip", self.angle_5)
-                        self.knee = "{}:{}".format("Knee", self.angle_6)
+                        self.elbow = "{}:{}".format("Elbow", self.round_angle_4)
+                        self.hip = "{}:{}".format("Hip", self.round_angle_5)
+                        self.knee = "{}:{}".format("Knee", self.round_angle_6)
                         cv2.putText(image, self.elbow, (250, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                         cv2.putText(image, self.hip, (250, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                         cv2.putText(image, self.knee, (250, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
@@ -201,7 +214,7 @@ class Streamer1 :
                                     cur.execute(sql)
                                     for row in cur.fetchall():
                                         print(row[0], row[1])
-                            elif (lmList[13][2] <= lmList[11][2]) and (lmList[11][2] <= lmList[15][2]) and (self.angle_1 < 120) and (self.angle_2 > 90) and (self.angle_3 > 120) and (self.stage != "Down"):
+                            elif (lmList[13][2] <= lmList[11][2]) and (lmList[11][2] <= lmList[15][2]) and (self.angle_1 < 120) and (self.angle_2 > 90) and (self.angle_3 > 90) and (self.stage != "Down"):
                                 self.stage = "Down"
                                 
                                 with conn.cursor() as cur :
@@ -239,14 +252,22 @@ class Streamer1 :
                                 self.stage = "Up"
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
-                                print(self.counter)    
-                            elif (lmList[14][2] <= lmList[12][2]) and (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 120) and (self.angle_5 > 90) and (self.angle_6 > 120) and (self.stage != "Down"):
+                                print(self.counter)
+                                with conn.cursor() as cur :
+                                    sql = "select * from push_up"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
+                            elif (lmList[14][2] <= lmList[12][2]) and (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 120) and (self.angle_5 > 90) and (self.angle_6 > 90) and (self.stage != "Down"):
                                 self.stage = "Down"
                                 
                                 with conn.cursor() as cur :
                                     sql = "select * from push_up"
                                     cur.execute(sql)
-                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
+                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Down')")
                                     conn.commit()
                                     cur.execute(sql)
                                     for row in cur.fetchall():
