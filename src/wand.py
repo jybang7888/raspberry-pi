@@ -31,6 +31,10 @@ def index2_r():
         sql = db2.show_2()   
         return render_template('data.html',list=sql)
 
+@app.route('/clock_save.php',methods=['GET','POST'])
+def index2_c():
+    return render_template('clock_save.php')
+
 @app.route('/index3')
 def index3():
     return render_template('burpee.html')
