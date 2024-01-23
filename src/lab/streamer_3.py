@@ -13,7 +13,7 @@ from queue import Queue
 
 class Streamer3 :
     
-    def __init__(self ):
+    def __init__(self):
         
         if cv2.ocl.haveOpenCL() :
             cv2.ocl.setUseOpenCL(True)
@@ -75,7 +75,7 @@ class Streamer3 :
                 if self.started :
                     (grabbed, frame) = self.capture.read()
                     image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                    results = pose.process(image) # mediapipe processing
+                    results = pose.process(image)
                     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                     lmList = []
                     
@@ -100,29 +100,29 @@ class Streamer3 :
                         cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 0, 255), cv2.FILLED)
                         cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 0, 255), cv2.FILLED)
                         cv2.circle(image, (lmList[28][1], lmList[28][2]), 10, (0, 0, 255), cv2.FILLED)
-                        if (self.stage =="Stand"):
+                        if (self.stage == "Stand"):
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 69, 255), cv2.FILLED) #orangered
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 69, 255), cv2.FILLED)
-                            cv2.circle(image, (lmList[27][1], lmList[23][2]), 10, (0, 69, 255), cv2.FILLED)
-                            cv2.circle(image, (lmList[28][1], lmList[24][2]), 10, (0, 69, 255), cv2.FILLED)
-                            cv2.circle(image, (lmList[27][1], lmList[25][2]), 10, (0, 69, 255), cv2.FILLED)
-                            cv2.circle(image, (lmList[28][1], lmList[26][2]), 10, (0, 69, 255), cv2.FILLED)  
-                        elif (self.stage =="Rolling_first"):
+                            cv2.circle(image, (lmList[23][1], lmList[23][2]), 10, (0, 69, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[24][1], lmList[24][2]), 10, (0, 69, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 69, 255), cv2.FILLED)
+                            cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 69, 255), cv2.FILLED)  
+                        elif (self.stage == "Rolling_first"):
                             cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 140, 255), cv2.FILLED) #darkorange
                             cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 140, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 140, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 140, 255), cv2.FILLED)
-                        elif (self.stage =="Push_up"):
+                        elif (self.stage == "Push_up"):
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 255), cv2.FILLED) #yellow
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[13][1], lmList[13][2]), 10, (0, 255, 255), cv2.FILLED)
                             cv2.circle(image, (lmList[14][1], lmList[14][2]), 10, (0, 255, 255), cv2.FILLED)
-                        elif (self.stage =="Rolling_second"):
+                        elif (self.stage == "Rolling_second"):
                             cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 127), cv2.FILLED) #chartreuse
                             cv2.circle(image, (lmList[16][1], lmList[16][2]), 10, (0, 255, 127), cv2.FILLED)
                             cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 127), cv2.FILLED)
                             cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 255, 127), cv2.FILLED)
-                        elif (self.stage =="Jump"):
+                        elif (self.stage == "Jump"):
                             cv2.circle(image, (lmList[11][1], lmList[11][2]), 10, (0, 255, 0), cv2.FILLED) #green
                             cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 0), cv2.FILLED)
                             cv2.circle(image, (lmList[15][1], lmList[15][2]), 10, (0, 255, 0), cv2.FILLED)
