@@ -142,7 +142,6 @@ class Streamer3 :
                         if (lmList[11][2] and lmList[12][2] <= lmList[23][2] and lmList[24][2]) and (lmList[23][2] and lmList[24][2] <= lmList[25][2] and lmList[26][2]) and (self.stage == "Default"):
                             self.stage = "Stand"
                             self.progress = "20%"
-                            print(self.stage)
                             with conn.cursor() as cur :
                                     sql = "select * from burpee"
                                     cur.execute(sql)
@@ -154,7 +153,6 @@ class Streamer3 :
                         elif (lmList[25][2] and lmList[26][2] <= lmList[15][2] and lmList[16][2]) and (self.stage == "Stand" or self.stage == "Jump"):
                             self.stage = "Rolling_first"
                             self.progress = "40%"
-                            print(self.stage)
                             with conn.cursor() as cur :
                                     sql = "select * from burpee"
                                     cur.execute(sql)
@@ -167,7 +165,6 @@ class Streamer3 :
                         elif (lmList[13][2] and lmList[14][2] <= lmList[11][2] and lmList[12][2]) and (self.stage == "Rolling_first"):
                             self.stage = "Push_up"
                             self.progress = "60%"
-                            print(self.stage)
                             with conn.cursor() as cur :
                                     sql = "select * from burpee"
                                     cur.execute(sql)
@@ -180,7 +177,6 @@ class Streamer3 :
                         elif (lmList[25][2] and lmList[26][2] <= lmList[15][2] and lmList[16][2]) and (self.stage == "Push_up"):
                             self.stage = "Rolling_second"
                             self.progress = "80%"
-                            print(self.stage)
                             with conn.cursor() as cur :
                                     sql = "select * from burpee"
                                     cur.execute(sql)
@@ -195,7 +191,6 @@ class Streamer3 :
                             self.progress = "100%"
                             self.counter += 1
                             counter2 = str(int(self.counter))
-                            print(self.stage)
                             print(self.counter)
                             with conn.cursor() as cur :
                                     sql = "select * from burpee"
