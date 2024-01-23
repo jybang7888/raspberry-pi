@@ -16,6 +16,8 @@ $starttime = clone $endtime;
 $starttime -> modify('-1 minute');
 
 $sql = "SELECT * FROM squat WHERE datetime > '$starttime' AND datetime < '$endtime'";
+$sql1 = "INSERT INTO heal (name, total) VALUES ('11', '2')";
+$conn->query($sql1);
 
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
