@@ -1,4 +1,6 @@
 import time
+import sys
+import pymysql
 import cv2
 import imutils
 import platform
@@ -7,6 +9,8 @@ import mediapipe as mp
 import os
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
+conn = pymysql.connect(host = 'localhost', user = 'root', password='1234',db='health',charset='utf8')
+current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
 from threading import Thread
 from queue import Queue
@@ -38,7 +42,12 @@ class Streamer3 :
         self.text_direction = None
         self.text_stage = None
         self.text_progress = None
-        
+        self.frame = None
+        with conn.cursor() as cur :
+            sql = "delete from push_up"
+            cur.execute(sql)
+
+    
     def run(self, src = 0 ) :
         
         self.stop()
@@ -73,8 +82,8 @@ class Streamer3 :
             while True:
 
                 if self.started :
-                    (grabbed, frame) = self.capture.read()
-                    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    (grabbed, self.frame) = self.capture.read()
+                    image = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
                     results = pose.process(image)
                     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                     lmList = []
@@ -133,21 +142,62 @@ class Streamer3 :
                         if (lmList[11][2] and lmList[12][2] <= lmList[23][2] and lmList[24][2]) and (lmList[23][2] and lmList[24][2] <= lmList[25][2] and lmList[26][2]) and (self.stage == "Default"):
                             self.stage = "Stand"
                             self.progress = "20%"
+                            with conn.cursor() as cur :
+                                    sql = "select * from burpee"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO burpee(datetime,state) VALUES(current_time,'Stand')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
                         elif (lmList[25][2] and lmList[26][2] <= lmList[15][2] and lmList[16][2]) and (self.stage == "Stand" or self.stage == "Jump"):
                             self.stage = "Rolling_first"
                             self.progress = "40%"
+                            with conn.cursor() as cur :
+                                    sql = "select * from burpee"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO burpee(datetime,state) VALUES(current_time,'Rolling_first')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
+                            
                         elif (lmList[13][2] and lmList[14][2] <= lmList[11][2] and lmList[12][2]) and (self.stage == "Rolling_first"):
                             self.stage = "Push_up"
                             self.progress = "60%"
+                            with conn.cursor() as cur :
+                                    sql = "select * from burpee"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO burpee(datetime,state) VALUES(current_time,'Push_up')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
                         elif (lmList[25][2] and lmList[26][2] <= lmList[15][2] and lmList[16][2]) and (self.stage == "Push_up"):
                             self.stage = "Rolling_second"
                             self.progress = "80%"
+                            with conn.cursor() as cur :
+                                    sql = "select * from burpee"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO burpee(datetime,state) VALUES(current_time,'Rolling_second')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
                         elif (lmList[15][2] and lmList[16][2] <= lmList[11][2] and lmList[12][2]) and (lmList[11][2] and lmList[12][2] <= lmList[25][2] and lmList[26][2]) and (self.stage == "Rolling_second"):        
                             self.stage = "Jump"
                             self.progress = "100%"
                             self.counter += 1
                             counter2 = str(int(self.counter))
                             print(self.counter)
+                            with conn.cursor() as cur :
+                                    sql = "select * from burpee"
+                                    cur.execute(sql)
+                                    cur.execute("INSERT INTO burpee(datetime,state) VALUES(current_time,'Jump')")
+                                    conn.commit()
+                                    cur.execute(sql)
+                                    for row in cur.fetchall():
+                                        print(row[0], row[1])
                         self.text = "{}:{}".format("Burpees", self.counter)
                         self.text_stage = "{}:{}".format("Stage", self.stage)
                         self.text_progress = "{}:{}".format("Progress", self.progress)
