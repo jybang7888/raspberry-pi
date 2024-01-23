@@ -44,7 +44,7 @@ class Streamer3 :
         self.text_progress = None
         self.frame = None
         with conn.cursor() as cur :
-            sql = "delete from push_up"
+            sql = "delete from burpee"
             cur.execute(sql)
 
     
