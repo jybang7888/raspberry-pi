@@ -210,7 +210,7 @@ class Streamer2 :
                             if (self.stage == "Up"):
                                 cv2.circle(image, (lmList[12][1], lmList[12][2]), 10, (0, 255, 255), cv2.FILLED)
                                 cv2.circle(image, (lmList[14][1], lmList[14][2]), 10, (0, 255, 255), cv2.FILLED)
-                                cv2.circle(image, (lmList[23][1], lmList[24][2]), 10, (0, 255, 255), cv2.FILLED)
+                                cv2.circle(image, (lmList[24][1], lmList[24][2]), 10, (0, 255, 255), cv2.FILLED)
                                 cv2.circle(image, (lmList[26][1], lmList[26][2]), 10, (0, 255, 255), cv2.FILLED)
                                 cv2.circle(image, (lmList[32][1], lmList[32][2]), 10, (0, 255, 255), cv2.FILLED)
                             elif (self.stage == "Down"):
