@@ -127,7 +127,7 @@ class Streamer1 :
                         left_knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
                         left_ankle = [landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].y]
                         left_elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
-                        left_wirst = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
+                        left_wrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
                         right_elbow = [landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].y]
                         right_wrist = [landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y]
                         right_shoulder = [landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
@@ -201,7 +201,7 @@ class Streamer1 :
                                     cur.execute(sql)
                                     for row in cur.fetchall():
                                         print(row[0], row[1])
-                            elif (lmList[13][2] <= lmList[11][2]) and (lmList[11][2] <= lmList[15][2]) and (self.angle_1 < 120) and (self.angle_2 > 90) and (self.angle_3 > 120) and (self.stage != "Down"):
+                            elif (self.angle_1 < 120) and (self.angle_2 > 90) and (self.angle_3 > 120) and (self.stage != "Down"):
                                 self.stage = "Down"
                                 
                                 with conn.cursor() as cur :
@@ -240,8 +240,9 @@ class Streamer1 :
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
                                 print(self.counter)    
-                            elif (lmList[14][2] <= lmList[12][2]) and (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 120) and (self.angle_5 > 90) and (self.angle_6 > 120) and (self.stage != "Down"):
+                            elif (self.angle_4 < 120) and (self.angle_5 > 90) and (self.angle_6 > 120) and (self.stage != "Down"):
                                 self.stage = "Down"
+                                
                                 with conn.cursor() as cur :
                                     sql = "select * from push_up"
                                     cur.execute(sql)
