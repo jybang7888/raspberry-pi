@@ -201,7 +201,7 @@ class Streamer1 :
                                 cv2.circle(image, (lmList[23][1], lmList[23][2]), 10, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[27][1], lmList[27][2]), 10, (0, 255, 0), cv2.FILLED)
-                            if (lmList[11][2] <= lmList[13][2]) and (lmList[13][2] <= lmList[15][2]) and (self.stage == "Down") :
+                            if (lmList[11][2] <= lmList[13][2]) and (lmList[13][2] <= lmList[15][2])and (self.angle_1 > 100) and (self.stage == "Down") :
                                 self.stage = "Up"
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
@@ -214,7 +214,7 @@ class Streamer1 :
                                     cur.execute(sql)
                                     for row in cur.fetchall():
                                         print(row[0], row[1])
-                            elif (lmList[11][2] <= lmList[15][2]) and (self.angle_1 < 110) and (self.angle_2 > 90) and (self.angle_3 > 90) and (self.stage != "Down"):
+                            elif (lmList[11][2] <= lmList[15][2]) and (self.angle_1 < 100) and (self.angle_2 > 90) and (self.angle_3 > 90) and (self.stage != "Down"):
                                 self.stage = "Down"
                                 
                                 with conn.cursor() as cur :
@@ -248,7 +248,7 @@ class Streamer1 :
                                 cv2.circle(image, (lmList[24][1], lmList[24][2]), 15, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[26][1], lmList[26][2]), 15, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[28][1], lmList[28][2]), 15, (0, 255, 0), cv2.FILLED)    
-                            if (lmList[12][2] <= lmList[14][2]) and (lmList[14][2] <= lmList[16][2]) and (self.stage == "Down"):      
+                            if (lmList[12][2] <= lmList[14][2]) and (lmList[14][2] <= lmList[16][2]) and (self.angle_4 > 100) and (self.stage == "Down"):      
                                 self.stage = "Up"
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
@@ -261,7 +261,7 @@ class Streamer1 :
                                     cur.execute(sql)
                                     for row in cur.fetchall():
                                         print(row[0], row[1])
-                            elif (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 110) and (self.angle_5 > 90) and (self.angle_6 > 90) and (self.stage != "Down"):
+                            elif (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 100) and (self.angle_5 > 90) and (self.angle_6 > 90) and (self.stage != "Down"):
                                 self.stage = "Down"
                                 
                                 with conn.cursor() as cur :
