@@ -183,7 +183,7 @@ class Streamer2 :
                                     cur.execute(sql)
                                     for row in cur.fetchall():
                                         print(row[0], row[1])
-                            elif (lmList[23][2] <= lmList[25][2]) and (self.angle_3 > 70) and (self.angle_3 < 110) and (self.stage == "Down"):
+                            elif (lmList[23][2] <= lmList[25][2]) and (self.angle_3 > 75) and (self.angle_3 < 105) and (self.stage == "Down"):
                                 self.stage = "Up"
                                 self.counter += 1
                                 counter2 = str(int(self.counter))
