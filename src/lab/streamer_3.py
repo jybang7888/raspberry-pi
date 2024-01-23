@@ -173,7 +173,6 @@ class Streamer3 :
                                     cur.execute(sql)
                                     for row in cur.fetchall():
                                         print(row[0], row[1])
-                                        
                         elif (lmList[25][2] and lmList[26][2] <= lmList[15][2] and lmList[16][2]) and (self.stage == "Push_up"):
                             self.stage = "Rolling_second"
                             self.progress = "80%"
@@ -185,7 +184,6 @@ class Streamer3 :
                                     cur.execute(sql)
                                     for row in cur.fetchall():
                                         print(row[0], row[1])
-                                        
                         elif (lmList[15][2] and lmList[16][2] <= lmList[11][2] and lmList[12][2]) and (lmList[11][2] and lmList[12][2] <= lmList[25][2] and lmList[26][2]) and (self.stage == "Rolling_second"):        
                             self.stage = "Jump"
                             self.progress = "100%"
@@ -200,7 +198,6 @@ class Streamer3 :
                                     cur.execute(sql)
                                     for row in cur.fetchall():
                                         print(row[0], row[1])
-                                        
                         self.text = "{}:{}".format("Burpees", self.counter)
                         self.text_stage = "{}:{}".format("Stage", self.stage)
                         self.text_progress = "{}:{}".format("Progress", self.progress)
