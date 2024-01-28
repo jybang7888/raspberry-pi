@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Push Up Website</title>
+		<style>
+			body {
+				background-image: url('main.jpg');
+				background-size: 1500px 1000px;
+				background-repeat: no_repeat;
+			}
+			h1 {
+				font-size: 50px;
+				text-align: center;
+				line-height: 1.5;
+				vertical-align: middle;
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			
+		</style>
+
+	</head>
+	<body>
+		<header>
+			<h1>Make Your PW</h1>
+		</header>
+		<script>
+			alert("Password do not match.");
+		</script>
+		<form id="myForm" action="makeID.php" method="post" style ="text-align: center;">
+			<label for="username" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Name:</label>
+			<input type="text" placeholder="Can write in Korean" id = "username" name = "username" style="font-size: 30px;">
+			<br>
+			<label for="password" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">PW:</label>
+			<input type="password" placeholder="Enter at least 4words" id = "password" name = "password" style="font-size: 30px;">
+			<br>
+			<label for="password_check" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">PW:</label>
+			<input type="password" placeholder="Enter password again" id = "password_check" name = "password_check" style="font-size: 30px;">
+			<input type="hidden" name="count" value="0">
+			<input type="hidden" name="date" value="<?php echo date("Ymd"); ?>">
+			<input type="submit" value="Enter" style="font-size: 30px;">
+		</form>
+	</body>
+</html>
