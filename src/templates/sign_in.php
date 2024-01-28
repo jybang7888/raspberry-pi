@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM userinfo WHERE name = '$username' AND password = '$password'";
+$sql = "SELECT * FROM userinfo WHERE username = '$username' AND password = '$password'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
