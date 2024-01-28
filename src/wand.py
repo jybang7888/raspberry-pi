@@ -17,6 +17,10 @@ def index():
 def count():
     return render_template('count.html')
 
+@app.route('/ID')
+def ID():
+    return render_template('ID.html')
+
 @app.route('/index1')
 def index1():
     return render_template('push_up.html')
