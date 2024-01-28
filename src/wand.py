@@ -9,9 +9,9 @@ app = Flask(__name__)
 
 version = '0.1.0'
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+@app.route('/main')
+def main():
+    return render_template('main.html')
 
 @app.route('/count')
 def count():
