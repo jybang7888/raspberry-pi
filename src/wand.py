@@ -17,9 +17,13 @@ def index():
 def count():
     return render_template('count.html')
 
-@app.route('/ID')
+@app.route('/sign_up')
 def ID():
-    return render_template('ID.html')
+    return render_template('sign_up.html')
+
+@app.route('/sign_up_again')
+def ID():
+    return render_template('sign_up_again.html')
 
 @app.route('/index1')
 def index1():
