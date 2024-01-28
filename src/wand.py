@@ -17,6 +17,10 @@ def index():
 def count():
     return render_template('count.html')
 
+@app.route('/show_record')
+def show_record():
+    return render_template('show_record.html')
+
 @app.route('/sign_in')
 def sign_in():
     return render_template('sign_in.html')
