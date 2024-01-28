@@ -9,6 +9,10 @@ app = Flask(__name__)
 
 version = '0.1.0'
 
+@app.route('/test')
+def test():
+    return render_template('jun_test.html')
+
 @app.route('/main')
 def main():
     return render_template('main.html')
