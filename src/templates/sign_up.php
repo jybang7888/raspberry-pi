@@ -13,18 +13,14 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // 사용자로부터 얻은 데이터
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $pass = $_POST['password'];
-    $count = $_POST['count'];
-    $date = $_POST['date'];
-    $password_check = $_POST['password_check'];
-    
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 }
 
 // SQL 쿼리 작성
-$sql = "INSERT INTO user_data (name, password, count, date) VALUES ('$name', '$pass', '$count', '0121')";
+$sql = "INSERT INTO userinfo (username, password) VALUES ('$username', '$password')";
 $conn->query($sql);
-header("Location: index.html");
+header("Location: main.html");
 
 // 연결 종료
 $conn->close();
