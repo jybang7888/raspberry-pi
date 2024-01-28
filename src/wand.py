@@ -13,9 +13,9 @@ version = '0.1.0'
 def main():
     return render_template('main.html')
 
-@app.route('/count')
-def count():
-    return render_template('count.html')
+@app.route('/count_type')
+def count_type():
+    return render_template('count_type.html')
 
 @app.route('/show_record')
 def show_record():
