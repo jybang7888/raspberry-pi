@@ -9,6 +9,10 @@ app = Flask(__name__)
 
 version = '0.1.0'
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/index1')
 def index1():
     return render_template('push_up.html')
