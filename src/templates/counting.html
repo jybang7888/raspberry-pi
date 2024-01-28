@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Push Up Website</title>
+		<style>
+			body {
+				background-image: url('main.jpg');
+				background-size: 1500px 1000px;
+				background-repeat: no_repeat;
+			}
+			h1 {
+				font-size: 50px;
+				text-align: center;
+				line-height: 1.5;
+				vertical-align: middle;
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			
+		</style>
+
+	</head>
+	<body>
+
+		<header>
+			<h1>Write Your Name</h1>
+		</header>
+    <form action="login.php" method="post">
+        <label for="username" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Username:</label>
+        <input type="text" placeholder="Write your name" id="username" name="username" required>
+	<br>
+        <label for="password" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Password:</label>
+        <input type="password" placeholder="Write your password" id="password" name="password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+
+	</body>
+</html>
