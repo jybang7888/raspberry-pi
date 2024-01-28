@@ -17,13 +17,21 @@ def index():
 def count():
     return render_template('count.html')
 
+@app.route('/sign_in')
+def sign_in():
+    return render_template('sign_in.html')
+
+@app.route('/sign_in_wrong')
+def sign_in_wrong():
+    return render_template('sign_in_wrong.html')
+
 @app.route('/sign_up')
-def ID():
+def sign_up():
     return render_template('sign_up.html')
 
-@app.route('/sign_up_again')
-def ID():
-    return render_template('sign_up_again.html')
+@app.route('/sign_up_wrong')
+def sign_up_wrong():
+    return render_template('sign_up_wrong.html')
 
 @app.route('/index1')
 def index1():
