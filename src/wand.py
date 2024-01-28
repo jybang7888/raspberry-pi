@@ -13,6 +13,10 @@ version = '0.1.0'
 def index():
     return render_template('index.html')
 
+@app.route('/count')
+def count():
+    return render_template('count.html')
+
 @app.route('/index1')
 def index1():
     return render_template('push_up.html')
