@@ -18,11 +18,11 @@ def main():
     return render_template('main.html')
 
 @app.route('/count')
-def count_type():
+def count():
     return render_template('count.html')
     
 @app.route('/count.html?username=<username>')
-def count_type():
+def count_name():
     return render_template('count.html')
 
 @app.route('/show_record')
