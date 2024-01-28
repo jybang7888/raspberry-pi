@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $sql = "INSERT INTO userinfo (username, password) VALUES ('$username', '$password')";
 $conn->query($sql);
-header("Location: http://192.168.1.144:5000/main.html");
+header("Location: http://192.168.1.144:5000/main");
 
 $conn->close();
 ?>
