@@ -13,9 +13,9 @@ version = '0.1.0'
 def main():
     return render_template('main.html')
 
-@app.route('/count_type')
+@app.route('/count')
 def count_type():
-    return render_template('count_type.html')
+    return render_template('count.html')
 
 @app.route('/show_record')
 def show_record():
@@ -39,7 +39,7 @@ def sign_up_wrong():
 
 @app.route('/index1')
 def index1():
-    return render_template('push_up.html')
+    return render_template('count_pushup.html')
     
 @app.route('/index1/result',methods=['GET','POST'])
 def index1_r():
@@ -50,7 +50,7 @@ def index1_r():
         
 @app.route('/index2')
 def index2():
-    return render_template('squat.html')
+    return render_template('count_squat.html')
 
 @app.route('/index2/result',methods=['GET','POST'])
 def index2_r():
@@ -65,7 +65,7 @@ def index2_c():
 
 @app.route('/index3')
 def index3():
-    return render_template('burpee.html')
+    return render_template('count_burpee.html')
 
 streamer1 = Streamer1()
 streamer2 = Streamer2()
