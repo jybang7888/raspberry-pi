@@ -20,6 +20,10 @@ def main():
 @app.route('/count')
 def count_type():
     return render_template('count.html')
+    
+@app.route('/count.html?username=<username>')
+def count_type():
+    return render_template('count.html')
 
 @app.route('/show_record')
 def show_record():
