@@ -92,10 +92,15 @@
 			<button onclick="startStopwatch()">Start</button>
 		</div>
 		<form action="ttestt.php" method="post">
-			<input type="hidden" id="username" name="username">
-			<input type="hidden" id="hiddenInput1" name="hours">
-			<input type="hidden" id="hiddenInput2" name="minutes">
-			<input type="hidden" id="hiddenInput3" name="seconds">
+			<input type="hidden" id="hiddenInput1" name="starthours">
+			<input type="hidden" id="hiddenInput2" name="startminutes">
+			<input type="hidden" id="hiddenInput3" name="startseconds">
+			<input type="hidden" id="hiddenInput4" name="endhours">
+			<input type="hidden" id="hiddenInput5" name="endminutes">
+			<input type="hidden" id="hiddenInput6" name="endseconds">
+			<input type="hidden" id="hiddenInput7" name="year">
+			<input type="hidden" id="hiddenInput8" name="month">
+			<input type="hidden" id="hiddenInput9" name="day">
 			<button type="submit">Save</button>
 		</form>
 		<script>
@@ -112,7 +117,7 @@
 						setTimeout(function() {
                 					alert("Stop the recording.");
 						}, 1000);
-						submitForm();
+						submitForm2();
 					}
 
 					const percentage = (timeLeft / 60) * 100;
@@ -121,16 +126,32 @@
 					circle.style.stroke = `hsl(${percentage}, 70%, 50%)`;
 					countdown.textContent = timeLeft;
 				}, 1000);
+				submitform1();
 			}
 			}
-			function submitForm() {
+			function submitForm1() {
 				var now = new Date();
+				var year = now.getFullYear();
+				var month = now.getMonth() + 1;
+				var day = now.getDate();
 				var hours = now.getHours();
 				var minutes = now.getMinutes();
 				var seconds = now.getSeconds();
 				document.getElementById('hiddenInput1').value = hours;
 				document.getElementById('hiddenInput2').value = minutes;
 				document.getElementById('hiddenInput3').value = seconds;
+				document.getElementById('hiddenInput7').value = year;
+				document.getElementById('hiddenInput8').value = month;
+				document.getElementById('hiddenInput9').value = day;
+			}
+			function submitForm2() {
+				var now = new Date();
+				var hours = now.getHours();
+				var minutes = now.getMinutes();
+				var seconds = now.getSeconds();
+				document.getElementById('hiddenInput4').value = hours;
+				document.getElementById('hiddenInput5').value = minutes;
+				document.getElementById('hiddenInput6').value = seconds;
 			}
 		</script>
 		<iframe src="http://192.168.1.144:5000/stream2?src=0" sandbox="allow-same-origin allow-scripts" frameborder="0"></iframe>
