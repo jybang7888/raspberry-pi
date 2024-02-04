@@ -12,10 +12,6 @@ version = '0.1.0'
 @app.route('/main')
 def main():
     return render_template('main.html')
-
-@app.route('/count')
-def count():
-    return render_template('count.html')
     
 @app.route('/count/<username>')
 def count_name(username):
