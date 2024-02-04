@@ -23,21 +23,19 @@ def index1():
     username = request.args.get('username')
     return render_template('count_pushup.html',username=username)
         
-@app.route('/count/<username>/index2')
-def index2(username):
+@app.route('/count/index2')
+def index2():
+    username = request.args.get('username')
     return render_template('count_squat.html',username=username)
 
-@app.route('/count/<username>/index3')
-def index3(username):
+@app.route('/count/index3')
+def index3():
+    username = request.args.get('username')
     return render_template('count_burpee.html',username=username)
 
 @app.route('/show_record')
 def show_record():
     return render_template('show_record.html')
-
-@app.route('/record')
-def record():
-    return render_template('record.html')
     
 @app.route('/sign_in')
 def sign_in():
