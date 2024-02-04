@@ -22,7 +22,7 @@ def count():
     return render_template('count.html')
     
 @app.route('/count/<username>')
-def count_name():
+def count_name(username):
     return render_template('count.html',username=username)
 
 @app.route('/show_record')
