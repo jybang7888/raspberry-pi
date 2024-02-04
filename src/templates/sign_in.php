@@ -20,7 +20,6 @@ if ($result->num_rows > 0) {
     header("Location: http://192.168.1.144:5000/count/$username");
     exit();
 } else {
-    echo '<script>alert("Wrong Information!");</script>';
     header("Location: http://192.168.1.144:5000/sign_in");
 }
 
