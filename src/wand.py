@@ -21,7 +21,7 @@ def main():
 def count():
     return render_template('count.html')
     
-@app.route('/count?username=<username>')
+@app.route('/count/<username>')
 def count_name(username):
     return render_template('count.html',username=username)
 
@@ -45,9 +45,8 @@ def sign_up():
 def sign_up_wrong():
     return render_template('sign_up_wrong.html')
 
-@app.route('/count/index1?username=<username>')
-def index1():
-    username = request.args.get('username', default=0, type=char)
+@app.route('/count/index1/<username>')
+def index1(username):
     return render_template('count_pushup.html',username=username)
     
 @app.route('/index1/result',methods=['GET','POST'])
