@@ -33,9 +33,13 @@ def index3():
     username = request.args.get('username')
     return render_template('count_burpee.html',username=username)
 
-@app.route('/show_record')
-def show_record():
-    return render_template('show_record.html')
+@app.route('/record')
+def record():
+    return render_template('record.html')
+
+@app.route('/record_wrong')
+def record_wrong():
+    return render_template('record_wrong.html')
     
 @app.route('/sign_in')
 def sign_in():
