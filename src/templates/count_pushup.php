@@ -30,7 +30,7 @@
     $result = mysqli_query($conn, $sql);
     $row_count = mysqli_num_rows($result);
     
-    $sql1 = "INSERT INTO total_pushup (name, date, starttime, endtime, total) VALUES ('$name', '$date', '$starttime', '$endtime', '$row_count')";
+    $sql1 = "INSERT INTO total_pushup (name, date, start_time, end_time, total) VALUES ('$name', '$date', '$starttime', '$endtime', '$row_count')";
     $conn->query($sql1);
 
     $sql2 = "SELECT * FROM pushup WHERE name = '$name'";
