@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Healthy Hands</title>
+		<style>
+			body {
+				background-image: url("{{url_for('static',filename='main.jpg')}}");
+				background-size: 1500px 1000px;
+				background-repeat: no_repeat;
+			}
+			h1 {
+				font-size: 50px;
+				text-align: center;
+				line-height: 1.5;
+				vertical-align: middle;
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			p {
+				font-size: 20px;
+				text-align: center;
+				line-height: 1.5;
+				vertical-align: middle;
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			.stopwatch {
+				font-size: 24px;
+				margin-bottom: 20px;
+				position: relative;
+				text-align: center;
+				left: 300px;
+			}
+			.stopwatch circle {
+				stroke-dasharray: 502;
+				stroke-dashoffset: 502;
+				transition: stroke-dashoffset 1s linear;
+				text-align: center;
+			}
+		        .center-button {
+				font-size: 20px;
+          			display: flex;
+            			justify-content: center;
+				position: relative;
+				left: 300px;
+				
+        		}
+			.center-button2 {
+				font-size: 15px;
+          			display: flex;
+            			justify-content: center;
+				position: relative;
+				left: 1030px;
+        		}
+			.stopwatch svg{
+				transform: rotate(-90deg);
+			}
+			text{
+				transform: rotate(90deg);
+			}
+			iframe{
+				position: relative;
+				top: -250px;
+				left: 100px;
+				width: 700px;
+				height: 600px;
+			}
+		</style>
+
+	</head>
+	<body>
+		<header>
+			<h1>Start Count</h1>
+		</header>
+		<div id="output"></div>
+
+		<script>
+			var outputDiv = document.getElementById('output');
+			outputDiv.innerHTML = '<p>Start to record pushup ability </p>';
+		</script>
+
+		<div class="stopwatch">
+			<svg width="200" height="200">
+				<circle cx="100" cy="100" r="80" stroke="black" stroke-width="4" fill="none" />
+				<g transform="translate(100, 100)">
+					<text id="countdown" text-anchor="middle" fill="black" font-size="24px" dy=".3em">
+						<tspan x="0" y="5">60</tspan>
+					</text>
+				</g>
+			</svg>
+		</div>
+		<div class="center-button">
+			<button onclick="startStopwatch()">Start</button>
+			
+		</div>
+		<br>
+		<form action="http://192.168.1.144/count_pushup.php" method="post">
+			<input type="hidden" id="hiddenInput1" name="starthours">
+			<input type="hidden" id="hiddenInput2" name="startminutes">
+			<input type="hidden" id="hiddenInput3" name="startseconds">
+			<input type="hidden" id="hiddenInput4" name="endhours">
+			<input type="hidden" id="hiddenInput5" name="endminutes">
+			<input type="hidden" id="hiddenInput6" name="endseconds">
+			<input type="hidden" id="hiddenInput7" name="username">
+			<button type="submit" class="center-button2">Save</button>
+		</form>
+		<script>
+			let timeLeft = 60;
+			function startStopwatch() {
+				if (timeLeft == 60){
+					const circle = document.querySelector('.stopwatch circle');
+					const countdown = document.getElementById('countdown');
+					let timer = setInterval(function() {
+						if (timeLeft == 60) {
+							submitForm1();
+						}
+						timeLeft--;
+						
+						if (timeLeft <= 0) {
+							clearInterval(timer);
+							setTimeout(function() {
+        	        					alert("Stop the recording.");
+							}, 1000);
+							submitForm2();
+						}
+
+						const percentage = (timeLeft / 60) * 100;
+						const offset = (502 * percentage) / 100;
+						circle.style.strokeDashoffset = offset;
+						circle.style.stroke = `hsl(${percentage}, 70%, 50%)`;
+						countdown.textContent = timeLeft;
+					}, 1000);
+				}
+			}
+			function submitForm1() {
+				var now1 = new Date();
+				var hours1 = now1.getHours();
+				var minutes1 = now1.getMinutes();
+				var seconds1 = now1.getSeconds();
+				document.getElementById('hiddenInput1').value = hours1;
+				document.getElementById('hiddenInput2').value = minutes1;
+				document.getElementById('hiddenInput3').value = seconds1;
+			}
+			function submitForm2() {
+				var now2 = new Date();
+				var hours2 = now2.getHours();
+				var minutes2 = now2.getMinutes();
+				var seconds2 = now2.getSeconds();
+				document.getElementById('hiddenInput4').value = hours2;
+				document.getElementById('hiddenInput5').value = minutes2;
+				document.getElementById('hiddenInput6').value = seconds2;
+			}
+		</script>
+		<iframe src="http://192.168.1.144:5000/stream1?src=0" sandbox="allow-same-origin allow-scripts" frameborder="0"></iframe>
+	</body>
+</html>
