@@ -17,6 +17,11 @@ $result2 = $conn->query($sql2);
 
 if(isset($result2) && $result2->num_rows > 0){
     echo "Data of " .$name. "<hr><hr>";
+    $dataRows = array();
+    while($row = $result2->fetch_assoc()){
+        $dataRows[] = $row;
+    }
+    $dataRows = array_reverse($dataRows);
     while($row = $result2->fetch_assoc()){
         echo "Date: ".$row['date']."<br>";
         echo "Time: From ".$row['start_time']." to ".$row['end_time']."<br>";
