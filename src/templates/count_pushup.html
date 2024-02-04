@@ -109,6 +109,11 @@
 			<input type="hidden" id="hiddenInput6" name="endseconds">
 			<button type="submit" class="center-button2">Save</button>
 		</form>
+		<br>
+		<div class="center-button3">
+			<button onclick="goToMainPage()">Go back to main page.</button>
+			
+		</div>
 		<script>
 			let timeLeft = 60;
 			function startStopwatch() {
@@ -155,6 +160,9 @@
 				document.getElementById('hiddenInput5').value = minutes2;
 				document.getElementById('hiddenInput6').value = seconds2;
 			}
+			function goToMainPage() {
+        			window.location.href = 'http://192.168.1.144:5000/main';
+    			}
 		</script>
 		<iframe src="http://192.168.1.144:5000/stream1?src=0" sandbox="allow-same-origin allow-scripts" frameborder="0"></iframe>
 	</body>
