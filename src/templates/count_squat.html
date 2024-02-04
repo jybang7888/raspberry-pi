@@ -45,6 +45,13 @@
 				left: 300px;
 				
         		}
+			.center-button2 {
+				font-size: 15px;
+          			display: flex;
+            			justify-content: center;
+				position: relative;
+				left: 1030px;
+        		}
 			.stopwatch svg{
 				transform: rotate(-90deg);
 			}
@@ -91,7 +98,9 @@
 		</div>
 		<div class="center-button">
 			<button onclick="startStopwatch()">Start</button>
+			
 		</div>
+		<br>
 		<form action="http://192.168.1.144/count_squat.php" method="post">
 			<input type="hidden" id="hiddenInput1" name="starthours">
 			<input type="hidden" id="hiddenInput2" name="startminutes">
@@ -100,7 +109,7 @@
 			<input type="hidden" id="hiddenInput5" name="endminutes">
 			<input type="hidden" id="hiddenInput6" name="endseconds">
 			<input type="hidden" id="hiddenInput7" name="username">
-			<button type="submit" style="font-size: 20px; display: flex; justify-content: center; position: relative; left: 1000px;">Save</button>
+			<button type="submit" class="center-button2">Save</button>
 		</form>
 		<script>
 			let timeLeft = 60;
