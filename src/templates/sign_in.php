@@ -18,7 +18,7 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // 사용자 정보가 일치하는 경우
-    header("Location: http://192.168.1.144:5000/count/'$username'");
+    header("Location: http://192.168.1.144:5000/count/$username");
     exit();
 } else {
     // 사용자 정보가 일치하지 않는 경우
