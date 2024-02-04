@@ -17,42 +17,21 @@ def main():
 def count_name(username):
     return render_template('count.html',username=username)
 
-@app.route('/count/index1/<username>')
+@app.route('/count/index1?name=<username>')
 def index1(username):
     return render_template('count_pushup.html',username=username)
-
-@app.route('/count/index1/result',methods=['GET','POST'])
-def index1_r():
-    if request.method == 'GET':
-        db1 = Database()
-        sql = db1.show_1()   
-        return render_template('data.html',list=sql)
         
-@app.route('/count/index2/<username>')
+@app.route('/count/index2?name=<username>')
 def index2(username):
     return render_template('count_squat.html',username=username)
 
-@app.route('/count/index2/result',methods=['GET','POST'])
-def index2_r():
-    if request.method == 'GET':
-        db2 = Database()
-        sql = db2.show_2()   
-        return render_template('data.html',list=sql)
-
-@app.route('/count/index3/<username>')
+@app.route('/count/index3?name=<username>')
 def index3(username):
     return render_template('count_burpee.html',username=username)
 
 @app.route('/show_record')
 def show_record():
     return render_template('show_record.html')
-
-@app.route('/record?username=<username>')
-def record(username):
-    if request.method == 'GET':
-        db = Database()
-        sql = db.show_by_name(name=username)  
-        return render_template('record.html',username=username,list=sql)
 
 @app.route('/sign_in')
 def sign_in():
@@ -69,18 +48,6 @@ def sign_up():
 @app.route('/sign_up_wrong')
 def sign_up_wrong():
     return render_template('sign_up_wrong.html')
-
-
-    
-
-        
-
-
-@app.route('/clock_save.php',methods=['GET','POST'])
-def index2_c():
-    return render_template('clock_save.php')
-
-
 
 streamer1 = Streamer1()
 streamer2 = Streamer2()
