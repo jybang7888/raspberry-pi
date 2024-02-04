@@ -21,7 +21,7 @@ def main():
 def count():
     return render_template('count.html')
     
-@app.route('/count/<username>')
+@app.route('/count?username=<username>')
 def count_name(username):
     return render_template('count.html',username=username)
 
