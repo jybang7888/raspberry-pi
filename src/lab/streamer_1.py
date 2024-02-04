@@ -59,7 +59,7 @@ class Streamer1 :
         self.round_angle_6 = 0
         self.frame = None
         with conn.cursor() as cur :
-            sql = "delete from push_up"
+            sql = "delete from pushup"
             cur.execute(sql)
 
     def run(self, src = 0 ) :
@@ -207,9 +207,9 @@ class Streamer1 :
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
                                 with conn.cursor() as cur :
-                                    sql = "select * from push_up"
+                                    sql = "select * from pushup"
                                     cur.execute(sql)
-                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
+                                    cur.execute("INSERT INTO pushup(datetime,state) VALUES(current_time,'Up')")
                                     conn.commit()
                                     cur.execute(sql)
                                     for row in cur.fetchall():
@@ -218,9 +218,9 @@ class Streamer1 :
                                 self.stage = "Down"
                                 
                                 with conn.cursor() as cur :
-                                    sql = "select * from push_up"
+                                    sql = "select * from pushup"
                                     cur.execute(sql)
-                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Down')")
+                                    cur.execute("INSERT INTO pushup(datetime,state) VALUES(current_time,'Down')")
                                     conn.commit()
                                     cur.execute(sql)
                                     for row in cur.fetchall():
@@ -254,9 +254,9 @@ class Streamer1 :
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
                                 with conn.cursor() as cur :
-                                    sql = "select * from push_up"
+                                    sql = "select * from pushup"
                                     cur.execute(sql)
-                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Up')")
+                                    cur.execute("INSERT INTO pushup(datetime,state) VALUES(current_time,'Up')")
                                     conn.commit()
                                     cur.execute(sql)
                                     for row in cur.fetchall():
@@ -265,9 +265,9 @@ class Streamer1 :
                                 self.stage = "Down"
                                 
                                 with conn.cursor() as cur :
-                                    sql = "select * from push_up"
+                                    sql = "select * from pushup"
                                     cur.execute(sql)
-                                    cur.execute("INSERT INTO push_up(datetime,state) VALUES(current_time,'Down')")
+                                    cur.execute("INSERT INTO pushup(datetime,state) VALUES(current_time,'Down')")
                                     conn.commit()
                                     cur.execute(sql)
                                     for row in cur.fetchall():
