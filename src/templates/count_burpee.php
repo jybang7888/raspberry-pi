@@ -43,7 +43,7 @@
             }
         }
         else{
-            echo "No data about squat.";
+            echo "No data about burpee.";
         }
 
     header("localhost");
