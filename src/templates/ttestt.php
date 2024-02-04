@@ -13,23 +13,17 @@
     $endhours = $_POST['endhours'];
     $endminutes = $_POST['endminutes'];
     $endseconds = $_POST['endseconds'];
-    $year = $_POST['year'];
-    $month = $_POST['month'];
-    $day = $_POST['day'];
-    
+
     $starthours = sprintf("%02d", $starthours);
     $startminutes = sprintf("%02d", $startminutes);
     $startseconds = sprintf("%02d", $startseconds);
     $endhours = sprintf("%02d", $endhours);
     $endminutes = sprintf("%02d", $endminutes);
     $endseconds = sprintf("%02d", $endseconds);
-    $year = sprintf("%04d", $year);
-    $month = sprintf("%02d", $month);
-    $day = sprintf("%02d", $day);
     
     $endtime = $endhours . ':' . $endminutes . ':' . $endseconds;
     $starttime = $starthours . ':' . $startminutes . ':' . $startseconds;
-    $date = $year . '-' . $month . '-' . $day;
+    $date = date("Y-m-d");
 
     $sql = "SELECT * FROM squat WHERE datetime > '$starttime' AND datetime < '$endtime' AND state = 'down'";
     $result = mysqli_query($conn, $sql);
