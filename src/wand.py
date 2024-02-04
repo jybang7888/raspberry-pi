@@ -51,8 +51,9 @@ def index3(username):
 def show_record():
     return render_template('show_record.html')
 
-
-
+@app.route('/record?username=<username>')
+def record(username):
+    return render_template('record.html')
 
 @app.route('/sign_in')
 def sign_in():
