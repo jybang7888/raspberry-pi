@@ -21,7 +21,6 @@ $result2 = $conn->query($sql2);
 $sql3 = "SELECT * FROM total_burpee WHERE name = '$name' ORDER BY date DESC, start_time DESC LIMIT $count";
 $result3 = $conn->query($sql3);
 
-header("Location: http://192.168.1.144:5000/record");
 echo "Data of " .$name. "<hr><hr>";
     
 if ($exercise == 'PushUp' or $exercise == 'Total Exercises'){
