@@ -65,6 +65,14 @@
 				width: 700px;
 				height: 600px;
 			}
+			.text-box {
+				margin: 40px auto;
+				border: 2px solid #000;
+				pading: 0px;
+				width: 400px;
+				height: 80px;
+				background-color: rgb(256, 256, 256);
+			}
 		</style>
 
 	</head>
@@ -104,6 +112,13 @@
 			<input type="hidden" id="hiddenInput7" name="username">
 			<button type="submit" class="center-button2">Save</button>
 		</form>
+		<div class="text-box">
+				<nav>
+					<ul>
+						<li><a href="http://192.168.1.144:5000/count/<username>/index3/record">Check your Record</a></li>
+					</ul>
+				</nav>
+			</div>
 		<script>
 			let timeLeft = 60;
 			function startStopwatch() {
