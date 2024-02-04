@@ -25,11 +25,11 @@
     $starttime = $starthours . ':' . $startminutes . ':' . $startseconds;
     $date = date("Y-m-d");
 
-    $sql = "SELECT * FROM push_up WHERE datetime > '$starttime' AND datetime < '$endtime' AND state = 'down'";
+    $sql = "SELECT * FROM push_up WHERE datetime > '$starttime' AND datetime < '$endtime' AND state = 'up'";
     $result = mysqli_query($conn, $sql);
     $row_count = mysqli_num_rows($result);
     
-    $sql1 = "INSERT INTO heal (name, date, time, total) VALUES ('jun', '$date', '$starttime', '$row_count')";
+    $sql1 = "INSERT INTO heal (name, date, starttime, endtime, total) VALUES ('jun', '$date', '$starttime', '$endtime', '$row_count')";
     $conn->query($sql1);
     
     header("localhost");
