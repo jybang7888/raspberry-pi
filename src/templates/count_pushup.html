@@ -83,7 +83,6 @@
 			} else {
 				outputDiv.innerHTML = '<p>Measure the ability without recording.</p>';
 			}
-			document.getElementById('hiddenInput7').value = username;
 		</script>
 
 		<div class="stopwatch">
@@ -101,14 +100,13 @@
 			
 		</div>
 		<br>
-		<form action="http://192.168.1.144/count_pushup.php" target="_blank" method="post">
+		<form action="http://192.168.1.144/count_pushup.php?username={{username}}" target="_blank" method="post">
 			<input type="hidden" id="hiddenInput1" name="starthours">
 			<input type="hidden" id="hiddenInput2" name="startminutes">
 			<input type="hidden" id="hiddenInput3" name="startseconds">
 			<input type="hidden" id="hiddenInput4" name="endhours">
 			<input type="hidden" id="hiddenInput5" name="endminutes">
 			<input type="hidden" id="hiddenInput6" name="endseconds">
-			<input type="hidden" id="hiddenInput7" name="username">
 			<button type="submit" class="center-button2">Save</button>
 		</form>
 		<script>

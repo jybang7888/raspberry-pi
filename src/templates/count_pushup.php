@@ -13,7 +13,7 @@
     $endhours = $_POST['endhours'];
     $endminutes = $_POST['endminutes'];
     $endseconds = $_POST['endseconds'];
-    $name = $_POST['username'];
+    $name = $_GET['username'];
 
     $starthours = sprintf("%02d", $starthours);
     $startminutes = sprintf("%02d", $startminutes);
@@ -33,13 +33,14 @@
     $sql1 = "INSERT INTO total_pushup (name, date, start_time, end_time, total) VALUES ('$name', '$date', '$starttime', '$endtime', '$row_count')";
     $conn->query($sql1);
 
-    $sql2 = "SELECT * FROM pushup WHERE name = '$name'";
+    $sql2 = "SELECT * FROM total_pushup WHERE name = '$name'";
         $result2 = $conn->query($sql2);
         if(isset($result2) && $result2->num_rows > 0){
             echo "Data of " .$name. "<hr><hr>";
             while($row = $result2->fetch_assoc()){
-                echo "Date: ".$row['datetime']."<br>";
-                echo "State: ".$row['state']."<hr>"; 
+                echo "Date: ".$row['date']."<br>";
+                echo "Time: From ".$row['start_time']." to ".$row['end_time']."<br>";
+                echo "Total: ".$row['total']."<hr>";
             }
         }
         else{
