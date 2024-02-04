@@ -13,19 +13,19 @@ version = '0.1.0'
 def main():
     return render_template('main.html')
     
-@app.route('/count/<username>')
+@app.route('/count?name=<username>')
 def count_name(username):
     return render_template('count.html',username=username)
 
-@app.route('/count/index1?name=<username>')
+@app.route('/count?name=<username>/index1')
 def index1(username):
     return render_template('count_pushup.html',username=username)
         
-@app.route('/count/index2?name=<username>')
+@app.route('/count?name=<username>/index2')
 def index2(username):
     return render_template('count_squat.html',username=username)
 
-@app.route('/count/index3?name=<username>')
+@app.route('/count?name=<username>/index3')
 def index3(username):
     return render_template('count_burpee.html',username=username)
 
