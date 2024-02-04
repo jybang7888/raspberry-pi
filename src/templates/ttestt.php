@@ -25,7 +25,7 @@
     $starttime = $starthours . ':' . $startminutes . ':' . $startseconds;
     $date = date("Y-m-d");
 
-    $sql = "SELECT * FROM squat WHERE datetime > '$starttime' AND datetime < '$endtime' AND state = 'down'";
+    $sql = "SELECT * FROM push_up WHERE datetime > '$starttime' AND datetime < '$endtime' AND state = 'down'";
     $result = mysqli_query($conn, $sql);
     $row_count = mysqli_num_rows($result);
     
