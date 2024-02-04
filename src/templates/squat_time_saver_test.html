@@ -98,60 +98,53 @@
 			<input type="hidden" id="hiddenInput4" name="endhours">
 			<input type="hidden" id="hiddenInput5" name="endminutes">
 			<input type="hidden" id="hiddenInput6" name="endseconds">
-			<input type="hidden" id="hiddenInput7" name="year">
-			<input type="hidden" id="hiddenInput8" name="month">
-			<input type="hidden" id="hiddenInput9" name="day">
 			<button type="submit">Save</button>
 		</form>
 		<script>
 			let timeLeft = 60;
 			function startStopwatch() {
-			if (timeLeft == 60){
-				const circle = document.querySelector('.stopwatch circle');
-				const countdown = document.getElementById('countdown');
-				let timer = setInterval(function() {
-					timeLeft--;
+				if (timeLeft == 60){
+					const circle = document.querySelector('.stopwatch circle');
+					const countdown = document.getElementById('countdown');
+					let timer = setInterval(function() {
+						if (timeLeft == 60) {
+							submitForm1();
+						}
+						timeLeft--;
+						
+						if (timeLeft <= 0) {
+							clearInterval(timer);
+							setTimeout(function() {
+        	        					alert("Stop the recording.");
+							}, 1000);
+							submitForm2();
+						}
 
-					if (timeLeft <= 0) {
-						clearInterval(timer);
-						setTimeout(function() {
-                					alert("Stop the recording.");
-						}, 1000);
-						submitForm2();
-					}
-
-					const percentage = (timeLeft / 60) * 100;
-					const offset = (502 * percentage) / 100;
-					circle.style.strokeDashoffset = offset;
-					circle.style.stroke = `hsl(${percentage}, 70%, 50%)`;
-					countdown.textContent = timeLeft;
-				}, 1000);
-				submitform1();
-			}
+						const percentage = (timeLeft / 60) * 100;
+						const offset = (502 * percentage) / 100;
+						circle.style.strokeDashoffset = offset;
+						circle.style.stroke = `hsl(${percentage}, 70%, 50%)`;
+						countdown.textContent = timeLeft;
+					}, 1000);
+				}
 			}
 			function submitForm1() {
-				var now = new Date();
-				var year = now.getFullYear();
-				var month = now.getMonth() + 1;
-				var day = now.getDate();
-				var hours = now.getHours();
-				var minutes = now.getMinutes();
-				var seconds = now.getSeconds();
-				document.getElementById('hiddenInput1').value = hours;
-				document.getElementById('hiddenInput2').value = minutes;
-				document.getElementById('hiddenInput3').value = seconds;
-				document.getElementById('hiddenInput7').value = year;
-				document.getElementById('hiddenInput8').value = month;
-				document.getElementById('hiddenInput9').value = day;
+				var now1 = new Date();
+				var hours1 = now1.getHours();
+				var minutes1 = now1.getMinutes();
+				var seconds1 = now1.getSeconds();
+				document.getElementById('hiddenInput1').value = hours1;
+				document.getElementById('hiddenInput2').value = minutes1;
+				document.getElementById('hiddenInput3').value = seconds1;
 			}
 			function submitForm2() {
-				var now = new Date();
-				var hours = now.getHours();
-				var minutes = now.getMinutes();
-				var seconds = now.getSeconds();
-				document.getElementById('hiddenInput4').value = hours;
-				document.getElementById('hiddenInput5').value = minutes;
-				document.getElementById('hiddenInput6').value = seconds;
+				var now2 = new Date();
+				var hours2 = now2.getHours();
+				var minutes2 = now2.getMinutes();
+				var seconds2 = now2.getSeconds();
+				document.getElementById('hiddenInput4').value = hours2;
+				document.getElementById('hiddenInput5').value = minutes2;
+				document.getElementById('hiddenInput6').value = seconds2;
 			}
 		</script>
 		<iframe src="http://192.168.1.144:5000/stream2?src=0" sandbox="allow-same-origin allow-scripts" frameborder="0"></iframe>
