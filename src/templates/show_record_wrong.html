@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Healthy Hands</title>
+		<style>
+			body {
+				background-image: url("{{url_for('static',filename='main.jpg')}}");
+				background-size: 1500px 1000px;
+				background-repeat: no_repeat;
+			}
+			h1 {
+				font-size: 50px;
+				text-align: center;
+				line-height: 1.5;
+				vertical-align: middle;
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			
+		</style>
+
+	</head>
+	<body>
+
+		<header>
+			<h1>Search Your Record.</h1>
+		</header>
+		<form action="http://192.168.1.144/check_record.php" method="post" style ="text-align: center;">
+			<label for="username" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Username:</label>
+        		<input type="text" placeholder="Write your name" id="username" name="username" required>
+			<br>
+        		<label for="password" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Password:</label>
+        		<input type="password" placeholder="Write your password" id="password" name="password" required>
+			<br>
+        		<label for="exercise" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Exercise:</label>
+        		<select id="exercise" name="exercise">
+				<option>Total Exercises</option>
+				<option>PushUp</option>
+				<option>Squat</option>
+				<option>Burpee</option>
+			</select>
+			<br>
+        		<label for="count" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Number of data:</label>
+        		<input type="number" placeholder="Number of data to see" id="count" name="count" required>
+        		<button type="submit">Login</button>
+		</form>
+
+	</body>
+</html>
