@@ -13,12 +13,14 @@ version = '0.1.0'
 def main():
     return render_template('main.html')
     
-@app.route('/count/<username>')
-def count_name(username):
+@app.route('/count')
+def count_name():
+    username = request.args.get('username')
     return render_template('count.html',username=username)
 
-@app.route('/count/<username>/index1')
-def index1(username):
+@app.route('/count/index1')
+def index1():
+    username = request.args.get('username')
     return render_template('count_pushup.html',username=username)
         
 @app.route('/count/<username>/index2')
