@@ -45,8 +45,9 @@ def sign_up():
 def sign_up_wrong():
     return render_template('sign_up_wrong.html')
 
-@app.route('/count/index1/<username>')
-def index1(username):
+@app.route('/count/index1?username=<username>')
+def index1():
+    username = request.args.get('username', default=0, type=char)
     return render_template('count_pushup.html',username=username)
     
 @app.route('/index1/result',methods=['GET','POST'])
