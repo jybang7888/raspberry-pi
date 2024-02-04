@@ -75,15 +75,7 @@
 		<div id="output"></div>
 
 		<script>
-			var urlParams = new URLSearchParams(window.location.search);
-			var username = urlParams.get('username');
-			var outputDiv = document.getElementById('output');
-
-			if (username) {
-				outputDiv.innerHTML = '<p>Start to record push up ability of ' + username + '</p>';
-			} else {
-				outputDiv.innerHTML = '<p>Measure the ability without recording.</p>';
-			}
+			outputDiv.innerHTML = '<p>Start to record push up ability </p>';
 		</script>
 
 		<div class="stopwatch">
