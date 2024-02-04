@@ -44,7 +44,7 @@
         }
     }
     else{
-        echo "No data about pushup.";
+        echo "No data about squat.";
     }
     header("localhost");
 
