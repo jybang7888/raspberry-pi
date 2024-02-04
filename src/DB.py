@@ -14,3 +14,14 @@ class Database():
         self.cursor.execute(sql)
         result = self.cursor.fetchall()
         return(result)
+    def show_3(self):
+        sql = "SELECT * from burpee"
+        self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+        return(result)
+    def show_by_name(self,name):
+        sql = "SELECT * from heal where name = 'name'"
+        self.cusrsor.execute(sql)
+        result = self.cursor.fetchall()
+        return(result)
+    
