@@ -47,7 +47,7 @@ def index2_r():
         sql = db2.show_2()   
         return render_template('data.html',list=sql)
 
-@app.route('/count/index3')
+@app.route('/count/index3/<username>')
 def index3(username):
     return render_template('count_burpee.html',username=username)
 
