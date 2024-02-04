@@ -104,7 +104,7 @@
 			
 		</div>
 		<br>
-		<form action="http://192.168.1.144/count_burpee.php" method="post">
+		<form action="http://192.168.1.144/count_burpee.php" target="_blank" method="post">
 			<input type="hidden" id="hiddenInput1" name="starthours">
 			<input type="hidden" id="hiddenInput2" name="startminutes">
 			<input type="hidden" id="hiddenInput3" name="startseconds">
@@ -114,13 +114,7 @@
 			<input type="hidden" id="hiddenInput7" name="username">
 			<button type="submit" class="center-button2">Save</button>
 		</form>
-		<div class="text-box">
-				<nav>
-					<ul>
-						<li><a href="http://192.168.1.144:5000/count_burpee.php">Check your Record</a></li>
-					</ul>
-				</nav>
-			</div>
+		
 		<script>
 			let timeLeft = 60;
 			function startStopwatch() {
