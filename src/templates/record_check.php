@@ -19,10 +19,10 @@ $sql = "SELECT * FROM userinfo WHERE username = '$username' AND password = '$pas
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    header("Location: recorder.php?name=$username&exercise=$exercise&count=$count");
+    header("Location: record_show.php?name=$username&exercise=$exercise&count=$count");
     exit;
 } else {
-    header("Location: show_record_wrong.html");
+    header("Location: record_wrong.html");
 }
 
 $conn->close();
