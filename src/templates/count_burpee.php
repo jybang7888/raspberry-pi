@@ -13,7 +13,7 @@
     $endhours = $_POST['endhours'];
     $endminutes = $_POST['endminutes'];
     $endseconds = $_POST['endseconds'];
-    $name = $_POST['username'];
+    $name = $_GET['name'];
 
     $starthours = sprintf("%02d", $starthours);
     $startminutes = sprintf("%02d", $startminutes);
@@ -32,7 +32,20 @@
     
     $sql1 = "INSERT INTO total_burpee (name, date, starttime, endtime, total) VALUES ('$name', '$date', '$starttime', '$endtime', '$row_count')";
     $conn->query($sql1);
-    
+
+    $sql2 = "SELECT * FROM burpee WHERE name = '$name'";
+        $result2 = $conn->query($sql2);
+        if(isset($result2) && $result2->num_rows > 0){
+            echo "Data of " .$name. "<hr><hr>";
+            while($row = $result2->fetch_assoc()){
+                echo "Date: ".$row['datetime']."<br>";
+                echo "State: ".$row['state']."<hr>"; 
+            }
+        }
+        else{
+            echo "No data about squat.";
+        }
+
     header("localhost");
 
     mysqli_close($conn);
