@@ -22,22 +22,22 @@
 	</head>
 	<body>
 		<header>
-			<h1>새 계정을 만드세요</h1>
+			<h1>Make new account</h1>
 		</header>
 		<script>
 			alert("Password do not match.");
 		</script>
-		<form id="myForm" action="makeID.php" method="post" style ="text-align: center;">
+		<form action="http://192.168.1.144/sign_up.php" method="post" style ="text-align: center;">
 			<label for="username" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Name:</label>
-			<input type="text" placeholder="Can write in Korean" id = "username" name = "username" style="font-size: 30px;">
+			<input type="text" placeholder="Only write in English" id = "username" name = "username" required>
 			<br>
 			<label for="password" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">PW:</label>
-			<input type="password" placeholder="Enter at least 4words" id = "password" name = "password" style="font-size: 30px;">
+			<input type="password" placeholder="Enter at least 4words" id = "password" name = "password" required>
 			<br>
 			<label for="password_check" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">PW:</label>
-			<input type="password" placeholder="Enter password again" id = "password_check" name = "password_check" style="font-size: 30px;">
-			<input type="hidden" name="count" value="0">
-			<input type="hidden" name="date" value="<?php echo date("Ymd"); ?>">
+			<input type="password" placeholder="Enter password again" id = "password_check" name = "password_check" required>
+			<input type="hidden" id="count" name="count" value="0" required>
+			<input type="hidden" id="date" name="date" value="<?php echo date("Ymd"); ?>" required>
 			<input type="submit" value="Enter" style="font-size: 30px;">
 		</form>
 	</body>
