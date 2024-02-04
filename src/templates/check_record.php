@@ -12,16 +12,17 @@ if ($conn->connect_error) {
 
 $username = $_POST['username'];
 $password = $_POST['password'];
+$exercise = $_POST['exercise'];
+$count = $_POST['count'];
 
 $sql = "SELECT * FROM userinfo WHERE username = '$username' AND password = '$password'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-
-    header("Location: recorder.php?name=$username");
+    header("Location: recorder.php?name=$username&exercise=$exercise&count=$count");
     exit;
 } else {
-    echo"bad";
+    header("Location: show_record_wrong.html");
 }
 
 $conn->close();
