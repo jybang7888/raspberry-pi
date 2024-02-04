@@ -25,20 +25,20 @@
 		<header>
 			<h1>Search Your Record.</h1>
 		</header>
-		<form id="myForm" action="your_record.html" method="post" style ="text-align: center;">
+		<form id="myForm" action="http://192.168.1.144:5000/record?username={{username}}" method="post" style ="text-align: center;">
 			<label for="username" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Name:</label>
 			<input type="text" placeholder="Can Enter name in Korean" id = "username" name = "username" style="font-size: 30px;">
 			<input type="submit" value="Enter" style="font-size: 30px;">
 		</form>
 
 		<script>
-			document.getElementById('myForm').addEventListener('submit', function(event) {
+			"""document.getElementById('myForm').addEventListener('submit', function(event) {
 				event.preventDefault();
             
 				var username = document.getElementById('username').value;
             
-				window.location.href = 'start_count.html?username=' + encodeURIComponent(username);
-			});
+				window.location.href = 'record.html?username=' + encodeURIComponent(username);
+			});"""
 		</script>
 	</body>
 </html>
