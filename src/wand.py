@@ -25,9 +25,38 @@ def count():
 def count_name(username):
     return render_template('count.html',username=username)
 
+@app.route('/count/index1/<username>')
+def index1(username):
+    return render_template('count_pushup.html',username=username)
+
+@app.route('/count/index1/result',methods=['GET','POST'])
+def index1_r():
+    if request.method == 'GET':
+        db1 = Database()
+        sql = db1.show_1()   
+        return render_template('data.html',list=sql)
+        
+@app.route('/count/index2/<username>')
+def index2(username):
+    return render_template('count_squat.html',username=username)
+
+@app.route('/count/index2/result',methods=['GET','POST'])
+def index2_r():
+    if request.method == 'GET':
+        db2 = Database()
+        sql = db2.show_2()   
+        return render_template('data.html',list=sql)
+
+@app.route('/count/index3')
+def index3(username):
+    return render_template('count_burpee.html',username=username)
+
 @app.route('/show_record')
 def show_record():
     return render_template('show_record.html')
+
+
+
 
 @app.route('/sign_in')
 def sign_in():
@@ -45,35 +74,17 @@ def sign_up():
 def sign_up_wrong():
     return render_template('sign_up_wrong.html')
 
-@app.route('/count/index1/<username>')
-def index1(username):
-    return render_template('count_pushup.html',username=username)
-    
-@app.route('/index1/result',methods=['GET','POST'])
-def index1_r():
-    if request.method == 'GET':
-        db1 = Database()
-        sql = db1.show_1()   
-        return render_template('data.html',list=sql)
-        
-@app.route('/index2')
-def index2():
-    return render_template('count_squat.html')
 
-@app.route('/index2/result',methods=['GET','POST'])
-def index2_r():
-    if request.method == 'GET':
-        db2 = Database()
-        sql = db2.show_2()   
-        return render_template('data.html',list=sql)
+    
+
+        
+
 
 @app.route('/clock_save.php',methods=['GET','POST'])
 def index2_c():
     return render_template('clock_save.php')
 
-@app.route('/index3')
-def index3():
-    return render_template('count_burpee.html')
+
 
 streamer1 = Streamer1()
 streamer2 = Streamer2()
