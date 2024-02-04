@@ -55,7 +55,7 @@ def show_record():
 def record(username):
     if request.method == 'GET':
         db = Database()
-        sql = db.show_by_name()  
+        sql = db.show_by_name(name=username)  
         return render_template('record.html',username=username,list=sql)
 
 @app.route('/sign_in')
