@@ -53,7 +53,10 @@ def show_record():
 
 @app.route('/record?username=<username>')
 def record(username):
-    return render_template('record.html',username=username)
+    if request.method == 'GET':
+        db = Database()
+        sql = db.show_by_name()  
+        return render_template('record.html',username=username,list=sql)
 
 @app.route('/sign_in')
 def sign_in():
