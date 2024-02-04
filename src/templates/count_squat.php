@@ -34,7 +34,7 @@
 
     $conn->query($sql1);
 
-    $sql2 = "SELECT * FROM pushup WHERE name = '$name'";
+    $sql2 = "SELECT * FROM squat WHERE name = '$name'";
     $result2 = $conn->query($sql2);
     if(isset($result2) && $result2->num_rows > 0){
         echo "Data of " .$name. "<hr><hr>";
