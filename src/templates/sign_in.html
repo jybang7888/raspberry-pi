@@ -7,6 +7,8 @@
 				background-image: url("{{url_for('static',filename='main.jpg')}}");
 				background-size: 1500px 1000px;
 				background-repeat: no_repeat;
+    	                        justify-content: center;
+                                align-items: center;
 			}
 			h1 {
 				font-size: 50px;
@@ -21,8 +23,8 @@
 				text-align: center;
 				line-height: 1.5;
 				vertical-align: middle;
-				padding-top: 20px;
-				padding-bottom: 20px;
+				padding-top: 10px;
+				padding-bottom: 10px;
 				list-style: none;
 			}
 			
@@ -42,16 +44,17 @@
         		<label for="password" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Password:</label>
         		<input type="password" placeholder="Write your password" id="password" name="password" required>
 			<br>
-        		<button type="submit" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Login</button>
+			<br>
+        		<button type="submit" style ="text-align: center; font-size: 18px;line-height: 1.5;">Login</button>
    		</form>
 
-		<p> <label for="password" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">If you don't have account</label>
+	
 			<ul>
 				<br>
 				<li><a href="http://192.168.1.144:5000/count/guest">Use guest</a></li>
 				<li><a href="http://192.168.1.144:5000/sign_up">Make new account</a></li>
 			</ul>
-		</p>
+		
 
 
 	</body>
