@@ -53,7 +53,7 @@ def show_record():
 
 @app.route('/record?username=<username>')
 def record(username):
-    return render_template('record.html')
+    return render_template('record.html',username=username)
 
 @app.route('/sign_in')
 def sign_in():
