@@ -36,14 +36,11 @@
     $sql2 = "SELECT * FROM burpee WHERE name = '$name'";
         $result2 = $conn->query($sql2);
         if(isset($result2) && $result2->num_rows > 0){
-            header("Location: http://192.168.1.144:5000/count/$username/index3/result");
             echo "Data of " .$name. "<hr><hr>";
             while($row = $result2->fetch_assoc()){
                 echo "Date: ".$row['datetime']."<br>";
                 echo "State: ".$row['state']."<hr>"; 
             }
-            
-            exit();
         }
         else{
             echo "No data about burpee.";
