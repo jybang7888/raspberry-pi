@@ -33,6 +33,10 @@ def index3(username):
 def show_record():
     return render_template('show_record.html')
 
+@app.route('/record')
+def record():
+    return render_template('record.html')
+    
 @app.route('/sign_in')
 def sign_in():
     return render_template('sign_in.html')
