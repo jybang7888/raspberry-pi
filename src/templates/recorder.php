@@ -11,8 +11,10 @@ if ($conn->connect_error) {
 }
 
 $name = $_GET['name'];
+$exercise = $_GET['exercise'];
+$count = $_GET['count'];
 
-$sql2 = "SELECT * FROM total_pushup WHERE name = '$name'";
+$sql2 = "SELECT * FROM total_pushup WHERE name = '$name' LIMIT '$count'";
 $result2 = $conn->query($sql2);
 
 if(isset($result2) && $result2->num_rows > 0){
