@@ -12,18 +12,19 @@ if ($conn->connect_error) {
 
 $name = $_GET['name'];
 $exercise = $_GET['exercise'];
-$count = $_GET['count'];
+$date1 = $_GET['date1'];
+$date2 = $_GET['date2'];
 
-$sql1 = "SELECT * FROM total_pushup WHERE name = '$name' ORDER BY date DESC, start_time DESC LIMIT $count";
+$sql1 = "SELECT * FROM total_pushup WHERE name = '$name' AND date >= '$date1' AND date <= '$date2' ORDER BY date DESC, start_time DESC";
 $result1 = $conn->query($sql1);
-$sql2 = "SELECT * FROM total_squat WHERE name = '$name' ORDER BY date DESC, start_time DESC LIMIT $count";
+$sql2 = "SELECT * FROM total_squat WHERE name = '$name' AND date >= '$date1' AND date <= '$date2' ORDER BY date DESC, start_time DESC";
 $result2 = $conn->query($sql2);
-$sql3 = "SELECT * FROM total_burpee WHERE name = '$name' ORDER BY date DESC, start_time DESC LIMIT $count";
+$sql3 = "SELECT * FROM total_burpee WHERE name = '$name' AND date >= '$date1' AND date <= '$date2' ORDER BY date DESC, start_time DESC";
 $result3 = $conn->query($sql3);
 
 $str= "Exercise Data of " .$name. "<hr><hr>";
 echo "<span style='font-size: 25px'>$str</span>";
-    
+
 if ($exercise == 'PushUp' or $exercise == 'Total Exercises'){
 	echo "<strong>Push up</strong> <hr>";
 	if(isset($result1) && $result1->num_rows > 0){
