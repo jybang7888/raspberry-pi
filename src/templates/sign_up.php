@@ -1,6 +1,6 @@
 <?php
 
-$servername = "192.168.1.144";
+$servername = "192.168.1.249";
 $username = "root";
 $password = "1234";
 $dbname = "health";
@@ -16,10 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if ($password == $password_check) {
     $sql = "INSERT INTO userinfo (username, password) VALUES ('$username', '$password')";
     $conn->query($sql);
-    header("Location: http://192.168.1.144:5000/main");
+    header("Location: http://192.168.1.249:5000/main");
 }
 else {
-    header("Location: http://192.168.1.144:5000/sign_up_wrong");
+    header("Location: http://192.168.1.249:5000/sign_up_wrong");
 }
 
 $conn->close();
