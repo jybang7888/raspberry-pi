@@ -48,18 +48,45 @@
 				<option>Burpee</option>
 			</select>
 			<br>
-        		<label for="count" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Number of data:</label>
-        		<input type="number" placeholder="Number of data to see" id="count" name="count" required>
+			<label style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">From:</label>
+        		<label for="date1" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">
+        			<input type="date" id="date1" name="date1">
+			</label>
+			<label style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">To:</label>
+			<label for="date2" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">
+        			<input type="date" id="date2" name="date2">
+			</label>
         		<button type="submit">Login</button>
 		</form>
-		<br>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		<div class="center-button">
 			<button onclick="goToMainPage()">Go back to main page.</button>
 		</div>
 		<script>
 			function goToMainPage() {
-	       			window.location.href = 'http://192.168.1.249:5000/main';
+	       			window.location.href = 'http://192.168.1.144:5000/main';
     				}
+			var date1Input = document.getElementById('date1');
+    			var date2Input = document.getElementById('date2');
+			function getTodayDate() {
+        			let today = new Date();
+        			let dd = String(today.getDate()).padStart(2, '0');
+        			let mm = String(today.getMonth() + 1).padStart(2, '0');
+        			let yyyy = today.getFullYear();
+        			return yyyy + '-' + mm + '-' + dd;
+    			}
+			date1Input.setAttribute('max', getTodayDate());
+			date2Input.setAttribute('max', getTodayDate());
+			date1Input.addEventListener('change', function() {
+				if (date1Input.value > date2Input.value) {
+            				date2Input.value = date1Input.value;
+        			}
+    			});
+			date2Input.addEventListener('change', function() {
+        			if (date1Input.value > date2Input.value) {
+            				date1Input.value = date2Input.value;
+        			}
+    			});
 		</script>
 	</body>
 </html>
