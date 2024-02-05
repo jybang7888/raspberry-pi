@@ -25,7 +25,7 @@
 			<h1>Make new account</h1>
 		</header>
 		<script>
-			alert("Password do not match.");
+			alert("Password do not match or shorter than 4words.");
 		</script>
 		<form action="http://192.168.1.249/sign_up.php" method="post" style ="text-align: center;">
 			<label for="username" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Name:</label>
@@ -36,9 +36,8 @@
 			<br>
 			<label for="password_check" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">PW:</label>
 			<input type="password" placeholder="Enter password again" id = "password_check" name = "password_check" required>
-			<input type="hidden" id="count" name="count" value="0" required>
-			<input type="hidden" id="date" name="date" value="<?php echo date("Ymd"); ?>" required>
-			<input type="submit" value="Enter" style="font-size: 30px;">
+			<br>
+			<input type="submit" value="Enter" style="text-align: center; font-size: 20px;">
 		</form>
 	</body>
 </html>
