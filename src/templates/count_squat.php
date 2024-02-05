@@ -30,17 +30,18 @@
     $result = mysqli_query($conn, $sql);
     $row_count = mysqli_num_rows($result);
     
-    $sql1 = "INSERT INTO total_squat (name, date, starttime, endtime, total) VALUES ('$name', '$date', '$starttime', '$endtime', '$row_count')";
+    $sql1 = "INSERT INTO total_squat (name, date, start_time, end_time, total) VALUES ('$name', '$date', '$starttime', '$endtime', '$row_count')";
 
     $conn->query($sql1);
 
-    $sql2 = "SELECT * FROM squat WHERE name = '$name'";
+    $sql2 = "SELECT * FROM total_squat WHERE name = '$name'";
     $result2 = $conn->query($sql2);
     if(isset($result2) && $result2->num_rows > 0){
         echo "Data of " .$name. "<hr><hr>";
         while($row = $result2->fetch_assoc()){
-            echo "Date: ".$row['datetime']."<br>";
-            echo "State: ".$row['state']."<hr>"; 
+                echo "Date: ".$row['date']."<br>";
+                echo "Time: From ".$row['start_time']." to ".$row['end_time']."<br>";
+                echo "Total: ".$row['total']."<hr>";
         }
     }
     else{
