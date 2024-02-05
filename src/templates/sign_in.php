@@ -1,5 +1,5 @@
 <?php
-$servername = "192.168.1.144";
+$servername = "192.168.1.249";
 $username = "root";
 $password = "1234";
 $dbname = "health";
@@ -17,10 +17,10 @@ $sql = "SELECT * FROM userinfo WHERE username = '$username' AND password = '$pas
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    header("Location: http://192.168.1.144:5000/count?username=$username");
+    header("Location: http://192.168.1.249:5000/count?username=$username");
     exit();
 } else {
-    header("Location: http://192.168.1.144:5000/sign_in");
+    header("Location: http://192.168.1.249:5000/sign_in");
 }
 
 $conn->close();
