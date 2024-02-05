@@ -37,8 +37,9 @@
     $sql2 = "SELECT * FROM total_squat WHERE name = '$name'";
     $result2 = $conn->query($sql2);
     if(isset($result2) && $result2->num_rows > 0){
-        $str = "Squat Data of " .$name. "<hr><hr>";
+        $str = "Squat Data <hr><hr>";
         echo "<span style='font-size: 25px'>$str</span>";
+        echo "USER: ".$name."<hr>";
         while($row = $result2->fetch_assoc()){
                 echo "Date: ".$row['date']."<br>";
                 echo "Time: From ".$row['start_time']." to ".$row['end_time']."<br>";
