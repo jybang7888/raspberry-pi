@@ -3,7 +3,6 @@ from threading import Thread
 from lab.streamer_1 import Streamer1
 from lab.streamer_2 import Streamer2
 from lab.streamer_3 import Streamer3
-from DB import Database
 
 app = Flask(__name__)
 
