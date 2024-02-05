@@ -7,13 +7,13 @@ import platform
 import numpy as np
 import mediapipe as mp
 import os
+from threading import Thread
+from queue import Queue
+
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 conn = pymysql.connect(host = 'localhost', user = 'root', password='1234',db='health',charset='utf8')
 current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-
-from threading import Thread
-from queue import Queue
 
 class Streamer3 :
     
@@ -49,31 +49,22 @@ class Streamer3 :
 
     
     def run(self, src = 0 ) :
-        
         self.stop()
-    
         if platform.system() == 'Windows' :        
             self.capture = cv2.VideoCapture( src , cv2.CAP_DSHOW )
-        
         else :
             self.capture = cv2.VideoCapture( src )
-            
         self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
         self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
-        
         if self.thread is None :
             self.thread = Thread(target=self.update, args=())
             self.thread.daemon = False
             self.thread.start()
-        
         self.started = True
     
     def stop(self):
-        
         self.started = False
-        
         if self.capture is not None :
-            
             self.capture.release()
             self.clear()
           
@@ -143,47 +134,31 @@ class Streamer3 :
                             self.stage = "Stand"
                             self.progress = "20%"
                             with conn.cursor() as cur :
-                                    sql = "select * from burpee"
-                                    cur.execute(sql)
                                     cur.execute("INSERT INTO burpee(datetime,state) VALUES(current_time,'Stand')")
                                     conn.commit()
-                                    cur.execute(sql)
-                                    for row in cur.fetchall():
-                                        print(row[0], row[1])
+
                         elif (lmList[25][2] and lmList[26][2] <= lmList[15][2] and lmList[16][2]) and (self.stage == "Stand" or self.stage == "Jump"):
                             self.stage = "Rolling_first"
                             self.progress = "40%"
                             with conn.cursor() as cur :
-                                    sql = "select * from burpee"
-                                    cur.execute(sql)
                                     cur.execute("INSERT INTO burpee(datetime,state) VALUES(current_time,'Rolling_first')")
                                     conn.commit()
-                                    cur.execute(sql)
-                                    for row in cur.fetchall():
-                                        print(row[0], row[1])
+
                             
                         elif (lmList[13][2] and lmList[14][2] <= lmList[11][2] and lmList[12][2]) and (self.stage == "Rolling_first"):
                             self.stage = "Push_up"
                             self.progress = "60%"
                             with conn.cursor() as cur :
-                                    sql = "select * from burpee"
-                                    cur.execute(sql)
                                     cur.execute("INSERT INTO burpee(datetime,state) VALUES(current_time,'Push_up')")
                                     conn.commit()
-                                    cur.execute(sql)
-                                    for row in cur.fetchall():
-                                        print(row[0], row[1])
+
                         elif (lmList[25][2] and lmList[26][2] <= lmList[15][2] and lmList[16][2]) and (self.stage == "Push_up"):
                             self.stage = "Rolling_second"
                             self.progress = "80%"
                             with conn.cursor() as cur :
-                                    sql = "select * from burpee"
-                                    cur.execute(sql)
                                     cur.execute("INSERT INTO burpee(datetime,state) VALUES(current_time,'Rolling_second')")
                                     conn.commit()
-                                    cur.execute(sql)
-                                    for row in cur.fetchall():
-                                        print(row[0], row[1])
+
                         elif (lmList[15][2] and lmList[16][2] <= lmList[11][2] and lmList[12][2]) and (lmList[11][2] and lmList[12][2] <= lmList[25][2] and lmList[26][2]) and (self.stage == "Rolling_second"):        
                             self.stage = "Jump"
                             self.progress = "100%"
@@ -191,13 +166,9 @@ class Streamer3 :
                             counter2 = str(int(self.counter))
                             print(self.counter)
                             with conn.cursor() as cur :
-                                    sql = "select * from burpee"
-                                    cur.execute(sql)
                                     cur.execute("INSERT INTO burpee(datetime,state) VALUES(current_time,'Jump')")
                                     conn.commit()
-                                    cur.execute(sql)
-                                    for row in cur.fetchall():
-                                        print(row[0], row[1])
+
                         self.text = "{}:{}".format("Burpees", self.counter)
                         self.text_stage = "{}:{}".format("Stage", self.stage)
                         self.text_progress = "{}:{}".format("Progress", self.progress)
@@ -208,51 +179,35 @@ class Streamer3 :
                     cv2.putText(image, self.text_stage, (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
                     cv2.putText(image, self.text_progress, (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
 
-                        
-                          
     def clear(self):
-        
         with self.Q.mutex:
             self.Q.queue.clear()
             
     def read(self):
-
         return self.Q.get()
 
     def blank(self):
-        
         return np.ones(shape=[self.height, self.width, 3], dtype=np.uint8)
     
     def bytescode(self):
-        
         if not self.capture.isOpened():
-            
             frame = self.blank()
-
         else :
-            
             frame = imutils.resize(self.read(), width=int(self.width) )
-        
             if self.stat :  
                 cv2.rectangle( frame, (0,0), (120,30), (0,0,0), -1)
                 fps = 'FPS : ' + str(self.fps())
                 cv2.putText  ( frame, fps, (10,20), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,255), 1, cv2.LINE_AA)
-            
-            
         return cv2.imencode('.jpg', frame )[1].tobytes()
     
     def fps(self):
-        
         self.current_time = time.time()
         self.sec = self.current_time - self.preview_time
         self.preview_time = self.current_time
-        
         if self.sec > 0 :
             fps = round(1/(self.sec),1)
-            
         else :
             fps = 1
-            
         return fps
                    
     def __exit__(self) :
