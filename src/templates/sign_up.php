@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password_check = $_POST['password_check'];
 }
 
-if ($password == $password_check) {
+if ($password == $password_check && strlen($password) >= 4) {
     $sql = "INSERT INTO userinfo (username, password) VALUES ('$username', '$password')";
     $conn->query($sql);
     header("Location: http://192.168.1.249:5000/main");
