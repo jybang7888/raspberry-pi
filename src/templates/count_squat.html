@@ -13,16 +13,16 @@
 				text-align: center;
 				line-height: 1.5;
 				vertical-align: middle;
-				padding-top: 20px;
-				padding-bottom: 20px;
+				padding-top: 10px;
+				padding-bottom: 0px;
 			}
 			p {
 				font-size: 20px;
 				text-align: center;
 				line-height: 1.5;
 				vertical-align: middle;
-				padding-top: 20px;
-				padding-bottom: 20px;
+				padding-top: 5px;
+				padding-bottom: 15px;
 			}
 			.stopwatch {
 				font-size: 24px;
@@ -50,14 +50,14 @@
           			display: flex;
             			justify-content: center;
 				position: relative;
-				left: 1030px;
+				left: 300px;
         		}
 			.center-button3 {
 				font-size: 15px;
           			display: flex;
             			justify-content: center;
 				position: relative;
-				left: 1030px;
+				left: 300px;
         		}
 			.stopwatch svg{
 				transform: rotate(-90deg);
@@ -67,17 +67,19 @@
 			}
 			iframe{
 				position: relative;
-				top: -250px;
+				top: -400px;
 				left: 100px;
 				width: 700px;
 				height: 600px;
 			}
+
 		</style>
 
 	</head>
+	<body style="overflow: hidden"></body>
 	<body>
 		<header>
-			<h1>Start Count</h1>
+			<h1>Squat</h1>
 		</header>
 		<div id="output"></div>
 
@@ -106,7 +108,8 @@
 			<button onclick="startStopwatch()">Start</button>
 			
 		</div>
-		<br>
+		<br><br><br><br>
+		<div class="center-button2">
 		<form action="http://192.168.1.249/count_squat.php?username={{username}}" target="_blank" method="post">
 			<input type="hidden" id="hiddenInput1" name="starthours">
 			<input type="hidden" id="hiddenInput2" name="startminutes">
@@ -114,8 +117,9 @@
 			<input type="hidden" id="hiddenInput4" name="endhours">
 			<input type="hidden" id="hiddenInput5" name="endminutes">
 			<input type="hidden" id="hiddenInput6" name="endseconds">
-			<button type="submit" class="center-button2">Save</button>
+			<button type="submit" >Save & Show Result</button>
 		</form>
+		</div>
 		<br>
 		<div class="center-button3">
 			<button onclick="goToMainPage()">Go back to main page.</button>
