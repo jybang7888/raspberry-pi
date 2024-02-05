@@ -6,9 +6,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(buzzer, GPIO.OUT)
 GPIO.setwarnings(False)
 
-pwm = GPIO.PWM(buzzer, 262)
-pwm.start(50.0)
-time.sleep(1.5)
-
-pwm.stop()
-GPIO.cleanup()
+while True:
+  GPIO.output(2, True)
+  time.sleep(1)
+  GPIO.OUTPUT(2, False)
+  time.sleep(2)
