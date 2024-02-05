@@ -54,6 +54,10 @@ def sign_up():
 def sign_up_wrong():
     return render_template('sign_up_wrong.html')
 
+@app.route('/sign_up_exist')
+def sign_up_exist():
+    return render_template('sign_up_exist.html')
+
 streamer1 = Streamer1()
 streamer2 = Streamer2()
 streamer3 = Streamer3()
