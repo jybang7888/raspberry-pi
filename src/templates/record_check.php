@@ -19,7 +19,7 @@ $sql = "SELECT * FROM userinfo WHERE username = '$username' AND password = '$pas
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    header("Location: record_show.php?name=$username&exercise=$exercise&count=$count");
+    header("Location: http://192.168.1.144:5000/record_show.php?name=$username&exercise=$exercise&count=$count");
     exit;
 } else {
     header("Location: record_wrong.html");
