@@ -120,4 +120,4 @@ if __name__ == '__main__':
     print('Wandlab CV - version ' + version)
     print('------------------------------------------------')
     
-    app.run(host='192.168.1.144',port=5000)
+    app.run(host='192.168.1.249',port=5000)
