@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Healthy Hands</title>
+		<style>
+			body {
+				background-image: url("{{url_for('static',filename='main.jpg')}}");
+				background-size: 1500px 1000px;
+				background-repeat: no_repeat;
+			}
+			h1 {
+				font-size: 50px;
+				text-align: center;
+				line-height: 1.5;
+				vertical-align: middle;
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			
+		</style>
+
+	</head>
+	<body>
+		<header>
+			<h1>Make new account</h1>
+		</header>
+		<script>
+			alert("Username your going to use already exists.");
+		</script>
+		<form action="http://192.168.1.249/sign_up.php" method="post" style ="text-align: center;">
+			<label for="username" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Name:</label>
+			<input type="text" placeholder="Only write in English" id = "username" name = "username" required>
+			<br>
+			<label for="password" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">PW:</label>
+			<input type="password" placeholder="Enter at least 4words" id = "password" name = "password" required>
+			<br>
+			<label for="password_check" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">PW:</label>
+			<input type="password" placeholder="Enter password again" id = "password_check" name = "password_check" required>
+			<br>
+			<input type="submit" value="Enter" style="text-align: center; font-size: 20px;">
+		</form>
+	</body>
+</html>
