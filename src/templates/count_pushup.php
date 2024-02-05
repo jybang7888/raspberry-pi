@@ -36,7 +36,8 @@
     $sql2 = "SELECT * FROM total_pushup WHERE name = '$name'";
         $result2 = $conn->query($sql2);
         if(isset($result2) && $result2->num_rows > 0){
-            echo "Data of " .$name. "<hr><hr>";
+            $str = "Push Up Data of " .$name. "<hr><hr>";
+            echo "<span style='font-size: 25px'>$str</span>";
             while($row = $result2->fetch_assoc()){
                 echo "Date: ".$row['date']."<br>";
                 echo "Time: From ".$row['start_time']." to ".$row['end_time']."<br>";
