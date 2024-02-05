@@ -52,6 +52,13 @@
 				position: relative;
 				left: 1030px;
         		}
+			.center-button3 {
+				font-size: 15px;
+          			display: flex;
+            			justify-content: center;
+				position: relative;
+				left: 1030px;
+        		}
 			.stopwatch svg{
 				transform: rotate(-90deg);
 			}
@@ -75,8 +82,14 @@
 		<div id="output"></div>
 
 		<script>
+			var urlParams = new URLSearchParams(window.location.search);
+			var username = urlParams.get('username');
 			var outputDiv = document.getElementById('output');
-			outputDiv.innerHTML = '<p>Start to record squat ability </p>';
+			if (username) {
+				outputDiv.innerHTML = '<p>Start to record squat ability of ' + username + '</p>';
+			} else {
+				outputDiv.innerHTML = '<p>Measure the ability without recording.</p>';
+			}
 		</script>
 
 		<div class="stopwatch">
@@ -94,16 +107,19 @@
 			
 		</div>
 		<br>
-		<form action="http://192.168.1.144/count_squat.php" target="_blank" method="post">
+		<form action="http://192.168.1.144/count_squat.php?username={{username}}" target="_blank" method="post">
 			<input type="hidden" id="hiddenInput1" name="starthours">
 			<input type="hidden" id="hiddenInput2" name="startminutes">
 			<input type="hidden" id="hiddenInput3" name="startseconds">
 			<input type="hidden" id="hiddenInput4" name="endhours">
 			<input type="hidden" id="hiddenInput5" name="endminutes">
 			<input type="hidden" id="hiddenInput6" name="endseconds">
-			<input type="hidden" id="hiddenInput7" name="username">
 			<button type="submit" class="center-button2">Save</button>
 		</form>
+		<br>
+		<div class="center-button3">
+			<button onclick="goToMainPage()">Go back to main page.</button>
+		</div>
 		<script>
 			let timeLeft = 60;
 			function startStopwatch() {
@@ -150,6 +166,9 @@
 				document.getElementById('hiddenInput5').value = minutes2;
 				document.getElementById('hiddenInput6').value = seconds2;
 			}
+			function goToMainPage() {
+        			window.location.href = 'http://192.168.1.144:5000/main';
+    			}
 		</script>
 		<iframe src="http://192.168.1.144:5000/stream2?src=0" sandbox="allow-same-origin allow-scripts" frameborder="0"></iframe>
 	</body>
