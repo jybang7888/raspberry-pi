@@ -7,13 +7,14 @@ import platform
 import numpy as np
 import mediapipe as mp
 import os
+from threading import Thread
+from queue import Queue
+
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 conn = pymysql.connect(host = 'localhost', user = 'root', password='1234',db='health',charset='utf8')
 current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
-from threading import Thread
-from queue import Queue
 class Streamer1 :
     
     def __init__(self):
@@ -63,31 +64,22 @@ class Streamer1 :
             cur.execute(sql)
 
     def run(self, src = 0 ) :
-
         self.stop()
-    
         if platform.system() == 'Windows' :        
             self.capture = cv2.VideoCapture( src , cv2.CAP_DSHOW )
-        
         else :
             self.capture = cv2.VideoCapture( src )
-            
         self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
         self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
-        
         if self.thread is None :
             self.thread = Thread(target=self.update, args=())
             self.thread.daemon = False
             self.thread.start()
-        
         self.started = True
     
     def stop(self):
-        
         self.started = False
-        
-        if self.capture is not None :
-            
+        if self.capture is not None :   
             self.capture.release()
             self.clear()
           
@@ -207,24 +199,16 @@ class Streamer1 :
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
                                 with conn.cursor() as cur :
-                                    sql = "select * from pushup"
-                                    cur.execute(sql)
                                     cur.execute("INSERT INTO pushup(datetime,state) VALUES(current_time,'Up')")
                                     conn.commit()
-                                    cur.execute(sql)
-                                    for row in cur.fetchall():
-                                        print(row[0], row[1])
+
                             elif (lmList[11][2] <= lmList[15][2]) and (self.angle_1 < 100) and (self.angle_2 > 90) and (self.angle_3 > 90) and (self.stage != "Down"):
                                 self.stage = "Down"
                                 
                                 with conn.cursor() as cur :
-                                    sql = "select * from pushup"
-                                    cur.execute(sql)
                                     cur.execute("INSERT INTO pushup(datetime,state) VALUES(current_time,'Down')")
                                     conn.commit()
-                                    cur.execute(sql)
-                                    for row in cur.fetchall():
-                                        print(row[0], row[1])
+                                    
                             self.text = "{}:{}".format("Push Ups", self.counter)
                             self.text_stage = "{}:{}".format("Stage", self.stage)
                         if (self.direction == "Right"):
@@ -254,24 +238,14 @@ class Streamer1 :
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
                                 with conn.cursor() as cur :
-                                    sql = "select * from pushup"
-                                    cur.execute(sql)
                                     cur.execute("INSERT INTO pushup(datetime,state) VALUES(current_time,'Up')")
                                     conn.commit()
-                                    cur.execute(sql)
-                                    for row in cur.fetchall():
-                                        print(row[0], row[1])
                             elif (lmList[12][2] <= lmList[16][2]) and (self.angle_4 < 100) and (self.angle_5 > 90) and (self.angle_6 > 90) and (self.stage != "Down"):
                                 self.stage = "Down"
                                 
                                 with conn.cursor() as cur :
-                                    sql = "select * from pushup"
-                                    cur.execute(sql)
                                     cur.execute("INSERT INTO pushup(datetime,state) VALUES(current_time,'Down')")
                                     conn.commit()
-                                    cur.execute(sql)
-                                    for row in cur.fetchall():
-                                        print(row[0], row[1])
 
                             self.text = "{}:{}".format("Push Ups", self.counter)
                             self.text_stage = "{}:{}".format("Stage", self.stage)
@@ -287,45 +261,34 @@ class Streamer1 :
                         
                           
     def clear(self):
-        
         with self.Q.mutex:
             self.Q.queue.clear()
             
     def read(self):
         return self.Q.get()
-    def blank(self):
         
+    def blank(self):
         return np.ones(shape=[self.height, self.width, 3], dtype=np.uint8)
     
     def bytescode(self):
-        
         if not self.capture.isOpened():
-            
             frame = self.blank()
         else :
-            
             frame = imutils.resize(self.read(), width=int(self.width) )
-        
             if self.stat :  
                 cv2.rectangle( frame, (0,0), (120,30), (0,0,0), -1)
                 fps = 'FPS : ' + str(self.fps())
-                cv2.putText  ( frame, fps, (10,20), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,255), 1, cv2.LINE_AA)
-            
-            
+                cv2.putText  ( frame, fps, (10,20), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,255), 1, cv2.LINE_AA) 
         return cv2.imencode('.jpg', frame )[1].tobytes()
     
     def fps(self):
-        
         self.current_time = time.time()
         self.sec = self.current_time - self.preview_time
         self.preview_time = self.current_time
-        
         if self.sec > 0 :
             fps = round(1/(self.sec),1)
-            
         else :
             fps = 1
-            
         return fps
                    
     def __exit__(self) :
