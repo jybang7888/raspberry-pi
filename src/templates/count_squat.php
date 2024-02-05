@@ -13,7 +13,7 @@
     $endhours = $_POST['endhours'];
     $endminutes = $_POST['endminutes'];
     $endseconds = $_POST['endseconds'];
-    $name = $_GET['name'];
+    $name = $_GET['username'];
 
     $starthours = sprintf("%02d", $starthours);
     $startminutes = sprintf("%02d", $startminutes);
