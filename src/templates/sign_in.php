@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
     header("Location: http://192.168.1.249:5000/count?username=$username");
     exit();
 } else {
-    header("Location: http://192.168.1.249:5000/sign_in");
+    header("Location: http://192.168.1.249:5000/sign_in_wrong");
 }
 
 $conn->close();
