@@ -22,7 +22,7 @@ if ($result->num_rows > 0) {
     header("Location: record_show.php?name=$username&exercise=$exercise&count=$count");
     exit;
 } else {
-    header("Location: record_wrong.html");
+    header("Location: http://192.168.1.249:5000/record_wrong.html");
 }
 
 $conn->close();
