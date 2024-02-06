@@ -46,7 +46,7 @@
             echo "<span style='font-size: 25px'>$str</span>";
             echo "USER: ".$name."<hr>";
             echo "Date: ".$date."<br>";
-            echo "Time: From ".$starttime." to ".endtime."<br>";
+            echo "Time: From ".$starttime." to ".$endtime."<br>";
             echo "Total: ".$row_count."<hr>";
         }
     
