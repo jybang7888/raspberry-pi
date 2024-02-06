@@ -1,13 +1,13 @@
 import RPi.GPIO as GPIO
 import time
 
-buzzer = 2
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(buzzer, GPIO.OUT)
 GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(18, GPIO.OUT)
 
-while True:
-  GPIO.output(2, True)
-  time.sleep(1)
-  GPIO.OUTPUT(2, False)
-  time.sleep(2)
+pwm = GPIO.PWM(18, 262)
+pwm.start(50.0)
+time.sleep(0.5)
+
+pwm.stop()
+GPIO.cleanup()

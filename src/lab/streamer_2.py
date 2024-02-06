@@ -9,10 +9,14 @@ import mediapipe as mp
 import os
 from threading import Thread
 from queue import Queue
+import RPi.GPIO as GPIO
+import time
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 conn = pymysql.connect(host = 'localhost', user = 'root', password='1234',db='health',charset='utf8')
 current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
+
 
 class Streamer2 :
     
@@ -55,6 +59,10 @@ class Streamer2 :
         self.round_angle_4 = 0
         self.round_angle_5 = 0
         self.frame = None
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(18, GPIO.OUT)
+        self.pwm = 0
         with conn.cursor() as cur :
             sql = "delete from squat"
             cur.execute(sql)
@@ -96,7 +104,7 @@ class Streamer2 :
                 if self.started :
                     (grabbed, self.frame) = self.capture.read()
                     image = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
-                    results = pose.process(image) # mediapipe processing
+                    results = pose.process(image)
                     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                     lmList = []
                     
@@ -175,13 +183,18 @@ class Streamer2 :
                                 cv2.circle(image, (lmList[25][1], lmList[25][2]), 10, (0, 255, 0), cv2.FILLED)
                                 cv2.circle(image, (lmList[31][1], lmList[31][2]), 10, (0, 255, 0), cv2.FILLED)
                             if (lmList[31][1] <= lmList[23][1]) and (self.angle_1 < 120) and (self.angle_2 < 150) and (self.stage != "Down"):
-                                self.stage = "Down"
+                                self.stage = "Down" 
+
                                 with conn.cursor() as cur :
                                     cur.execute("INSERT INTO squat(datetime,state) VALUES(current_time,'Down')")
                                     conn.commit()
                             elif (lmList[23][2] <= lmList[25][2]) and (self.angle_3 > 75) and (self.angle_3 < 105) and (self.stage == "Down"):
                                 self.stage = "Up"
                                 self.counter += 1
+                                self.pwm = GPIO.PWM(18, 262)
+                                self.pwm.start(50.0)
+                                time.sleep(0.5)
+                                self.pwm.stop()
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
                                 with conn.cursor() as cur :
@@ -218,6 +231,10 @@ class Streamer2 :
                             elif (lmList[24][2] <= lmList[26][2]) and (self.angle_6 > 75) and (self.angle_6 < 105) and (self.stage == "Down"):
                                 self.stage = "Up"
                                 self.counter += 1
+                                self.pwm = GPIO.PWM(18, 262)
+                                self.pwm.start(50.0)
+                                time.sleep(0.5)
+                                self.pwm.stop()
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
                                 with conn.cursor() as cur :

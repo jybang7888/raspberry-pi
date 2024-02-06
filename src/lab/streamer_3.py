@@ -7,8 +7,11 @@ import platform
 import numpy as np
 import mediapipe as mp
 import os
+import RPi.GPIO as GPIO
+import time
 from threading import Thread
 from queue import Queue
+
 
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -43,6 +46,10 @@ class Streamer3 :
         self.text_stage = None
         self.text_progress = None
         self.frame = None
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(18, GPIO.OUT)
+        self.pwm = 0
         with conn.cursor() as cur :
             sql = "delete from burpee"
             cur.execute(sql)
@@ -163,6 +170,10 @@ class Streamer3 :
                             self.stage = "Jump"
                             self.progress = "100%"
                             self.counter += 1
+                            self.pwm = GPIO.PWM(18, 262)
+                            self.pwm.start(50.0)
+                            time.sleep(0.5)
+                            self.pwm.stop()
                             counter2 = str(int(self.counter))
                             print(self.counter)
                             with conn.cursor() as cur :

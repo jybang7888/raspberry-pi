@@ -7,8 +7,11 @@ import platform
 import numpy as np
 import mediapipe as mp
 import os
+import RPi.GPIO as GPIO
+import time
 from threading import Thread
 from queue import Queue
+
 
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -59,6 +62,10 @@ class Streamer1 :
         self.round_angle_5 = 0
         self.round_angle_6 = 0
         self.frame = None
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(18, GPIO.OUT)
+        self.pwm = 0
         with conn.cursor() as cur :
             sql = "delete from pushup"
             cur.execute(sql)
@@ -100,7 +107,7 @@ class Streamer1 :
                 if self.started :
                     (grabbed, self.frame) = self.capture.read()
                     image = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
-                    results = pose.process(image) # mediapipe processing
+                    results = pose.process(image)
                     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                     lmList = []
                     
@@ -196,6 +203,10 @@ class Streamer1 :
                             if (lmList[11][2] <= lmList[13][2]) and (lmList[13][2] <= lmList[15][2])and (self.angle_1 > 100) and (self.stage == "Down") :
                                 self.stage = "Up"
                                 self.counter += 1
+                                self.pwm = GPIO.PWM(18, 262)
+                                self.pwm.start(50.0)
+                                time.sleep(0.5)
+                                self.pwm.stop()
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
                                 with conn.cursor() as cur :
@@ -235,6 +246,10 @@ class Streamer1 :
                             if (lmList[12][2] <= lmList[14][2]) and (lmList[14][2] <= lmList[16][2]) and (self.angle_4 > 100) and (self.stage == "Down"):      
                                 self.stage = "Up"
                                 self.counter += 1
+                                self.pwm = GPIO.PWM(18, 262)
+                                self.pwm.start(50.0)
+                                time.sleep(0.5)
+                                self.pwm.stop()
                                 counter2 = str(int(self.counter))
                                 print(self.counter)
                                 with conn.cursor() as cur :
