@@ -37,8 +37,9 @@
     $conn->query($sql2);
 
         if($endtime == '00:00:00'){
-            $str = "Since the save button is activated too early, your data is not recorded.";
-	    echo "<span style='font-size: 25px'>$str</span>";
+	    $str = "Pushup Data <hr><hr>";
+            echo "<span style='font-size: 25px'>$str</span>";
+            echo "Since the save button is activated too early, your data is not recorded.";
         }
         else{
             $str = "Pushup Data <hr><hr>";
