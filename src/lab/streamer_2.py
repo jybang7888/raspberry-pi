@@ -188,7 +188,7 @@ class Streamer2 :
                                 with conn.cursor() as cur :
                                     cur.execute("INSERT INTO squat(datetime,state) VALUES(current_time,'Down')")
                                     conn.commit()
-                            elif (lmList[23][2] <= lmList[25][2]) and (self.angle_3 > 75) and (self.angle_3 < 105) and (self.stage == "Down"):
+                            elif (lmList[23][2] <= lmList[25][2]) and (self.angle_1 > 120) and (self.angle_2 > 150) and (self.angle_3 > 75) and (self.angle_3 < 105) and (self.stage == "Down"):
                                 self.stage = "Up"
                                 self.counter += 1
                                 self.pwm = GPIO.PWM(18, 262)
@@ -228,7 +228,7 @@ class Streamer2 :
                                     cur.execute("INSERT INTO squat(datetime,state) VALUES(current_time,'Down')")
                                     conn.commit()
 
-                            elif (lmList[24][2] <= lmList[26][2]) and (self.angle_6 > 75) and (self.angle_6 < 105) and (self.stage == "Down"):
+                            elif (lmList[24][2] <= lmList[26][2]) and (self.angle_4 > 120) and (self.angle_5 > 150) and (self.angle_6 > 75) and (self.angle_6 < 105) and (self.stage == "Down"):
                                 self.stage = "Up"
                                 self.counter += 1
                                 self.pwm = GPIO.PWM(18, 262)
