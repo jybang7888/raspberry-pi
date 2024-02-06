@@ -31,24 +31,24 @@
     $row_count = mysqli_num_rows($result);
     
     $sql1 = "INSERT INTO total_squat (name, date, start_time, end_time, total) VALUES ('$name', '$date', '$starttime', '$endtime', '$row_count')";
-
     $conn->query($sql1);
 
-    $sql2 = "SELECT * FROM total_squat WHERE name = '$name'";
-    $result2 = $conn->query($sql2);
-    if(isset($result2) && $result2->num_rows > 0){
-        $str = "Squat Data <hr><hr>";
-        echo "<span style='font-size: 25px'>$str</span>";
-        echo "USER: ".$name."<hr>";
-        while($row = $result2->fetch_assoc()){
-                echo "Date: ".$row['date']."<br>";
-                echo "Time: From ".$row['start_time']." to ".$row['end_time']."<br>";
-                echo "Total: ".$row['total']."<hr>";
+    $sql2 = "DELETE FROM total_squat WHERE end_time = '00:00:00'";
+    $conn->query($sql2);
+
+        if($endtime == '00:00:00'){
+            $str = "Since the save button is activated too early, your data is not recorded.";
+	    echo "<span style='font-size: 25px'>$str</span>";
         }
-    }
-    else{
-        echo "No data about squat.";
-    }
+        else{
+            $str = "Squat Data <hr><hr>";
+            echo "<span style='font-size: 25px'>$str</span>";
+            echo "USER: ".$name."<hr>";
+            echo "Date: ".$date."<br>";
+            echo "Time: From ".$starttime." to ".endtime."<br>";
+            echo "Total: ".$row_count."<hr>";
+        }
+    
     header("localhost");
 
     mysqli_close($conn);
