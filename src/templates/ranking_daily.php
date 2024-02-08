@@ -12,7 +12,6 @@ if ($conn->connect_error) {
 }
 
 $date1 = date("Y-m-d");
-$date2 = date("Y-m-d", strtotime("-1 month", strtotime($date1)));
 
 $sql1 = "SELECT * FROM total_pushup WHERE date = '$date1' ORDER BY total DESC";
 $result1 = $conn->query($sql1);
