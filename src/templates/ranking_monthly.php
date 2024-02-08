@@ -20,13 +20,13 @@ $count1 = 1;
 $num1 = 0;
 $c1 = 0;
 
-$sql2 = "SELECT * FROM total_squat WHERE date = '$date1' ORDER BY total DESC";
+$sql2 = "SELECT * FROM total_squat WHERE date("Y", strtotime(date)) = '$year' AND date("m", strtotime(date)) = '$month' ORDER BY total DESC";
 $result2 = $conn->query($sql2);
 $count2 = 1;
 $num2 = 0;
 $c2 = 0;
 
-$sql3 = "SELECT * FROM total_burpee WHERE date = '$date1' ORDER BY total DESC";
+$sql3 = "SELECT * FROM total_burpee WHERE date("Y", strtotime(date)) = '$year' AND date("m", strtotime(date)) = '$month' ORDER BY total DESC";
 $result3 = $conn->query($sql3);
 $count3 = 1;
 $num3 = 0;
