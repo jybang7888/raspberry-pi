@@ -14,6 +14,7 @@ if ($conn->connect_error) {
 $sql1 = "SELECT * FROM total_pushup ORDER BY total DESC";
 $result1 = $conn->query($sql1);
 $count1 = 1;
+$num1 = 0;
 
 $sql2 = "SELECT * FROM total_squat ORDER BY total DESC";
 $result2 = $conn->query($sql2);
@@ -33,9 +34,9 @@ if (1){
 	
 	    while($row = $result1->fetch_assoc()){
             printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $count1);
-	    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%02d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $row['total']); 
+	    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%02d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $row['total']); 
             printf("&nbsp;&nbsp;&nbsp;%s<br>", $row['name']);
-            
+            &num1 = clone $row['total'];
             $count1 = $count1 + 1;
 	    }
 	}
