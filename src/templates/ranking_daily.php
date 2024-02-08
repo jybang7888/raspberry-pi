@@ -12,7 +12,6 @@ if ($conn->connect_error) {
 }
 
 $today = date("Y-m-d");
-echo "오늘 날짜는: " . $today;
 
 $sql1 = "SELECT * FROM total_pushup ORDER BY total DESC";
 $result1 = $conn->query($sql1);
@@ -28,7 +27,7 @@ $sql3 = "SELECT * FROM total_burpee ORDER BY total DESC";
 $result3 = $conn->query($sql3);
 $count3 = 1;
 
-$str= "Daily Ranking <hr><hr>";
+$str= "Daily Ranking (".$today.")<hr><hr>";
 echo "<span style='font-size: 25px'>$str</span>";
 
 if (1){
