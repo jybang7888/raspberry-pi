@@ -75,6 +75,8 @@ if(isset($result2) && $result2->num_rows > 0){
             $num2 = $row['total'];
 	   if($result2->num_rows != $count2)
 		    echo "<br>";
+	   else
+		   echo "<hr>";
             $count2 = $count2 + 1;
 
 	    }
