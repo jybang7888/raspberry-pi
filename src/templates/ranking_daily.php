@@ -28,7 +28,7 @@ $sql3 = "SELECT * FROM total_burpee ORDER BY total DESC";
 $result3 = $conn->query($sql3);
 $count3 = 1;
 
-$str= "Daily Ranking (".$today.")<hr><hr>";
+$str= "Daily Ranking (".$date1."and".$date2.")<hr><hr>";
 echo "<span style='font-size: 25px'>$str</span>";
 
 if (1){
