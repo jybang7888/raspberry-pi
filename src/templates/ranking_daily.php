@@ -31,12 +31,10 @@ $count3 = 1;
 $str= "Daily Ranking (".$date1.")<hr><hr>";
 echo "<span style='font-size: 25px'>$str</span>";
 
-if (1){
-	echo "<strong>Push up</strong> <hr>";
-  	echo "&nbsp;&nbsp;&nbsp;Rank&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Count&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Name&nbsp;&nbsp;&nbsp;<hr>";      
-	if(isset($result1) && $result1->num_rows > 0){
-	
-	    while($row = $result1->fetch_assoc()){
+echo "<strong>Push up</strong> <hr>";
+echo "&nbsp;&nbsp;&nbsp;Rank&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Count&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Name&nbsp;&nbsp;&nbsp;<hr>";      
+if(isset($result1) && $result1->num_rows > 0){
+	while($row = $result1->fetch_assoc()){
 	    if($num1 != $row['total']){
 		    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $count1);
 		    $c1 = $count1;
@@ -52,10 +50,10 @@ if (1){
 
 	    }
 	}
-	else{
-	    echo "No data about pushup. <hr>";
-	}
+else{
+	echo "No data about pushup. <hr>";
 }
+
 echo "<br><hr>";
 
 
