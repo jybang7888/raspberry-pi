@@ -11,6 +11,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$today = date("Y-m-d");
+echo "오늘 날짜는: " . $today;
+
 $sql1 = "SELECT * FROM total_pushup ORDER BY total DESC";
 $result1 = $conn->query($sql1);
 $count1 = 1;
