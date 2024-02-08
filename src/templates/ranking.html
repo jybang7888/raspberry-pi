@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Healthy Hands</title>
+		<style>
+			body {
+				background-image: url("{{url_for('static',filename='main.jpg')}}");
+				background-size: 1500px 1000px;
+				background-repeat: no_repeat;
+			}
+			h1 {
+				font-size: 50px;
+				text-align: center;
+				line-height: 1.5;
+				vertical-align: middle;
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			li {
+				font-size: 30px;
+				text-align: center;
+				line-height: 1.5;
+				vertical-align: middle;
+				padding-top: 0px;
+				list-style: none;
+			}
+			nav a {
+				color: rgb(0, 0 ,0);
+				text-decoration: none;
+			}
+			.text-box {
+				margin: 40px auto;
+				border: 2px solid #000;
+				pading: 0px;
+				width: 300px;
+				height: 80px;
+				background-color: rgb(256, 256, 256);
+			}
+			ul {
+				padding-left: 0;
+			}
+		</style>
+
+	</head>
+	<body>
+
+		<header>
+			<h1>Ranking</h1>
+			<div class="text-box">
+				<nav>
+					<ul>
+						<li><a href="http://192.168.1.249/ranking_daily.php">Daily Ranking</a></li>
+					</ul>
+				</nav>
+			</div>
+			
+			<div class="text-box">
+				<nav>
+					<ul>
+						<li><a href="http://192.168.1.249/ranking_weekly.php">Weekly Ranking</a></li>
+					</ul>
+				</nav>
+			</div>
+
+			<div class="text-box">
+				<nav>
+					<ul>
+						<li><a href="http://192.168.1.249/ranking_monthly.php">Monthly Ranking</a></li>
+					</ul>
+				</nav>
+			</div>
+			
+		</header>
+	</body>
+</html>
