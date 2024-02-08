@@ -35,8 +35,9 @@ if (1){
 	    while($row = $result1->fetch_assoc()){
             printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $count1);
 	    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%02d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $row['total']); 
-            printf("&nbsp;&nbsp;&nbsp;%s<br>", $row['name']);
-            $num1 = clone $row['total'];
+            printf("&nbsp;&nbsp;&nbsp;%s", $row['name']);
+	    printf("&nbsp;&nbsp;&nbsp;%s<br>", $num1);
+            $num1 = $row['total'];
             $count1 = $count1 + 1;
 	    }
 	}
