@@ -27,13 +27,13 @@ echo "<span style='font-size: 25px'>$str</span>";
 
 if (1){
 	echo "<strong>Push up</strong> <hr>";
-  	echo "&nbsp;&nbsp;&nbsp;Rank&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Name&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Total count&nbsp;&nbsp;&nbsp;<hr>";      
+  	echo "&nbsp;&nbsp;&nbsp;Rank&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Name&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Total count&nbsp;&nbsp;&nbsp;|<hr>";      
 	if(isset($result1) && $result1->num_rows > 0){
 	
 	    while($row = $result1->fetch_assoc()){
-            printf("%5d", $count1);
+            printf("%05d", $count1);
             printf("%5s", $row['name']);
-            printf("%5d<br>", $row['total']); 
+            printf("%05d<br>", $row['total']); 
             $count1 = $count1 + 1;
 	    }
 	}
