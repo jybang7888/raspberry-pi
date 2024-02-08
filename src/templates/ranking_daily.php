@@ -6,6 +6,7 @@ $dbname = "health";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+header("Content-type: text/css");
 echo "
     .preserve-space {
         white-space: pre;
