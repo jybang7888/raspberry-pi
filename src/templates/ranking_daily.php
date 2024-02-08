@@ -34,9 +34,10 @@ if (1){
 	if(isset($result1) && $result1->num_rows > 0){
 	
 	    while($row = $result1->fetch_assoc()){
-	    if($num1 != $row['total'])
+	    if($num1 != $row['total']){
 		    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $count1);
 		    $c1 = $count1;
+	    }
 	    else
 		    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $c1);
 	    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%02d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $row['total']); 
