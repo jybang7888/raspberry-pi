@@ -31,7 +31,7 @@ $count3 = 1;
 $num3 = 0;
 $c3 = 0;
 
-$str= "Monthly Ranking (".$year."/".$month.")<hr><hr>";
+$str= "Monthly Ranking (".$date.")<hr><hr>";
 echo "<span style='font-size: 25px'>$str</span>";
 
 echo "<strong>Push up</strong> <hr>";
