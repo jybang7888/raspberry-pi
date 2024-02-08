@@ -12,9 +12,9 @@ if ($conn->connect_error) {
 }
 
 $date1 = date("Y-m-d");
-$date2 = date("Y-m-d", strtotime("-1 day", strtotime($date1)));
+$date2 = date("Y-m-d", strtotime("-1 month", strtotime($date1)));
 
-$sql1 = "SELECT * FROM total_pushup WHERE date <= '$date1' AND date >= '$date2' ORDER BY total DESC";
+$sql1 = "SELECT * FROM total_pushup WHERE date == '$date1' ORDER BY total DESC";
 $result1 = $conn->query($sql1);
 $count1 = 1;
 $num1 = 0;
@@ -28,7 +28,7 @@ $sql3 = "SELECT * FROM total_burpee ORDER BY total DESC";
 $result3 = $conn->query($sql3);
 $count3 = 1;
 
-$str= "Daily Ranking (".$date1."and".$date2.")<hr><hr>";
+$str= "Daily Ranking (".$date1.")<hr><hr>";
 echo "<span style='font-size: 25px'>$str</span>";
 
 if (1){
@@ -42,7 +42,7 @@ if (1){
 		    $c1 = $count1;
 	    }
 	    else
-		    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $c1);
+	    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $c1);
 	    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%02d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $row['total']); 
             printf("&nbsp;&nbsp;&nbsp;%s<br>", $row['name']);
             $num1 = $row['total'];
