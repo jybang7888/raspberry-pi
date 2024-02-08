@@ -1,4 +1,5 @@
 <?php
+
 $servername = "192.168.1.249";
 $username = "root";
 $password = "1234";
@@ -9,8 +10,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
-echo '<link rel="stylesheet" type="text/css" href="styles.css">';
 
 $sql1 = "SELECT * FROM total_pushup ORDER BY total DESC";
 $result1 = $conn->query($sql1);
