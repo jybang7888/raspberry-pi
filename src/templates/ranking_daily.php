@@ -47,10 +47,7 @@ if (1){
             printf("&nbsp;&nbsp;&nbsp;%s", $row['name']);
             $num1 = $row['total'];
             $count1 = $count1 + 1;
-	    if($result1->num_rows != $count1)
-		    echo "<br>";
-		
-	    }
+
 	}
 	else{
 	    echo "No data about pushup. <hr>";
