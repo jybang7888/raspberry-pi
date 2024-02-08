@@ -10,11 +10,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-<style>
-    .preserve-space {
-        white-space: pre;
-    }
-</style>
+echo '<link rel="stylesheet" type="text/css" href="styles.css">';
 
 $sql1 = "SELECT * FROM total_pushup ORDER BY total DESC";
 $result1 = $conn->query($sql1);
