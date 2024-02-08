@@ -16,37 +16,80 @@
 				padding-top: 20px;
 				padding-bottom: 20px;
 			}
-			
+			.center-button {
+				font-size: 15px;
+				text-align: center;
+				line-height: 1.5;
+				vertical-align: middle;
+          			display: flex;
+            			justify-content: center;
+				position: relative;
+        		}
 		</style>
 
 	</head>
 	<body>
 
 		<header>
-			<h1>Search Your Record.</h1>
+			<h1>Search Your Record</h1>
 		</header>
 		<script>
 			alert("No account or Password do not match.");
 		</script>
-		<form action="http://192.168.1.249/record_check.php" method="post" style ="text-align: center;">
-			<label for="username" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Username:</label>
+		<form action="http://192.168.1.249/record_check.php" method="post" target="_blank" style ="text-align: center;">
+			<label for="username" style ="text-align: center; font-size: 20px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Username:</label>
         		<input type="text" placeholder="Write your name" id="username" name="username" required>
-			<br>
-        		<label for="password" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Password:</label>
+			<br><br>
+        		<label for="password" style ="text-align: center; font-size: 20px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Password:</label>
         		<input type="password" placeholder="Write your password" id="password" name="password" required>
-			<br>
-        		<label for="exercise" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Exercise:</label>
+			<br><br>
+        		<label for="exercise" style ="text-align: center; font-size: 20px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Exercise:</label>
         		<select id="exercise" name="exercise">
 				<option>Total Exercises</option>
 				<option>PushUp</option>
 				<option>Squat</option>
 				<option>Burpee</option>
 			</select>
-			<br>
-        		<label for="count" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">Number of data:</label>
-        		<input type="number" placeholder="Number of data to see" id="count" name="count" required>
-        		<button type="submit">Login</button>
+			<br><br>
+			<label style ="text-align: center; font-size: 20px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">From:</label>
+        		<label for="date1" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">
+        			<input type="date" id="date1" name="date1">
+			</label>
+			<label style ="text-align: center; font-size: 20px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">To:</label>
+			<label for="date2" style ="text-align: center; font-size: 30px;line-height: 1.5;padding-top: 20px;padding-bottom: 20px;">
+        			<input type="date" id="date2" name="date2">
+			</label>
+        		<button type="submit">Search</button>
 		</form>
-
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<div class="center-button">
+			<button onclick="goToMainPage()">Go back to main page.</button>
+		</div>
+		<script>
+			function goToMainPage() {
+	       			window.location.href = 'http://192.168.1.249:5000/main';
+    				}
+			var date1Input = document.getElementById('date1');
+    			var date2Input = document.getElementById('date2');
+			function getTodayDate() {
+        			let today = new Date();
+        			let dd = String(today.getDate()).padStart(2, '0');
+        			let mm = String(today.getMonth() + 1).padStart(2, '0');
+        			let yyyy = today.getFullYear();
+        			return yyyy + '-' + mm + '-' + dd;
+    			}
+			date1Input.setAttribute('max', getTodayDate());
+			date2Input.setAttribute('max', getTodayDate());
+			date1Input.addEventListener('change', function() {
+				if (date1Input.value > date2Input.value) {
+            				date2Input.value = date1Input.value;
+        			}
+    			});
+			date2Input.addEventListener('change', function() {
+        			if (date1Input.value > date2Input.value) {
+            				date1Input.value = date2Input.value;
+        			}
+    			});
+		</script>
 	</body>
 </html>
