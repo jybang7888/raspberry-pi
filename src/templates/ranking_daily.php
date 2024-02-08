@@ -15,6 +15,7 @@ $sql1 = "SELECT * FROM total_pushup ORDER BY total DESC";
 $result1 = $conn->query($sql1);
 $count1 = 1;
 $num1 = 0;
+$c1 = 0;
 
 $sql2 = "SELECT * FROM total_squat ORDER BY total DESC";
 $result2 = $conn->query($sql2);
@@ -35,8 +36,9 @@ if (1){
 	    while($row = $result1->fetch_assoc()){
 	    if($num1 != $row['total'])
 		    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $count1);
+		    $c1 = $count1;
 	    else
-		    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|");
+		    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $c1);
 	    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%02d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $row['total']); 
             printf("&nbsp;&nbsp;&nbsp;%s<br>", $row['name']);
             $num1 = $row['total'];
