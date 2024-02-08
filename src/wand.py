@@ -59,7 +59,7 @@ def sign_up_exist():
     return render_template('sign_up_exist.html')
 
 @app.route('/ranking')
-def record():
+def ranking():
     return render_template('ranking.html')
 
 streamer1 = Streamer1()
