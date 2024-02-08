@@ -46,9 +46,10 @@ if (1){
 	    printf("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%02d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|", $row['total']); 
             printf("&nbsp;&nbsp;&nbsp;%s", $row['name']);
             $num1 = $row['total'];
+	   if($result1->num_rows != $count1)
+		    echo "<br>";
             $count1 = $count1 + 1;
-		    
-		
+
 	    }
 	}
 	else{
