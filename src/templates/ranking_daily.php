@@ -6,6 +6,12 @@ $dbname = "health";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+echo "
+    .preserve-space {
+        white-space: pre;
+    }
+";
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -27,13 +33,13 @@ echo "<span style='font-size: 25px'>$str</span>";
 
 if (1){
 	echo "<strong>Push up</strong> <hr>";
-  echo "    Rank     |     Name    |   Total count    <hr>";      
+  	echo "    Rank     |     Name    |   Total count    <hr>";      
 	if(isset($result1) && $result1->num_rows > 0){
 	
 	    while($row = $result1->fetch_assoc()){
             printf("%10d", $count1);
             printf("%10s", $row['name']);
-            printf("%10d<hr>", $row['total']); 
+            printf("%10d<br>", $row['total']); 
             $count1 = $count1 + 1;
 	    }
 	}
