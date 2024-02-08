@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 $date1 = date("Y-m-d");
 $date2 = date("Y-m-d", strtotime("-1 day", strtotime($today)));
 
-$sql1 = "SELECT * FROM total_pushup WHERE date >= '$date1' AND date <= '$date2' ORDER BY total DESC";
+$sql1 = "SELECT * FROM total_pushup WHERE date <= '$date1' AND date >= '$date2' ORDER BY total DESC";
 $result1 = $conn->query($sql1);
 $count1 = 1;
 $num1 = 0;
