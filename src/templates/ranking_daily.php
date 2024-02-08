@@ -50,6 +50,8 @@ if(isset($result1) && $result1->num_rows > 0){
             $num1 = $row['total'];
 	   if($result1->num_rows != $count1)
 		    echo "<br>";
+	   else
+		   echo "<hr>";
             $count1 = $count1 + 1;
 
 	    }
@@ -102,6 +104,8 @@ if(isset($result3) && $result3->num_rows > 0){
             $num3 = $row['total'];
 	   if($result3->num_rows != $count3)
 		    echo "<br>";
+	   else
+		   echo "<hr>";
             $count3 = $count3 + 1;
 
 	    }
