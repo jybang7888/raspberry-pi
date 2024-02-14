@@ -124,22 +124,25 @@
       <button onclick="goToMainPage()">Go back to main page.</button>
     </div>
 <script>
-    let timeLeft = 60;
+    let timeLeft = 5;
     let seconds = 5;
     function startStopwatch() {
-        countDownToStart(seconds);
+        countDownToStart();
     }
     
     function countDownToStart(seconds) {
-        const countdown = document.getElementById('countdown');
-        countdown.textContent = seconds;
-        if (seconds > 1) {
-            setTimeout(function() {
-                countDownToStart(seconds - 1);
-            }, 1000);
-        } else {
-            startTimer();
-        }
+	if (seconds == 5) {
+            const countdown = document.getElementById('countdown');
+            countdown.textContent = seconds;
+            if (seconds > 1) {
+                setTimeout(function() {
+                    countDownToStart(seconds - 1);
+                }, 1000);
+            } else {
+		timeLeft = 60;
+                startTimer();
+            }
+	}
     }
 
     function startTimer() {
@@ -151,9 +154,7 @@
                 const offset = (502 * percentage) / 100;
                 circle.style.strokeDashoffset = offset;
                 circle.style.stroke = `hsl(${percentage}, 70%, 50%)`;
-                if (seconds == 0) {
-		    countdown.textContent = timeLeft;
-		}
+		countdown.textContent = timeLeft;
                 if (timeLeft == 60) {
                     submitForm1();
                 }
