@@ -125,9 +125,11 @@
     </div>
 <script>
     let timeLeft = 60;
-
+    let previous = 5;
     function startStopwatch() {
-        countDownToStart(5);
+	if (previous == 5){
+            countDownToStart(previous);
+	}
     }
     
     function countDownToStart(seconds) {
