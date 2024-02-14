@@ -125,14 +125,14 @@
     </div>
 <script>
     let timeLeft = 60;
-    let previous = 5;
+    let seconds = 5;
     function startStopwatch() {
-	if (previous == 5){
-            countDownToStart(previous);
+	if (seconds == 5){
+            countDownToStart();
 	}
     }
     
-    function countDownToStart(seconds) {
+    function countDownToStart() {
         const countdown = document.getElementById('countdown');
         countdown.textContent = seconds;
         if (seconds > 1) {
