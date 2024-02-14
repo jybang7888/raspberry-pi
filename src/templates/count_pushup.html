@@ -151,7 +151,9 @@
                 const offset = (502 * percentage) / 100;
                 circle.style.strokeDashoffset = offset;
                 circle.style.stroke = `hsl(${percentage}, 70%, 50%)`;
-                countdown.textContent = timeLeft;
+                if (seconds == 0) {
+		    countdown.textContent = timeLeft;
+		}
                 if (timeLeft == 60) {
                     submitForm1();
                 }
