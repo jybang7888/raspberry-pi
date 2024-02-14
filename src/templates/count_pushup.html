@@ -78,7 +78,7 @@
   <body style="overflow: hidden"></body>
   <body>
     <header>
-      <h1>Push Up</h1>
+      <h1>PushUp</h1>
     </header>
     <div id="output"></div>
 
@@ -87,7 +87,7 @@
       var username = urlParams.get('username');
       var outputDiv = document.getElementById('output');
       if (username) {
-        outputDiv.innerHTML = '<p>Start to record push up ability of ' + username + '</p>';
+        outputDiv.innerHTML = '<p>Start to record pushup ability of ' + username + '</p>';
       } else {
         outputDiv.innerHTML = '<p>Measure the ability without recording.</p>';
       }
@@ -124,25 +124,22 @@
       <button onclick="goToMainPage()">Go back to main page.</button>
     </div>
 <script>
-    let timeLeft = 5;
-    let seconds = 5;
+    let timeLeft = 60;
+
     function startStopwatch() {
-        countDownToStart();
+        countDownToStart(5);
     }
     
-    function countDownToStart() {
-	if (seconds == 5) {
-            const countdown = document.getElementById('countdown');
-	    let timer1 = setInterval(function() {
-            	countdown.textContent = seconds;
-            	seconds--;
-		timeLeft = timeLeft + 11;
-		if (seconds == 0){
-		    clearInterval(timer1);
-                    startTimer();
-		}
-            }
-	}
+    function countDownToStart(seconds) {
+        const countdown = document.getElementById('countdown');
+        countdown.textContent = seconds;
+        if (seconds > 1) {
+            setTimeout(function() {
+                countDownToStart(seconds - 1);
+            }, 1000);
+        } else {
+            startTimer();
+        }
     }
 
     function startTimer() {
@@ -154,7 +151,7 @@
                 const offset = (502 * percentage) / 100;
                 circle.style.strokeDashoffset = offset;
                 circle.style.stroke = `hsl(${percentage}, 70%, 50%)`;
-		countdown.textContent = timeLeft;
+                countdown.textContent = timeLeft;
                 if (timeLeft == 60) {
                     submitForm1();
                 }
