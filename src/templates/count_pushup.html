@@ -136,9 +136,7 @@
         const countdown = document.getElementById('countdown');
         countdown.textContent = seconds;
         if (seconds > 1) {
-            setTimeout(function() {
-                countDownToStart(seconds - 1);
-            }, 1000);
+            seconds--;
         } else {
             startTimer();
         }
