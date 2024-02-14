@@ -133,14 +133,14 @@
     function countDownToStart(seconds) {
 	if (seconds == 5) {
             const countdown = document.getElementById('countdown');
-            countdown.textContent = seconds;
-            if (seconds > 1) {
-                setTimeout(function() {
-                    countDownToStart(seconds - 1);
-                }, 1000);
-            } else {
-		timeLeft = 60;
-                startTimer();
+	    let timer1 = setInterval(function() {
+            	countdown.textContent = seconds;
+            	seconds--;
+		if (seconds == 0){
+		    clearInterval(timer1);
+		    timeLeft = 60;
+                    startTimer();
+		}
             }
 	}
     }
