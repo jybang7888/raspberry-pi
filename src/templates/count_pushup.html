@@ -136,9 +136,9 @@
 	    let timer1 = setInterval(function() {
             	countdown.textContent = seconds;
             	seconds--;
+		timeLeft = timeLeft + 11;
 		if (seconds == 0){
 		    clearInterval(timer1);
-		    timeLeft = 60;
                     startTimer();
 		}
             }
