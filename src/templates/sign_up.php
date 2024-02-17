@@ -1,6 +1,6 @@
 <?php
 
-$servername = "192.168.1.249";
+$servername = "192.168.210.77";
 $username = "root";
 $password = "1234";
 $dbname = "health";
@@ -17,16 +17,16 @@ $sql1 = "SELECT * FROM userinfo WHERE username = '$username'";
 $result = $conn->query($sql1);
 
 if ($result->num_rows > 0) {
-    header("Location: http://192.168.1.249:5000/sign_up_exist");
+    header("Location: http://192.168.210.77:5000/sign_up_exist");
 }
 else {
     if ($password == $password_check && strlen($password) >= 4) {
         $sql = "INSERT INTO userinfo (username, password) VALUES ('$username', '$password')";
         $conn->query($sql);
-        header("Location: http://192.168.1.249:5000/main");
+        header("Location: http://192.168.210.77:5000/main");
     }
     else {
-        header("Location: http://192.168.1.249:5000/sign_up_wrong");
+        header("Location: http://192.168.210.77:5000/sign_up_wrong");
     }
 }
 
