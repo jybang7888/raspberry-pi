@@ -122,4 +122,4 @@ def stream3_gen(src3):
         streamer3.stop()
 
 if __name__ == '__main__':
-    app.run(host='192.168.1.249',port=5000)
+    app.run(host='192.168.210.77',port=5000)
